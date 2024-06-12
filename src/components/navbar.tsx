@@ -69,9 +69,9 @@ const Navbar = () => {
   };
   return (
     <div
-      className='w-full bg-slate-700 h-32 text-white flex items-center px-24 justify-between fixed top-0 z-50 shadow-slate-950 shadow-md rounded-b-xl'
+      className='w-full bg-slate-800 h-32 text-white flex items-center px-24 justify-between top-0 z-50 shadow-slate-950 shadow-md rounded-b-xl'
     >
-        <div className="md:hidden lg:flex xl:justify-center">
+        <div className="md:hidden lg:flex  w-1/3">
         <Link
           href="/"
           className="text-sm bg-black rounded-md p-1 font-semibold flex items-center justify-center"
@@ -82,14 +82,14 @@ const Navbar = () => {
           </span>
         </Link>
       </div>
-      <div className="hidden md:flex gap-4 justify-between">
+      <div className="hidden md:flex gap-4 justify-center w-1/3">
         {links.map((link, index) => (
-          <Link key={index} className={`rounded p-1 text-xl border-slate-700 ${pathName === link.url && "bg-white text-slate-700"} border-b-2  hover:border-white`} href={link.url}>
+          <Link key={index} className={`rounded font-semibold p-1 text-xl border-slate-700 ${pathName === link.url && "bg-white text-slate-700"} border-b-2  hover:border-white`} href={link.url}>
           {link.title}
         </Link>
         ))}
       </div>
-        <div className="hidden md:flex gap-4">
+      <div className="hidden md:flex justify-end gap-4 w-1/3">
         <SocialIcon className="w-14 hover:-translate-y-2 duration-200" network="github" url="https://github.com/theeatch"></SocialIcon>
         <SocialIcon className="w-14 hover:-translate-y-2 duration-200" network="instagram" url="https://instagram.com/dhxdxd"></SocialIcon>
         <SocialIcon className="w-14 hover:-translate-y-2 duration-200" network="linkedin" url="https://www.linkedin.com/in/dhruv-negi-387a3a233/"></SocialIcon>
