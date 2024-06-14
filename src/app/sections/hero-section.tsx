@@ -42,7 +42,7 @@ export default function HeroSection() {
       <Image 
       src="/images/musicbg.png"
       alt="bg music"
-      className="object-contain h-[44rem] absolute opacity-15 -left-20 rotate-90"
+      className="object-contain h-[44rem] absolute opacity-15 -left-20 rotate-90 "
       width={800}
       height={800} />
        <Image 

@@ -39,8 +39,8 @@ const Contact = (props: Props) => {
     // }
   };
   return (
-    <div className="w-full h-full mt-40">
-        <div className="h-full flex flex-col lg:flex-row px-4 sm:px-8 md:px-12 lg:px-20 xl:px-48">
+    <div className="w-full h-screen space-y-10">
+        <div className="h-full flex flex-col lg:flex-row px-4 sm:px-8 md:px-12 lg:px-20 xl:px-48 pb-40 font-semibold">
           {/* TEXT CONTAINER */}
           <div className="hidden h-1/2 lg:h-full lg:w-1/2 md:flex items-center justify-center text-4xl lg:text-6xl underline">
             <div>
@@ -64,7 +64,7 @@ const Contact = (props: Props) => {
           <form
             onSubmit={sendEmail}
             ref={form}
-            className="h-full sm:h-1/2 my-auto md:h-4/5 lg:w-1/2 bg-red-50 rounded-xl text-xl flex flex-col gap-8 justify-center p-24"
+            className="h-full sm:h-1/2 my-auto md:h-4/5 lg:w-1/2 bg-slate-700 text-white rounded-xl text-xl flex flex-col gap-8 justify-center p-24"
           >
             <span>Dear DH,</span>
             <textarea

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/navbar";
-
+import TransitionProvider from "@/components/transition-provider";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -17,9 +17,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-
       <body className="bg-slate-100">
-        <Navbar />{children}</body>
+        <Navbar />
+        <TransitionProvider>{children}</TransitionProvider>
+      </body>
     </html>
   );
 }
