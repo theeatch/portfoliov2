@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { HeroParallax } from "@/components/ui/hero-parallax";
-import { profile } from "console";
+import { motion } from "framer-motion";
 
 type Props = {}
 
@@ -37,9 +37,12 @@ const portfolio = (props: Props) => {
         description: 'A college project for a real estate website for residents in manipal'
     },
   ];
-  return <>
+  return <motion.div className="h-full"
+  initial={{ y: "-200vh" }}
+  animate={{ y: "0%" }}
+  transition={{ duration: 0.8 }}>
   
-  <HeroParallax products={products} />;</>
+  <HeroParallax products={products} />;</motion.div>
 }
 
 export default portfolio;

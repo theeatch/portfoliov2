@@ -26,8 +26,7 @@ const Footer = (props: Props) => {
     <footer className="bg-white rounded-lg shadow dark:bg-gray-900 bottom-0 sticky w-full">
       <div className="w-full mx-auto py-6 px-24">
         <div className="sm:flex sm:items-center sm:justify-between">
-          <Link
-            href="https://flowbite.com/"
+          <div
             className="flex items-center mb-4 sm:mb-0 space-x-3 rtl:space-x-reverse"
           >
             <Image
@@ -39,7 +38,7 @@ const Footer = (props: Props) => {
             <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
               DH Portfolio
             </span>
-          </Link>
+          </div>
           <div className="hidden md:flex items-center my-auto gap-4">
           <SocialIcon
             className="w-14 hover:-translate-y-2 duration-200"

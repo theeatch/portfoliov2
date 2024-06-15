@@ -2,7 +2,7 @@
 import Footer from "@/components/footer";
 import React from "react";
 import { motion } from "framer-motion";
-// import emailjs from "emailjs-com";
+import emailjs from "@emailjs/browser";
 import { useRef, useState } from "react";
 
 type Props = {};
@@ -19,24 +19,24 @@ const Contact = (props: Props) => {
     setError(false);
     setSuccess(false);
 
-    // if (form.current) {
-    //   emailjs
-    //     .sendForm(
-    //       process.env.NEXT_PUBLIC_SERVICE_ID || "",
-    //       process.env.NEXT_PUBLIC_TEMPLATE_ID || "",
-    //       form.current,
-    //       process.env.NEXT_PUBLIC_PUBLIC_KEY || ""
-    //     )
-    //     .then(
-    //       () => {
-    //         setSuccess(true);
-    //         form.current?.reset();
-    //       },
-    //       () => {
-    //         setError(true);
-    //       }
-    //     );
-    // }
+    if (form.current) {
+      emailjs
+        .sendForm(
+          process.env.NEXT_PUBLIC_SERVICE_ID || "",
+          process.env.NEXT_PUBLIC_TEMPLATE_ID || "",
+          form.current,
+          process.env.NEXT_PUBLIC_PUBLIC_KEY || ""
+        )
+        .then(
+          () => {
+            setSuccess(true);
+            form.current?.reset();
+          },
+          () => {
+            setError(true);
+          }
+        );
+    }
   };
   return (
     <div className="w-full h-screen space-y-10">

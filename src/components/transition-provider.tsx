@@ -33,8 +33,9 @@ const TransitionProvider = ({ children }) => {
         <motion.div
           className="h-screen w-screen fixed bg-slate-800 rounded-t-[100px] bottom-0 z-30"
           initial={{ height: "140vh" }}
-          animate={{ height: "0vh", x:"-100vw", transition: { delay: 0.2, duration: 0.6} }}
+          animate={{ height: "0vh", x:"-100vw", transition: { delay: 0.5, duration: 0.6} }}
         />
+        <Navbar />
         <div className="">{children}</div>
       </div>
     </AnimatePresence>

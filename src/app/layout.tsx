@@ -19,7 +19,7 @@ export default function RootLayout({
     <html lang="en">
       <body className="bg-slate-100">
         <TransitionProvider>
-          <Navbar />
+          
           {children}
         </TransitionProvider>
       </body>

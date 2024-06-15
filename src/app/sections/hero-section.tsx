@@ -2,7 +2,7 @@
 import { TypewriterEffectSmooth } from "@/components/ui/typewriter-effect";
 import Image from "next/image";
 import React, { useEffect } from "react";
-
+import { motion } from "framer-motion";
 export default function HeroSection() {
   useEffect(() => {
     document.body.style.overflow = 'hidden';
@@ -48,7 +48,10 @@ export default function HeroSection() {
     }
   };
   return (
-    <main className="flex flex-col w-full h-full items-center mt-10 overflow-x-hidden ">
+    <motion.main
+    initial={{ y: "-200vh" }}
+    animate={{ y: "0%" }}
+    transition={{ duration: 0.8 }} className="flex flex-col w-full h-full items-center mt-10 overflow-x-hidden ">
       
       <Image 
       src="/images/musicbg.png"
@@ -93,6 +96,6 @@ export default function HeroSection() {
             </button>
           </div>
       </div>
-    </main>
+    </motion.main>
   );
 }
