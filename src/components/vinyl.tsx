@@ -5,7 +5,7 @@ type Props = {};
 const Vinyl = (props: Props) => {
   const [angle, setAngle] = useState(0);
   const [isSpinning, setIsSpinning] = useState(false);
-  const intervalRef = useRef<number | undefined>(undefined);
+  const intervalRef = useRef<NodeJS.Timeout | undefined>(undefined);
 
   const startSpinning = () => {
     setIsSpinning(true);
