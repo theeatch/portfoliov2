@@ -7,7 +7,7 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <main className=' z-0 snap-y scroll-smooth  overflow-hidden' id="home">
+    <main className=' z-0 snap-y scroll-smooth overflow-hidden' id="home">
       <Head>
         <title>Dh.dev</title>
       </Head>

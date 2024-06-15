@@ -12,7 +12,6 @@ const Navbar = () => {
         { url: "/", title: "Home" },
         { url: "/about", title: "About" },
         { url: "/portfolio", title: "Portfolio" },
-        { url: "/contact", title: "Contact" },
       ];
       const [open, setOpen] = useState(false);
 

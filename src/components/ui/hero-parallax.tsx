@@ -17,6 +17,7 @@ export const HeroParallax = ({
     title: string;
     link: string;
     thumbnail: string;
+    description: string;
   }[];
 }) => {
   const firstRow = products.slice(0, 4);
@@ -29,7 +30,7 @@ export const HeroParallax = ({
   const springConfig = { stiffness: 300, damping: 30, bounce: 100 };
 
   const translateX = useSpring(
-    useTransform(scrollYProgress, [0, 0.8], [-250, 100]),
+    useTransform(scrollYProgress, [0, 0.8], [-250, 150]),
     springConfig
   );
   const rotateX = useSpring(
@@ -63,7 +64,7 @@ export const HeroParallax = ({
         }}
         className=""
       >
-        <motion.div className="flex flex-row-reverse space-x-reverse overflow-x-auto overflow-hidden space-x-20 z-0 mb-20">
+        <motion.div className="flex flex-row-reverse space-x-reverse overflow-x-auto overflow-hidden space-x-20 z-0 mb-20 custom-scrollbar p-4">
           {firstRow.map((product) => (
             <ProductCard
               product={product}
@@ -79,14 +80,15 @@ export const HeroParallax = ({
 
 export const Header = () => {
   return (
-    <div className="max-w-7xl relative mx-auto py-20 md:py-40 px-4 w-full  left-0 top-0 ">
-      <h1 className="text-2xl text-slate-700 md:text-7xl font-bold z-50">
+    <div className="max-w-7xl relative mx-auto py-20 md:py-40 px-4 w-full  left-0 top-0 z-50">
+      <h1 className="text-2xl text-slate-700 md:text-8xl font-bold">
         My Works!
       </h1>
-      <p className="max-w-2xl text-base md:text-xl mt-8 font-semibold z-50">
-        I&apos;ve built a few projects and worked with teams over the years in ReactJs, NextJs, GatsbyJS. Utilizing multiple
-        UI libraries like TailwindCSS, DaisyUI, Aceternity and ShadCN, I&apos;ve been able to create
-        beautiful and responsive websites. Check them out below! 
+      <p className="max-w-2xl text-base md:text-xl mt-8 font-semibold">
+        I&apos;ve built a few projects and worked with teams over the years in
+        ReactJs, NextJs, GatsbyJS. Utilizing multiple UI libraries like
+        TailwindCSS, DaisyUI, Aceternity and ShadCN, I&apos;ve been able to
+        create beautiful and responsive websites. Check them out below!
       </p>
     </div>
   );
@@ -100,6 +102,7 @@ export const ProductCard = ({
     title: string;
     link: string;
     thumbnail: string;
+    description: string;
   };
   translate: MotionValue<number>;
 }) => {
@@ -112,7 +115,7 @@ export const ProductCard = ({
         y: -20,
       }}
       key={product.title}
-      className="group/product h-[30rem] w-[30rem] relative flex-shrink-0 z-0"
+      className="group/product h-[35rem] w-[35rem] relative flex-shrink-0 z-0"
     >
       <Link
         href={product.link}
@@ -127,9 +130,12 @@ export const ProductCard = ({
         />
       </Link>
       <div className="absolute inset-0 h-full w-full opacity-0 group-hover/product:opacity-80 bg-black pointer-events-none"></div>
-      <h2 className="absolute bottom-4 left-4 opacity-0 group-hover/product:opacity-100 text-white">
+      <h2 className="absolute top-14 left-4 opacity-0 group-hover/product:opacity-100 text-white text-4xl">
         {product.title}
       </h2>
+      <div className="absolute top-40 left-4 opacity-0 group-hover/product:opacity-100 text-white font-semibold text-xl">
+        {product.description}
+      </div>
     </motion.div>
   );
 };

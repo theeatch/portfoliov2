@@ -1,8 +1,18 @@
 "use client";
 import { TypewriterEffectSmooth } from "@/components/ui/typewriter-effect";
 import Image from "next/image";
+import React, { useEffect } from "react";
 
 export default function HeroSection() {
+  useEffect(() => {
+    document.body.style.overflow = 'hidden';
+    document.documentElement.style.overflow = 'hidden';
+
+    return () => {
+        document.body.style.overflow = '';
+        document.documentElement.style.overflow = '';
+    };
+}, []);
   const words = [
     {
       text: "Musician",
@@ -38,7 +48,8 @@ export default function HeroSection() {
     }
   };
   return (
-    <main className="flex flex-col w-full h-full items-center mt-10 overflow-x-hidden">
+    <main className="flex flex-col w-full h-full items-center mt-10 overflow-x-hidden ">
+      
       <Image 
       src="/images/musicbg.png"
       alt="bg music"
@@ -73,7 +84,7 @@ export default function HeroSection() {
           Machine Learning. Musician at heart, creating unique piano covers in
           my free time.
         </div>
-        <div className="w-full flex justify-center p-6 gap-4">
+        <div className="w-full flex justify-center p-6 gap-4 ">
             <button className="p-4 font-semibold bg-slate-500 rounded-xl text-white hover:bg-slate-800 duration-200" onClick={handleClick}>
               View My Work
             </button>
