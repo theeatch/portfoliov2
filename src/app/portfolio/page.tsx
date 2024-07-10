@@ -9,11 +9,11 @@ const portfolio = (props: Props) => {
   const products = [
     
     {
-      title: "My Sheets",
-      link: "/",
+      title: "LifekShell",
+      link: "https://www.lifeshell.co.in/",
       thumbnail:
-        "https://images.pexels.com/photos/7520832/pexels-photo-7520832.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-      description: "A soon to be published websites for all the sheet music I've created",
+        "/images/lifeshell.jpeg",
+      description: "Website developed for the startup LifeShell, a medical firm"
     },
     {
       title: "Upease",
@@ -23,11 +23,11 @@ const portfolio = (props: Props) => {
         description: 'Website developed for the startup UpEase, combining Copilot AI with institute management system!',
     },
     {
-      title: "LifekShell",
-      link: "https://www.lifeshell.co.in/",
+      title: "Chatty",
+      link: "https://chatty-theeatchs-projects.vercel.app/conversations/",
       thumbnail:
-        "/images/lifeshell.jpeg",
-      description: "Website developed for the startup LifeShell, a medical firm"
+        "/images/chattysc.jpeg",
+      description: "Chat Web Application with the functionality to chat with friends and make groups!"
     },
     {
       title: "Diamond Estate",
