@@ -101,3 +101,11 @@ const MainSection = (props: Props) => {
 };
 
 export default MainSection;
+
+export const previewCard = () =>{
+  return (
+    <div className="w-80 shadow-md shadow-white hover:cursor-pointer p-8 h-28 rounded-xl text-5xl border-b-2 hover:bg-slate-700 duration-500 border-slate-700 text-white font-semibold text-center absolute top-40 right-56 transform-gpu">
+      <Link href="portfolio">My Work</Link>
+    </div>
+  )
+}

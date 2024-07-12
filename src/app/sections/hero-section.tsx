@@ -51,7 +51,7 @@ export default function HeroSection() {
     <motion.main
     initial={{ y: "-200vh" }}
     animate={{ y: "0%" }}
-    transition={{ duration: 0.8 }} className="flex flex-col w-full h-full items-center mt-10 overflow-x-hidden ">
+    transition={{ duration: 0.8 }} className="flex flex-col w-full h-full items-center mt-16 overflow-hidden ">
       
       <Image 
       src="/images/musicbg.png"

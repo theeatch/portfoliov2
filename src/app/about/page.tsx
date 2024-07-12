@@ -15,6 +15,7 @@ const skills = [
   "SCSS",
   "Tailwind CSS",
   "MongoDB",
+  "Convex",
   "Node.js",
   "Express.js",
   "GraphQL",
@@ -29,7 +30,7 @@ const skills = [
 const Page = () => {
   return (
     <motion.div
-      className="min-h-full overflow-hidden"
+      className="min-h-full "
       initial={{ y: "-200vh" }}
       animate={{ y: "0%" }}
       transition={{ duration: 0.8 }}
@@ -96,12 +97,13 @@ const dummyContent = [
         <motion.div
           initial={{ x: "-300px" }}
           whileInView={{ x: 0 }}
+          transition={{repeat: 0}}
           className="flex gap-4 flex-wrap mb-64"
         >
           {skills.map((skill, index) => (
             <div
               key={index}
-              className="rounded p-2 text-sm cursor-pointer bg-black text-white hover:bg-white hover:text-black"
+              className="rounded p-2 text-sm cursor-pointer bg-white text-black hover:bg-black hover:text-white"
             >
               {skill}
             </div>
@@ -120,21 +122,23 @@ const dummyContent = [
         <motion.h1
           initial={{ x: "-300px" }}
           whileInView={{ x: 0 }}
-          transition={{ delay: 0.2 }}
+          transition={{ ease: "easeInOut", type: "spring"}}
+          viewport={{ once: true }}
           className="font-bold text-2xl"
         >
           EXPERIENCE
         </motion.h1>
         {/* EXPERIENCE LIST */}
         <motion.div
-          initial={{ x: "-300px" }}
-          whileInView={{ x: 0 }}
           className=""
         >
           {/* EXPERIENCE LIST ITEM */}
           <div className="flex justify-between h-48">
             {/* LEFT */}
-            <div className="w-1/3 ">
+            <motion.div className="w-1/3 "
+            initial={{ x: "-300px" }}
+            whileInView={{ x: 0 }}
+            transition={{duration: 1}}>
               {/* JOB TITLE */}
               <div className="bg-white text-2xl p-3 font-semibold rounded-b-lg rounded-s-lg">
                 Core Developement Team
@@ -152,7 +156,7 @@ const dummyContent = [
               <div className=" p-3 rounded bg-white text-lg font-semibold w-fit">
                 Upease
               </div>
-            </div>
+            </motion.div>
             {/* CENTER */}
             <div className="w-1/6 flex justify-center">
               {/* LINE */}
@@ -177,7 +181,11 @@ const dummyContent = [
               </div>
             </div>
             {/* RIGHT */}
-            <div className="w-1/3 ">
+            <motion.div className="w-1/3 "
+            initial={{x:"300px"}}
+            whileInView={{x:0}}
+            transition={{duration:1}}
+            >
               {/* JOB TITLE */}
               <div className="bg-white p-3 text-2xl font-semibold rounded-b-lg rounded-s-lg">
                 Dev Core Team
@@ -195,15 +203,18 @@ const dummyContent = [
               <div className="p-3 rounded text-lg bg-white font-semibold w-fit">
                 Manipal OSF
               </div>
-            </div>
+            </motion.div>
           </div>
           {/* EXPERIENCE LIST ITEM */}
           <div className="flex justify-between h-48">
             {/* LEFT */}
-            <div className="w-1/3 ">
+            <motion.div className="w-1/3 "
+            initial={{ x: "-300px" }}
+            whileInView={{ x: 0 }}
+            transition={{duration: 1}}>
               {/* JOB TITLE */}
               <div className="bg-white p-3 text-xl font-semibold rounded-b-lg rounded-s-lg">
-                Freelancer{" "}
+                Freelance{" "}
               </div>
               {/* JOB DESC */}
               <div className="p-3 text-md italic">
@@ -219,7 +230,7 @@ const dummyContent = [
               <div className="p-3 rounded bg-white text-lg font-semibold w-fit">
                 LifekShell
               </div>
-            </div>
+            </motion.div>
             {/* CENTER */}
             <div className="w-1/6 flex justify-center">
               {/* LINE */}
@@ -244,7 +255,10 @@ const dummyContent = [
               </div>
             </div>
             {/* RIGHT */}
-            <div className="w-1/3 ">
+            <motion.div className="w-1/3 "
+            initial={{x:"300px"}}
+            whileInView={{x:0}}
+            transition={{duration:1}}>
               {/* JOB TITLE */}
               <div className="bg-white p-3 text-2xl font-semibold rounded-b-lg rounded-s-lg">
                 FrontEnd Intern
@@ -262,7 +276,7 @@ const dummyContent = [
               <div className="p-3 rounded text-lg bg-white font-semibold w-fit">
                 Fundinc
               </div>
-            </div>
+            </motion.div>
           </div>
         </motion.div>
       </div>
