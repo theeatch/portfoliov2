@@ -41,7 +41,7 @@ const Vinyl = (props: Props) => {
       const rect = event.currentTarget.getBoundingClientRect();
       const x = event.clientX - rect.left - rect.width / 2;
       const y = event.clientY - rect.top - rect.height / 2;
-      const newAngle = Math.atan2(y, x) * (180 / Math.PI) + 180 ; // Calculate angle in degrees
+      const newAngle = Math.atan2(y, x) * (180 / Math.PI) + 180; // Calculate angle in degrees
       setAngle(newAngle);
     }
   };
@@ -80,10 +80,9 @@ const Vinyl = (props: Props) => {
           <div className="w-52 h-52 bg-neutral-400 border-2 rounded-full border-gray-700 flex items-center justify-center z-50">
             <button
               onClick={handleButtonClick}
-              className="text-4xl text-slate-700 font-bold focus:outline-none flex flex-col items-center"
+              className="text-4xl text-slate-700 font-bold focus:outline-none flex flex-col items-center hove:cursor-pointer z-50"
             >
-              Explore
-              <span className="text-sm opacity-50 font-thin relative top-5">click me!</span>
+              <p>Explore</p>
             </button>
           </div>
         </div>
