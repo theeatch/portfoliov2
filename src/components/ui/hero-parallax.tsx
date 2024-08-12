@@ -62,6 +62,7 @@ export const HeroParallax = ({
       className="h-[250vh] pt-32 overflow-hidden antialiased relative flex flex-col self-auto [perspective:1000px] [transform-style:preserve-3d]"
     >
       <Header />
+      {/* Parallax Background */}
       <motion.svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 1440 320"
@@ -76,7 +77,7 @@ export const HeroParallax = ({
       >
         <path
           fill="#a2d9ff"
-          fill-opacity="1"
+          fillOpacity="1"
           d="M0,224L48,202.7C96,181,192,139,288,138.7C384,139,480,181,576,192C672,203,768,181,864,176C960,171,1056,181,1152,186.7C1248,192,1344,192,1392,192L1440,192L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
         ></path>
       </motion.svg>
@@ -95,7 +96,7 @@ export const HeroParallax = ({
       >
         <path
           fill="#0099ff"
-          fill-opacity="1"
+          fillOpacity="1"
           d="M0,224L48,202.7C96,181,192,139,288,138.7C384,139,480,181,576,192C672,203,768,181,864,176C960,171,1056,181,1152,186.7C1248,192,1344,192,1392,192L1440,192L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
         ></path>
       </motion.svg>
@@ -113,10 +114,12 @@ export const HeroParallax = ({
       >
         <path
           fill="#0099ff"
-          fill-opacity="1"
+          fillOpacity="1"
           d="M0,96L48,106.7C96,117,192,139,288,165.3C384,192,480,224,576,229.3C672,235,768,213,864,181.3C960,149,1056,107,1152,90.7C1248,75,1344,85,1392,90.7L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
         ></path>
       </motion.svg>
+
+      {/* products showcase */}
       <div className="w-full absolute top-[44%] bg-gradient-to-b from-blue-300 to-blue-950 bg-opacity-50 h-full"></div>
       <motion.div
         style={{
@@ -163,6 +166,7 @@ export const HeroParallax = ({
         </motion.div>
       </motion.div>
 
+      {/* Learn my Tech Stack */}
       <div className="h-full flex flex-col justify-center bg-transparent bg-opacity-70 mt-72">
         <motion.h1
           initial={{ opacity: 0 }}

@@ -16,7 +16,7 @@ const portfolio = (props: Props) => {
     },
     {
       title: "UpEase",
-      link: "www.upease.biz",
+      link: "https://www.upease.biz/",
       thumbnail: "/images/upeasebiz.jpeg",
       description:
         "Website developed for the startup UpEase, combining Copilot AI with institute management system!",
@@ -41,14 +41,6 @@ const portfolio = (props: Props) => {
       thumbnail: "/images/diamondestate.jpeg",
       description:
         "A college project for a real estate website for residents in manipal",
-    },
-
-    {
-      title: "Net Guardian",
-      link: "https://github.com/theeatch/NET-GUARDIAN",
-      thumbnail: "/images/netguardian.jpeg",
-      description:
-        "A college project for a network security system, classifying packets into normal and malicious",
     },
   ];
   return (
