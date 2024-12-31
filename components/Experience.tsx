@@ -16,7 +16,7 @@ const Experience = () => {
             onClick={() => {
               const link = document.createElement("a");
               link.href =
-                "https://drive.google.com/file/d/1w6fXiK3YX7tJjCZbB615s4IYWaLGU2g3/view?usp=sharing";
+                "https://drive.google.com/file/d/14omnQH2Rfzty8_Jwo8OZrhHvvUBgbomb/view?usp=sharing";
               link.download = "Resume.pdf";
               link.click();
             }}
