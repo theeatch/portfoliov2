@@ -33,12 +33,9 @@ export const LayoutGrid = ({ cards }: { cards: Card[] }) => {
         <Button
           key={i}
           borderRadius="1.75rem"
-          //   default is 2000
           duration={10000}
-          //   add className={cn(card.className, "")}
           className={cn(
             card.className
-            // "bg-white dark:bg-slate-900 text-black dark:text-white border-neutral-200 dark:border-slate-800"
           )}
         >
           <div
@@ -83,7 +80,6 @@ const BlurImage = ({ card }: { card: Card }) => {
   return (
     <Image
       src={card.thumbnail}
-      //   change image scale 500 to 100
       height="100"
       width="100"
       onLoad={() => setLoaded(true)}

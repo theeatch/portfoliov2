@@ -121,11 +121,11 @@ export const BentoGridItem = ({
           )}
         >
           {id === 3 && (
-            <span className="self-end underline animate-bounce duration-1000 mt-10 -ml-20 z-50 hidden group-hover:block transition-all group-hover:translate-x-0 -translate-x-96 absolute  bg-violet-950 font-semibold shadow-md shadow-purple text-white rounded-3xl p-5">
+            <span className="self-end underline animate-bounce duration-1000 mt-10 -ml-20 z-50 hidden group-hover:block transition-all group-hover:translate-x-0 -translate-x-96 absolute  bg-violet-950 font-semibold shadow-sm shadow-blue-500 text-white rounded-3xl p-3">
               Check it out!
             </span>
           )}
-          <div className="font-sans font-extralight md:max-w-32 md:text-xs lg:text-base text-sm text-[#C1C2D3] z-10">
+          <div className="font-sans italic font-extralight md:max-w-32 md:text-xs lg:text-base text-sm text-[#C1C2D3] z-10">
             {description}
           </div>
           <div

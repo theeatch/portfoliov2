@@ -11,7 +11,7 @@ export const gridItems = [
   {
     id: 1,
     title:
-      "I value teamwork and clear communication, delivering clean, maintainable code aligned with project goals.",
+      "I love to dive deeper into Software Engineering concepts, Programming languages mechanism and workings.",
     description: "",
     className: "lg:col-span-3 md:col-span-6 md:row-span-4 lg:min-h-[60vh]",
     imgClassName: "w-full h-full",
@@ -21,7 +21,7 @@ export const gridItems = [
   },
   {
     id: 2,
-    title: "Adaptable Developer Ensuring Seamless Global Collaboration",
+    title: "I love to work both remote and in-office environments.",
     description: "",
     className: "lg:col-span-2 md:col-span-3 md:row-span-2",
     imgClassName: "",
@@ -111,6 +111,14 @@ export const projects = [
   },
   {
     id: 4,
+    title: "Imf Gadgets!",
+    des: "Created a Backed Gadgets inventory with NodeJS-ExpressJS along with authentication and self-destruct features!.",
+    img: "/imf.png",
+    iconLists: ["/tail.svg", "/ts.svg", "/react.svg", "/js.svg"],
+    link: "https://github.com/theeatch/imfGadgets",
+  },
+  {
+    id: 5,
     title: "Portfolio Website",
     des: "Modernised a responsive portfolio website using Next.js, React, and Tailwind CSS, showcasing personal projects and skills.",
     img: "/p4.svg",
@@ -130,7 +138,7 @@ export const workExperience = [
   {
     id: 2,
     title: "BackEnd Engineer Intern",
-    desc: "Integrated FastAPI for efficient API handling and built secure authentication with Node.js, Express, Passport, and MongoDB.",
+    desc: "Integrated FastAPI for efficient API handling and built secure authentication with Node.js, Express, JWT, and MongoDB.",
     className: "md:col-span-2", // change to md:col-span-2
     thumbnail: "/exp2.svg",
   },
