@@ -89,6 +89,14 @@ export const projects = [
   },
   {
     id: 2,
+    title: "DataSphere",
+    des: "A NextJs with tailwindCSS full-stack application with MongoDB for storage. Showcases Products, Services and Research with complete CRUD Operations",
+    img: "/p6.svg",
+    iconLists: ["/next.svg", "/tail.svg", "/js.svg", "/react.svg"],
+    link: "https://datasphere-ten.vercel.app//",
+  },
+  {
+    id: 3,
     title: "Diamon Estate",
     des: "A ReactJS website for Manipal Estate with Firebase Authentication and Firestore, allowing user login, profile management, and property exploration.",
     img: "/p2.svg",
@@ -102,7 +110,7 @@ export const projects = [
     link: "https://diamond-estate.vercel.app/",
   },
   {
-    id: 3,
+    id: 4,
     title: "Net-Guardian",
     des: "Developed and tested ML models using Python, scikit-learn, and pandas for the Net Guardian project.",
     img: "/p3.svg",
@@ -110,7 +118,7 @@ export const projects = [
     link: "/https://github.com/theeatch/NET-GUARDIAN",
   },
   {
-    id: 4,
+    id: 5,
     title: "Imf Gadgets!",
     des: "Created a Backed Gadgets inventory with NodeJS-ExpressJS along with authentication and self-destruct features!.",
     img: "/imf.png",
@@ -118,7 +126,7 @@ export const projects = [
     link: "https://github.com/theeatch/imfGadgets",
   },
   {
-    id: 5,
+    id: 6,
     title: "Portfolio Website",
     des: "Modernised a responsive portfolio website using Next.js, React, and Tailwind CSS, showcasing personal projects and skills.",
     img: "/p4.svg",
@@ -139,14 +147,14 @@ export const workExperience = [
     id: 2,
     title: "BackEnd Engineer Intern",
     desc: "Integrated FastAPI for efficient API handling and built secure authentication with Node.js, Express, JWT, and MongoDB.",
-    className: "md:col-span-2", // change to md:col-span-2
+    className: "md:col-span-2",
     thumbnail: "/exp2.svg",
   },
   {
     id: 3,
     title: "Core Developement Team",
     desc: "Provided engineering students with comprehensive study materials, guidance, and support, enhancing their academic experience and team performance.",
-    className: "md:col-span-2", // change to md:col-span-2
+    className: "md:col-span-2",
     thumbnail: "/exp3.svg",
   },
   {
