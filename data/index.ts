@@ -97,7 +97,15 @@ export const projects = [
   },
   {
     id: 3,
-    title: "Diamon Estate",
+    title: "Generative AI Projects",
+    des: "A collection of projects showcasing the capabilities of Generative AI.",
+    img: "/p9.jpg",
+    iconLists: ["/next.svg", "/tail.svg", "/ts.svg", "/react.svg"],
+    link: "https://recipe-gen-seven.vercel.app/",
+  },
+  {
+    id: 4,
+    title: "Diamond Estate",
     des: "A ReactJS website for Manipal Estate with Firebase Authentication and Firestore, allowing user login, profile management, and property exploration.",
     img: "/p2.svg",
     iconLists: [
@@ -110,7 +118,7 @@ export const projects = [
     link: "https://diamond-estate.vercel.app/",
   },
   {
-    id: 4,
+    id: 5,
     title: "Net-Guardian",
     des: "Developed and tested ML models using Python, scikit-learn, and pandas for the Net Guardian project.",
     img: "/p3.svg",
@@ -118,7 +126,7 @@ export const projects = [
     link: "/https://github.com/theeatch/NET-GUARDIAN",
   },
   {
-    id: 5,
+    id: 6,
     title: "Imf Gadgets!",
     des: "Created a Backed Gadgets inventory with NodeJS-ExpressJS along with authentication and self-destruct features!.",
     img: "/imf.png",
@@ -126,12 +134,12 @@ export const projects = [
     link: "https://github.com/theeatch/imfGadgets",
   },
   {
-    id: 6,
-    title: "Portfolio Website",
-    des: "Modernised a responsive portfolio website using Next.js, React, and Tailwind CSS, showcasing personal projects and skills.",
+    id: 7,
+    title: "Workflow Application",
+    des: "Created a workflow application with drag and drop nodes and functionality to Export Workflow to a JSON file.",
     img: "/p4.svg",
-    iconLists: ["/next.svg", "/tail.svg", "/ts.svg", "/react.svg", "/js.svg"],
-    link: "https://dhportfoliov2.vercel.app/",
+    iconLists: ["/react.svg", "/tail.svg", "/ts.svg", "/js.svg"],
+    link: "https://workflow-app-virid.vercel.app/",
   },
 ];
 
