@@ -1,10 +1,20 @@
+"use client";
+
 import { gridItems } from "@/data";
 import { BentoGrid, BentoGridItem } from "./ui/BentoGrid";
+import SectionHeading from "./ui/SectionHeading";
 
 const Grid = () => {
   return (
-    <section id="about">
-      <BentoGrid className="w-full py-20">
+    <section id="about" className="py-20">
+      <SectionHeading
+        eyebrow="Mission profile"
+        title="A little about"
+        accent="who I am"
+        subtitle="Drag the tech cards around, spin the globe — this panel is meant to be poked at."
+      />
+
+      <BentoGrid className="w-full pt-14">
         {gridItems.map((item, i) => (
           <BentoGridItem
             id={item.id}

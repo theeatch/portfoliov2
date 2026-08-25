@@ -1,4 +1,9 @@
-import { url } from "inspector";
+import type { TechKey } from "@/components/ui/TechIcon";
+
+export const resumeLink =
+  "https://drive.google.com/file/d/1C7DIxAitNlVzgPzi5Y6FmG36xJCQp15d/view?usp=sharing";
+
+export const contactEmail = "dhruvnegiclub03@gmail.com";
 
 export const navItems = [
   { name: "About", link: "#about" },
@@ -11,7 +16,7 @@ export const gridItems = [
   {
     id: 1,
     title:
-      "I love to dive deeper into Software Engineering concepts, Programming languages mechanism and workings.",
+      "I build the parts you never see — REST APIs, queues, auth layers and the architecture holding them together.",
     description: "",
     className: "lg:col-span-3 md:col-span-6 md:row-span-4 lg:min-h-[60vh]",
     imgClassName: "w-full h-full",
@@ -21,7 +26,7 @@ export const gridItems = [
   },
   {
     id: 2,
-    title: "I love to work both remote and in-office environments.",
+    title: "Gurugram, India — shipping with teams anywhere.",
     description: "",
     className: "lg:col-span-2 md:col-span-3 md:row-span-2",
     imgClassName: "",
@@ -41,7 +46,7 @@ export const gridItems = [
   },
   {
     id: 4,
-    title: "Tech enthusiast with a passion for Music!.",
+    title: "Backend engineer by day, pianist the rest of the time.",
     description: "",
     className: "lg:col-span-2 md:col-span-3 md:row-span-1",
     imgClassName: "",
@@ -52,7 +57,7 @@ export const gridItems = [
 
   {
     id: 5,
-    title: "Currently building a full-stack music sheets site",
+    title: "Currently building CodeScope — AI code review that reads the whole repo",
     description: "The Inside Scoop",
     className: "md:col-span-3 md:row-span-2",
     imgClassName: "absolute right-0 bottom-0 md:w-96 w-60",
@@ -62,7 +67,7 @@ export const gridItems = [
   },
   {
     id: 6,
-    title: "Do you want to start a project together?",
+    title: "Want to build something together?",
     description: "",
     className: "lg:col-span-2 md:col-span-3 md:row-span-1",
     imgClassName: "",
@@ -75,114 +80,88 @@ export const gridItems = [
 export const projects = [
   {
     id: 1,
-    title: "Chatty: A Chat Application",
-    des: "A Next.js app with Convex database and Clerk authentication for adding friends, chatting, and group chats.",
-    img: "/p1.svg",
-    iconLists: [
-      "/next.svg",
-      "/tail.svg",
-      "/ts.svg",
-      "/convex.svg",
-      "/clerk.svg",
-    ],
-    link: "https://chatty-theeatchs-projects.vercel.app/",
+    title: "RateFlow",
+    des: "A distributed token-bucket rate limiter on Redis, with configurable middleware policies and a live dashboard for throughput and blocked requests.",
+    // no screenshot yet: the card falls back to a designed placeholder
+    img: "",
+    iconLists: ["redis", "node", "next", "docker"] as TechKey[],
+    link: "https://github.com/theeatch/RateFlow",
   },
   {
     id: 2,
-    title: "DataSphere",
-    des: "A NextJs with tailwindCSS full-stack application with MongoDB for storage. Showcases Products, Services and Research with complete CRUD Operations",
-    img: "/p6.svg",
-    iconLists: ["/next.svg", "/tail.svg", "/js.svg", "/react.svg"],
-    link: "https://datasphere-ten.vercel.app//",
+    title: "CodeScope",
+    des: "An AI code-review platform — a FastAPI backend parses a repo and runs Gemini inference, surfacing security and maintainability findings in a Next.js dashboard.",
+    img: "",
+    iconLists: ["gemini", "fastapi", "python", "next", "docker"] as TechKey[],
+    link: "https://github.com/theeatch/CodeScope",
   },
   {
     id: 3,
-    title: "Generative AI Projects",
-    des: "A collection of projects showcasing the capabilities of Generative AI.",
-    img: "/p9.svg",
-    iconLists: ["/next.svg", "/tail.svg", "/ts.svg", "/react.svg"],
-    link: "https://recipe-gen-seven.vercel.app/",
+    title: "Chatty: A Chat Application",
+    des: "A Next.js app with a Convex database and Clerk authentication for adding friends, direct messaging and group chats.",
+    img: "/p1.svg",
+    iconLists: ["next", "tailwind", "ts", "convex", "clerk"] as TechKey[],
+    link: "https://chatty-theeatchs-projects.vercel.app/",
   },
-  // {
-  //   id: 4,
-  //   title: "Diamond Estate",
-  //   des: "A ReactJS website for Manipal Estate with Firebase Authentication and Firestore, allowing user login, profile management, and property exploration.",
-  //   img: "/p2.svg",
-  //   iconLists: [
-  //     "/next.svg",
-  //     "/tail.svg",
-  //     "/js.svg",
-  //     "/react.svg",
-  //     "/firebase.svg",
-  //   ],
-  //   link: "https://diamond-estate.vercel.app/",
-  // },
+  {
+    id: 4,
+    title: "DataSphere",
+    des: "A full-stack Next.js and MongoDB application showcasing products, services and research with complete CRUD operations.",
+    img: "/p6.svg",
+    iconLists: ["next", "tailwind", "js", "mongodb"] as TechKey[],
+    link: "https://datasphere-ten.vercel.app/",
+  },
   {
     id: 5,
     title: "Net-Guardian",
-    des: "Developed and tested ML models using Python, scikit-learn, and pandas for the Net Guardian project.",
+    des: "Network-threat detection models built and evaluated in Python with scikit-learn and pandas.",
     img: "/p3.svg",
-    iconLists: ["/python.svg", "/ml2.svg", "/ml3.svg"],
-    link: "/https://github.com/theeatch/NET-GUARDIAN",
-  },
-  {
-    id: 6,
-    title: "Imf Gadgets!",
-    des: "Created a Backed Gadgets inventory with NodeJS-ExpressJS along with authentication and self-destruct features!.",
-    img: "/imf.png",
-    iconLists: ["/tail.svg", "/ts.svg", "/react.svg", "/js.svg"],
-    link: "https://github.com/theeatch/imfGadgets",
-  },
-  {
-    id: 7,
-    title: "Workflow Application",
-    des: "Created a workflow application with drag and drop nodes and functionality to Export Workflow to a JSON file.",
-    img: "/p4.svg",
-    iconLists: ["/react.svg", "/tail.svg", "/ts.svg", "/js.svg"],
-    link: "https://workflow-app-virid.vercel.app/",
+    iconLists: ["python", "sklearn", "pandas"] as TechKey[],
+    link: "https://github.com/theeatch/NET-GUARDIAN",
   },
 ];
 
 export const workExperience = [
   {
     id: 1,
-    title: "Frontend Engineer Intern",
-    desc: "Created responsive, modern UI with Next.js, TailwindCSS, and TypeScript, boosting user retention by 60%.",
-    className: "md:col-span-2",
-    thumbnail: "/exp1.svg",
-  },
-  {
-    id: 2,
-    title: "BackEnd Engineer Intern",
-    desc: "Integrated FastAPI for efficient API handling and built secure authentication with Node.js, Express, JWT, and MongoDB.",
-    className: "md:col-span-2",
+    kind: "work" as const,
+    title: "Software Developer Engineer",
+    org: "GoSamplify",
+    period: "Aug 2025 — Present",
+    desc: "Built the backend for a new SaaS platform: 40+ REST APIs across customer, partner, contract, location and order modules, migrating a split Node.js/PHP setup to one Node.js architecture in 12 days. Set up the shared auth, audit-logging and data-access layers, plus SQS-backed document generation for 1K+ documents a month.",
     thumbnail: "/exp2.svg",
   },
   {
-    id: 3,
-    title: "Core Developement Team",
-    desc: "Provided engineering students with comprehensive study materials, guidance, and support, enhancing their academic experience and team performance.",
-    className: "md:col-span-2",
-    thumbnail: "/exp3.svg",
+    id: 2,
+    kind: "work" as const,
+    title: "Software Developer Intern",
+    org: "GoSamplify",
+    period: "Feb 2025 — Aug 2025",
+    desc: "Built a real-time rider tracking platform with Socket.IO, Azure Web PubSub and Angular, showing 500+ riders live on one dashboard. Integrated WhatsApp messaging into order workflows and cut response times 35%+ by restructuring MySQL queries.",
+    thumbnail: "/exp4.svg",
   },
   {
-    id: 4,
-    title: "ERPNext Developer",
-    desc: " Made an ERP solution using the Frappe framework and ERPNext, streamlining business operations and reducing overhead by 25%",
-    className: "md:col-span-2",
-    thumbnail: "/exp4.svg",
+    id: 3,
+    kind: "education" as const,
+    title: "B.Tech, Information Technology",
+    org: "Manipal Institute of Technology",
+    period: "Oct 2021 — Aug 2025",
+    desc: "Four years on the fundamentals underneath the job: data structures, networks, databases and distributed systems — the parts that keep showing up in production.",
+    thumbnail: "/exp3.svg",
   },
 ];
 
 export const socialMedia = [
   {
     id: 1,
+    name: "GitHub",
     img: "/git.svg",
     url: "https://github.com/theeatch",
   },
   {
-    id: 3,
+    id: 2,
+    name: "LinkedIn",
     img: "/link.svg",
-    url: "https://www.linkedin.com/in/dhruv-negi-387a3a233/",
+    url: "https://www.linkedin.com/in/dhruv-negi",
   },
 ];

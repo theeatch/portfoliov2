@@ -27,21 +27,39 @@ const config = {
     },
     extend: {
       colors: {
+        // deep-space surfaces, darkest to lightest
+        space: {
+          900: "#02040B",
+          800: "#05070F",
+          700: "#080C1B",
+          600: "#0C1226",
+          500: "#131A33",
+          400: "#1B2442",
+        },
+        // accents: cyan primary, violet secondary
+        nebula: {
+          cyan: "#38BDF8",
+          ice: "#7DD3FC",
+          glow: "#22D3EE",
+          violet: "#A78BFA",
+          indigo: "#6366F1",
+          plasma: "#C4B5FD",
+        },
         black: {
           DEFAULT: "#000",
-          100: "#000319",
-          200: "rgba(17, 25, 40, 0.75)",
-          300: "rgba(255, 255, 255, 0.125)",
+          100: "#05070F",
+          200: "rgba(10, 16, 34, 0.72)",
+          300: "rgba(148, 190, 255, 0.14)",
         },
         white: {
           DEFAULT: "#FFF",
-          100: "#BEC1DD",
-          200: "#C1C2D3",
+          100: "#A9B6D9",
+          200: "#C7D2EA",
         },
         blue: {
-          "100": "#E4ECFF",
+          100: "#9FD4F5",
         },
-        purple: "#CBACF9",
+        purple: "#A78BFA",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
@@ -76,6 +94,22 @@ const config = {
           foreground: "hsl(var(--card-foreground))",
         },
       },
+      fontFamily: {
+        sans: ["var(--font-sans)", "ui-sans-serif", "system-ui", "sans-serif"],
+        display: [
+          "var(--font-display)",
+          "var(--font-sans)",
+          "ui-sans-serif",
+          "sans-serif",
+        ],
+        mono: ["var(--font-mono)", "ui-monospace", "SFMono-Regular", "monospace"],
+      },
+      boxShadow: {
+        glow: "0 0 0 1px rgba(56,189,248,0.18), 0 0 32px -8px rgba(56,189,248,0.35)",
+        "glow-violet":
+          "0 0 0 1px rgba(167,139,250,0.2), 0 0 36px -10px rgba(167,139,250,0.4)",
+        orbit: "0 24px 80px -32px rgba(56,189,248,0.45)",
+      },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
@@ -101,50 +135,61 @@ const config = {
           },
         },
         shimmer: {
-          from: {
-            backgroundPosition: "0 0",
-          },
-          to: {
-            backgroundPosition: "-200% 0",
-          },
+          from: { backgroundPosition: "0 0" },
+          to: { backgroundPosition: "-200% 0" },
         },
         moveHorizontal: {
-          "0%": {
-            transform: "translateX(-50%) translateY(-10%)",
-          },
-          "50%": {
-            transform: "translateX(50%) translateY(10%)",
-          },
-          "100%": {
-            transform: "translateX(-50%) translateY(-10%)",
-          },
+          "0%": { transform: "translateX(-50%) translateY(-10%)" },
+          "50%": { transform: "translateX(50%) translateY(10%)" },
+          "100%": { transform: "translateX(-50%) translateY(-10%)" },
         },
         moveInCircle: {
-          "0%": {
-            transform: "rotate(0deg)",
-          },
-          "50%": {
-            transform: "rotate(180deg)",
-          },
-          "100%": {
-            transform: "rotate(360deg)",
-          },
+          "0%": { transform: "rotate(0deg)" },
+          "50%": { transform: "rotate(180deg)" },
+          "100%": { transform: "rotate(360deg)" },
         },
         moveVertical: {
-          "0%": {
-            transform: "translateY(-50%)",
-          },
-          "50%": {
-            transform: "translateY(50%)",
-          },
-          "100%": {
-            transform: "translateY(-50%)",
-          },
+          "0%": { transform: "translateY(-50%)" },
+          "50%": { transform: "translateY(50%)" },
+          "100%": { transform: "translateY(-50%)" },
         },
         scroll: {
-          to: {
-            transform: "translate(calc(-50% - 0.5rem))",
-          },
+          to: { transform: "translate(calc(-50% - 0.5rem))" },
+        },
+        // ---- space system ----
+        twinkle: {
+          "0%, 100%": { opacity: "0.25", transform: "scale(0.85)" },
+          "50%": { opacity: "1", transform: "scale(1)" },
+        },
+        "nebula-drift": {
+          "0%": { transform: "translate3d(-4%, 2%, 0) scale(1)" },
+          "50%": { transform: "translate3d(5%, -3%, 0) scale(1.12)" },
+          "100%": { transform: "translate3d(-4%, 2%, 0) scale(1)" },
+        },
+        "nebula-drift-slow": {
+          "0%": { transform: "translate3d(3%, -2%, 0) scale(1.08)" },
+          "50%": { transform: "translate3d(-5%, 4%, 0) scale(1)" },
+          "100%": { transform: "translate3d(3%, -2%, 0) scale(1.08)" },
+        },
+        "orbit-spin": {
+          from: { transform: "rotate(0deg)" },
+          to: { transform: "rotate(360deg)" },
+        },
+        "pulse-glow": {
+          "0%, 100%": { opacity: "0.35" },
+          "50%": { opacity: "0.85" },
+        },
+        "float-y": {
+          "0%, 100%": { transform: "translateY(0)" },
+          "50%": { transform: "translateY(-10px)" },
+        },
+        "beam-sweep": {
+          "0%": { transform: "translateX(-120%)" },
+          "100%": { transform: "translateX(220%)" },
+        },
+        "scan-line": {
+          "0%": { transform: "translateY(-100%)" },
+          "100%": { transform: "translateY(400%)" },
         },
       },
       animation: {
@@ -159,6 +204,16 @@ const config = {
         fifth: "moveInCircle 20s ease infinite",
         scroll:
           "scroll var(--animation-duration, 40s) var(--animation-direction, forwards) linear infinite",
+        // ---- space system ----
+        twinkle: "twinkle 4s ease-in-out infinite",
+        "nebula-drift": "nebula-drift 44s ease-in-out infinite",
+        "nebula-drift-slow": "nebula-drift-slow 68s ease-in-out infinite",
+        "orbit-spin": "orbit-spin 28s linear infinite",
+        "orbit-spin-slow": "orbit-spin 90s linear infinite",
+        "pulse-glow": "pulse-glow 6s ease-in-out infinite",
+        "float-y": "float-y 7s ease-in-out infinite",
+        "beam-sweep": "beam-sweep 6s ease-in-out infinite",
+        "scan-line": "scan-line 9s linear infinite",
       },
     },
   },

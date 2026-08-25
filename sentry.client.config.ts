@@ -9,8 +9,19 @@ Sentry.init({
       blockAllMedia: true,
     }),
     Sentry.feedbackIntegration({
-      // Additional SDK configuration goes in here, for example:
       colorScheme: "dark",
+      showBranding: false,
+      themeDark: {
+        background: "#080C1B",
+        backgroundHover: "#131A33",
+        foreground: "#E4ECFF",
+        border: "1px solid rgba(148,190,255,0.16)",
+        submitBackground: "#38BDF8",
+        submitBackgroundHover: "#7DD3FC",
+        submitBorder: "1px solid rgba(56,189,248,0.4)",
+        submitForeground: "#05070F",
+        submitForegroundHover: "#05070F",
+      },
     }),
   ],
   // Session Replay

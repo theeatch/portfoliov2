@@ -1,5 +1,6 @@
 "use client";
-import React, { useState } from "react";
+
+import React, { useEffect, useState } from "react";
 import {
   motion,
   AnimatePresence,
@@ -22,65 +23,103 @@ export const FloatingNav = ({
 }) => {
   const { scrollYProgress } = useScroll();
 
-  // set true for the initial state so that nav bar is visible in the hero section
+  // visible on load so the bar shows over the hero
   const [visible, setVisible] = useState(true);
+  const [active, setActive] = useState<string>(navItems[0]?.link ?? "");
 
   useMotionValueEvent(scrollYProgress, "change", (current) => {
-    // Check if current is not undefined and is a number
     if (typeof current === "number") {
-      let direction = current! - scrollYProgress.getPrevious()!;
+      const direction = current - (scrollYProgress.getPrevious() ?? 0);
 
       if (scrollYProgress.get() < 0.05) {
-        // also set true for the initial state
         setVisible(true);
       } else {
-        if (direction < 0) {
-          setVisible(true);
-        } else {
-          setVisible(false);
-        }
+        setVisible(direction < 0);
       }
     }
   });
 
+  // light up the nav item for whichever section is in view
+  useEffect(() => {
+    const ids = navItems
+      .map((item) => item.link)
+      .filter((link) => link.startsWith("#"));
+
+    const sections = ids
+      .map((id) => ({ id, el: document.querySelector(id) }))
+      .filter((s): s is { id: string; el: Element } => Boolean(s.el));
+
+    if (!sections.length) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const hit = entries
+          .filter((e) => e.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+        if (hit) {
+          const match = sections.find((s) => s.el === hit.target);
+          if (match) setActive(match.id);
+        }
+      },
+      { rootMargin: "-40% 0px -50% 0px", threshold: [0, 0.25, 0.5, 1] }
+    );
+
+    sections.forEach((s) => observer.observe(s.el));
+    return () => observer.disconnect();
+  }, [navItems]);
+
   return (
     <AnimatePresence mode="wait">
-      <motion.div
-        initial={{
-          opacity: 1,
-          y: -100,
-        }}
+      <motion.nav
+        initial={{ opacity: 1, y: -100 }}
         animate={{
           y: visible ? 0 : -100,
           opacity: visible ? 1 : 0,
         }}
-        transition={{
-          duration: 0.2,
-        }}
+        transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
         className={cn(
-          "flex max-w-fit md:min-w-[70vw] lg:min-w-fit fixed z-[5000] top-10 inset-x-0 mx-auto px-10 py-5 rounded-lg border border-black/.1 shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)] items-center justify-center space-x-4",
+          "glass-panel fixed inset-x-0 top-6 z-[5000] mx-auto flex max-w-fit items-center gap-1 rounded-full px-2 py-2 md:top-10 md:gap-2 md:px-3",
           className
         )}
         style={{
-          backdropFilter: "blur(16px) saturate(180%)",
-          backgroundColor: "rgba(17, 25, 40, 0.75)",
-          borderRadius: "12px",
-          border: "1px solid rgba(255, 255, 255, 0.125)",
+          boxShadow:
+            "0 8px 40px -12px rgba(2,4,11,0.9), inset 0 1px 0 0 rgba(148,190,255,0.1)",
         }}
       >
-        {navItems.map((navItem: any, idx: number) => (
-          <Link
-            key={`link=${idx}`}
-            href={navItem.link}
-            className={cn(
-              "relative dark:text-neutral-50 items-center  flex space-x-1 text-neutral-600 dark:hover:text-neutral-300 hover:text-neutral-500"
-            )}
-          >
-            <span className="block sm:hidden">{navItem.icon}</span>
-            <span className=" text-sm !cursor-pointer">{navItem.name}</span>
-          </Link>
-        ))}
-      </motion.div>
+        {navItems.map((navItem, idx) => {
+          const isActive = active === navItem.link;
+          return (
+            <Link
+              key={`link-${idx}`}
+              href={navItem.link}
+              onClick={() => setActive(navItem.link)}
+              className="relative flex items-center gap-1.5 rounded-full px-3 py-2 md:px-4"
+            >
+              {isActive && (
+                <motion.span
+                  layoutId="nav-pill"
+                  transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                  className="absolute inset-0 rounded-full border border-nebula-cyan/25 bg-nebula-cyan/10"
+                  style={{
+                    boxShadow: "0 0 24px -6px rgba(56,189,248,0.45)",
+                  }}
+                />
+              )}
+              <span className="relative block sm:hidden">{navItem.icon}</span>
+              <span
+                className={cn(
+                  "relative cursor-pointer text-xs transition-colors duration-300 md:text-sm",
+                  isActive
+                    ? "text-starlight"
+                    : "text-white-100 hover:text-starlight"
+                )}
+              >
+                {navItem.name}
+              </span>
+            </Link>
+          );
+        })}
+      </motion.nav>
     </AnimatePresence>
   );
 };

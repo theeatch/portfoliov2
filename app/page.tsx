@@ -9,11 +9,15 @@ import Approach from "@/components/Approach";
 import Experience from "@/components/Experience";
 import RecentProjects from "@/components/RecentProjects";
 import { FloatingNav } from "@/components/ui/FloatingNavbar";
+import SpaceBackground from "@/components/ui/SpaceBackground";
 
 const Home = () => {
   return (
-    <main className="relative bg-black-100 flex justify-center items-center flex-col overflow-hidden mx-auto sm:px-10 px-5">
-      <div className="max-w-7xl w-full">
+    <main className="relative mx-auto flex flex-col items-center justify-center overflow-x-clip px-5 sm:px-10">
+      {/* fixed starfield, nebulae and grain behind everything */}
+      <SpaceBackground />
+
+      <div className="relative z-10 w-full max-w-7xl">
         <FloatingNav navItems={navItems} />
         <Hero />
         <Grid />

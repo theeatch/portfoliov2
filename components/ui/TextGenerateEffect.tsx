@@ -6,22 +6,27 @@ import { cn } from "@/lib/utils";
 export const TextGenerateEffect = ({
   words,
   className,
+  accentFrom = 4,
 }: {
   words: string;
   className?: string;
+  /** index of the first word that takes the nebula gradient */
+  accentFrom?: number;
 }) => {
   const [scope, animate] = useAnimate();
   let wordsArray = words.split(" ");
+
   useEffect(() => {
-    console.log(wordsArray);
     animate(
       "span",
       {
         opacity: 1,
+        filter: "blur(0px)",
+        y: 0,
       },
       {
-        duration: 2,
-        delay: stagger(0.2),
+        duration: 1.6,
+        delay: stagger(0.18),
       }
     );
   }, [scope.current]);
@@ -30,14 +35,19 @@ export const TextGenerateEffect = ({
     return (
       <motion.div ref={scope}>
         {wordsArray.map((word, idx) => {
+          const accent = idx >= accentFrom;
           return (
             <motion.span
               key={word + idx}
-              // change here if idx is greater than 3, change the text color to #CBACF9
-              className={` ${idx > 3 ? "text-purple" : "dark:text-white text-black"
-                } opacity-0`}
+              className={cn(
+                "inline-block opacity-0 [filter:blur(6px)]",
+                accent
+                  ? "bg-gradient-to-br from-nebula-ice via-nebula-cyan to-nebula-violet bg-clip-text text-transparent"
+                  : "heading-cosmic"
+              )}
+              style={{ transform: "translateY(8px)" }}
             >
-              {word}{" "}
+              {word}&nbsp;
             </motion.span>
           );
         })}
@@ -47,12 +57,8 @@ export const TextGenerateEffect = ({
 
   return (
     <div className={cn("font-bold", className)}>
-      {/* mt-4 to my-4 */}
       <div className="my-4">
-        {/* remove  text-2xl from the original */}
-        <div className=" dark:text-white text-black leading-snug tracking-wide">
-          {renderWords()}
-        </div>
+        <div className="leading-[1.15] tracking-tight">{renderWords()}</div>
       </div>
     </div>
   );
