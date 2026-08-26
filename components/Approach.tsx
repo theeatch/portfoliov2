@@ -58,7 +58,7 @@ const Approach = () => {
         eyebrow="Open channels"
         title="Find me"
         accent="out there"
-        subtitle="Code, piano and everything in between — pick a frequency."
+        subtitle="Code, piano and everything in between - pick a frequency."
       />
 
       <div className="mt-16 flex w-full flex-col items-center justify-center gap-4 lg:flex-row">

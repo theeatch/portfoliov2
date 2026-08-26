@@ -58,7 +58,7 @@ const RecentProjects = () => {
         subtitle="Backend infrastructure, AI tooling and full-stack apps — the work I'd point at first."
       />
 
-      <div className="mt-10 grid grid-cols-1 justify-items-center gap-x-8 gap-y-6 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="mt-12 flex flex-wrap items-start justify-center gap-x-12 gap-y-10">
         {projects.map((item, i) => (
           <motion.div
             key={item.id}
@@ -70,7 +70,7 @@ const RecentProjects = () => {
               delay: (i % 3) * 0.1,
               ease: [0.16, 1, 0.3, 1],
             }}
-            className="flex h-[26rem] w-[80vw] items-center justify-center sm:w-full sm:max-w-96 lg:h-[30rem]"
+            className="flex h-[26rem] w-[80vw] items-center justify-center sm:w-[28rem] lg:h-[32rem]"
           >
             <a
               href={item.link}
@@ -79,7 +79,7 @@ const RecentProjects = () => {
               aria-label={`${item.title} — open project`}
             >
               <PinContainer title={linkLabel(item.link)}>
-                <div className="relative mb-10 flex h-[20vh] w-[80vw] items-center justify-center overflow-hidden sm:w-96 lg:h-[30vh]">
+                <div className="relative mb-10 flex h-[20vh] w-[80vw] items-center justify-center overflow-hidden sm:w-[26rem] lg:h-[32vh]">
                   <div className="relative h-full w-full overflow-hidden bg-space-600 lg:rounded-3xl">
                     <img
                       src="/bg.png"
@@ -118,7 +118,7 @@ const RecentProjects = () => {
 
                 <div className="mb-3 mt-6 flex items-center justify-between">
                   <div className="flex items-center">
-                    {item.iconLists.map((key, index) => (
+                    {item.iconLists.map((key) => (
                       <TechIcon
                         key={key}
                         name={key}

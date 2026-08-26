@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import { IoCopyOutline } from "react-icons/io5";
+import { LuRotateCcw } from "react-icons/lu";
+import { FaYoutube } from "react-icons/fa6";
 
 import { cn } from "@/lib/utils";
 import Image from "next/image";
@@ -74,6 +76,9 @@ export const BentoGridItem = ({
   const [copied, setCopied] = useState(false);
   // bumping this re-fires the burst, so repeat copies still celebrate
   const [burst, setBurst] = useState(0);
+  // bumping this springs every dragged tech card back to where it loaded
+  const [stackReset, setStackReset] = useState(0);
+  const [stackMoved, setStackMoved] = useState(false);
 
   const handleCopy = () => {
     navigator.clipboard.writeText(contactEmail);
@@ -81,20 +86,21 @@ export const BentoGridItem = ({
     setBurst((n) => n + 1);
   };
 
-  // the wider stack, draggable
+  // the wider stack, draggable. Kept to a middle band so the caption above and
+  // the floating language icons below stay readable.
   const myItems = [
-    { title: <SiNodedotjs />, className: "absolute top-10 left-[18%] rotate-[-5deg]" },
-    { title: <SiExpress />, className: "absolute top-24 left-[24%] rotate-[-7deg]" },
-    { title: <SiMysql />, className: "absolute top-6 left-[38%] rotate-[8deg]" },
-    { title: <SiRedis />, className: "absolute top-16 left-[52%] rotate-[10deg]" },
-    { title: <SiSocketdotio />, className: "absolute top-20 right-[32%] rotate-[2deg]" },
-    { title: <SiNextdotjs />, className: "absolute top-24 left-[44%] rotate-[-7deg]" },
-    { title: <SiTailwindcss />, className: "absolute top-8 left-[30%] rotate-[4deg]" },
-    { title: <SiFastapi />, className: "absolute top-16 left-[14%] rotate-[5deg]" },
-    { title: <FaAws />, className: "absolute top-20 right-[18%] rotate-[-3deg]" },
-    { title: <SiDocker />, className: "absolute top-4 left-[58%] rotate-[12deg]" },
-    { title: <SiAngular />, className: "absolute top-32 left-[10%] rotate-[-10deg]" },
-    { title: <SiPhp />, className: "absolute top-28 right-[26%] rotate-[6deg]" },
+    { title: <SiNodedotjs />, className: "absolute top-14 left-[16%] rotate-[-5deg]" },
+    { title: <SiExpress />, className: "absolute top-28 left-[26%] rotate-[-7deg]" },
+    { title: <SiMysql />, className: "absolute top-12 left-[38%] rotate-[8deg]" },
+    { title: <SiRedis />, className: "absolute top-24 left-[52%] rotate-[10deg]" },
+    { title: <SiSocketdotio />, className: "absolute top-20 right-[30%] rotate-[2deg]" },
+    { title: <SiNextdotjs />, className: "absolute top-32 left-[44%] rotate-[-7deg]" },
+    { title: <SiTailwindcss />, className: "absolute top-20 left-[30%] rotate-[4deg]" },
+    { title: <SiFastapi />, className: "absolute top-28 left-[14%] rotate-[5deg]" },
+    { title: <FaAws />, className: "absolute top-14 right-[16%] rotate-[-3deg]" },
+    { title: <SiDocker />, className: "absolute top-16 left-[62%] rotate-[12deg]" },
+    { title: <SiAngular />, className: "absolute top-24 left-[8%] rotate-[-10deg]" },
+    { title: <SiPhp />, className: "absolute top-24 right-[22%] rotate-[6deg]" },
   ];
 
   const iconVariants = {
@@ -157,6 +163,38 @@ export const BentoGridItem = ({
         />
       )}
 
+      {/* Card 4 is a link to the piano channel: the whole surface turns into a
+          YouTube target on hover, so there's no small hit-box to hunt for. */}
+      {id === 4 && (
+        <a
+          href="https://www.youtube.com/@DHsPianoLand"
+          target="_blank"
+          rel="noreferrer"
+          aria-label="Watch me play piano on YouTube — DH's Piano Land"
+          className="group/yt absolute inset-0 z-40 cursor-pointer"
+        >
+          {/* red wash rising as the card converts */}
+          <span
+            aria-hidden
+            className="absolute inset-0 opacity-0 transition-opacity duration-500 group-hover/bento:opacity-100"
+            style={{
+              background:
+                "radial-gradient(ellipse at 50% 60%, rgba(255,0,51,0.22) 0%, rgba(255,0,51,0.06) 42%, transparent 70%)",
+            }}
+          />
+
+          <span className="absolute inset-0 flex scale-90 flex-col items-center justify-center gap-3 opacity-0 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/bento:scale-100 group-hover/bento:opacity-100">
+            <FaYoutube className="h-14 w-14 text-[#FF0033] drop-shadow-[0_0_26px_rgba(255,0,51,0.6)] transition-transform duration-500 group-hover/bento:animate-pulse md:h-16 md:w-16" />
+            <span className="font-mono text-[10px] uppercase tracking-[0.26em] text-starlight/85">
+              DH&apos;s Piano Land
+            </span>
+            <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-nebula-cyan/70">
+              Click to listen →
+            </span>
+          </span>
+        </a>
+      )}
+
       <div className={`${id === 6 && "flex justify-center"} h-full`}>
         <div className="mask-fade-bottom absolute h-full w-full">
           {img && (
@@ -206,61 +244,83 @@ export const BentoGridItem = ({
           )}
         >
           {id === 3 && (
-            <DraggableCardContainer className="relative flex h-full w-full items-center justify-center overflow-clip">
-              <p className="pointer-events-none absolute inset-x-0 bottom-5 z-20 px-6 text-center font-mono text-[10px] uppercase tracking-[0.3em] text-nebula-cyan/70 md:text-xs">
-                My evergrowing tech stack
-              </p>
-              <div className="mt-20 flex w-full justify-around md:mt-40">
-                {[SiTypescript, SiNodedotjs, SiMysql, SiPython].map((Icon, i) => (
-                  <motion.div
-                    key={i}
-                    className="text-2xl text-nebula-ice/90 drop-shadow-[0_0_12px_rgba(56,189,248,0.5)] md:text-3xl lg:text-4xl"
-                    variants={iconVariants}
-                    initial="initial"
-                    animate="animate"
-                    custom={i}
-                  >
-                    <Icon />
-                  </motion.div>
-                ))}
+            <DraggableCardContainer className="relative h-full w-full overflow-clip">
+              {/* Fixed layer: caption pinned to the top, the four core languages
+                  floating along the bottom. Both sit outside the drag band so
+                  neither can be buried by the pile. */}
+              <div className="pointer-events-none absolute inset-0 z-20 flex flex-col justify-between py-4">
+                <p className="mx-auto rounded-full bg-space-900/70 px-4 py-1 text-center font-mono text-[10px] uppercase tracking-[0.22em] text-nebula-cyan/80 backdrop-blur-sm">
+                  My evergrowing tech stack
+                </p>
+
+                <div className="flex w-full justify-around px-5 drop-shadow-[0_2px_10px_rgba(2,4,11,0.9)]">
+                  {[SiTypescript, SiNodedotjs, SiMysql, SiPython].map(
+                    (Icon, i) => (
+                      <motion.div
+                        key={i}
+                        className="text-2xl text-nebula-ice/90 drop-shadow-[0_0_12px_rgba(56,189,248,0.5)] md:text-3xl lg:text-4xl"
+                        variants={iconVariants}
+                        initial="initial"
+                        animate="animate"
+                        custom={i}
+                      >
+                        <Icon />
+                      </motion.div>
+                    )
+                  )}
+                </div>
               </div>
+
+              {/* Drag layer */}
               {myItems.map((item, idx) => (
-                <DraggableCardBody key={idx} className={item.className}>
-                  <h3 className="text-center text-4xl font-bold text-nebula-ice/80">
+                <DraggableCardBody
+                  key={idx}
+                  className={item.className}
+                  resetKey={stackReset}
+                  onDragged={() => setStackMoved(true)}
+                >
+                  <h3 className="text-center text-2xl font-bold text-nebula-ice/80">
                     {item.title}
                   </h3>
                 </DraggableCardBody>
               ))}
+
+              {/* Appears once something has actually been thrown around */}
+              <button
+                type="button"
+                onClick={() => {
+                  setStackReset((n) => n + 1);
+                  setStackMoved(false);
+                }}
+                aria-label="Reset the tech cards to their starting positions"
+                title="Reset cards"
+                className={cn(
+                  "absolute right-3 top-3 z-30 flex h-8 w-8 items-center justify-center rounded-full border border-nebula-cyan/25 bg-space-900/80 text-nebula-cyan/80 backdrop-blur-sm transition-all duration-300 hover:border-nebula-cyan/60 hover:text-nebula-ice hover:shadow-glow active:scale-90",
+                  stackMoved
+                    ? "pointer-events-auto opacity-100"
+                    : "pointer-events-none opacity-0"
+                )}
+              >
+                <LuRotateCcw className="h-3.5 w-3.5" />
+              </button>
             </DraggableCardContainer>
           )}
           {id !== 3 && (
-            <>
+            <div
+              className={cn(
+                "contents",
+                // card 4 hands its space over to the YouTube reveal on hover
+                id === 4 &&
+                  "[&>*]:transition-all [&>*]:duration-500 group-hover/bento:[&>*]:-translate-y-2 group-hover/bento:[&>*]:opacity-0"
+              )}
+            >
               <div className="z-10 font-sans text-sm font-light italic text-nebula-cyan/70 md:max-w-32 md:text-xs lg:text-base">
                 {description}
               </div>
               <div className="z-10 max-w-96 font-sans text-lg font-bold text-starlight lg:text-3xl">
                 {title}
               </div>
-            </>
-          )}
-          {id === 4 && (
-            <motion.a
-              href="https://www.youtube.com/@DHsPianoLand"
-              target="_blank"
-              rel="noreferrer"
-              initial={{ x: -50 }}
-              animate={{ x: 0 }}
-              transition={{ duration: 1 }}
-              className="absolute z-50 mt-[4.5rem] hidden animate-pulse group-hover:flex"
-            >
-              <Image
-                src="/ytpic.svg"
-                alt="YouTube channel"
-                width={50}
-                height={50}
-                className="z-50"
-              />
-            </motion.a>
+            </div>
           )}
 
           {/* the 3d globe */}

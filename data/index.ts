@@ -16,7 +16,7 @@ export const gridItems = [
   {
     id: 1,
     title:
-      "I build the parts you never see — REST APIs, queues, auth layers and the architecture holding them together.",
+      "I build the parts you never see - REST APIs, queues, auth layers and the architecture holding them together.",
     description: "",
     className: "lg:col-span-3 md:col-span-6 md:row-span-4 lg:min-h-[60vh]",
     imgClassName: "w-full h-full",
@@ -26,7 +26,7 @@ export const gridItems = [
   },
   {
     id: 2,
-    title: "Gurugram, India — shipping with teams anywhere.",
+    title: "Gurugram, India - shipping with teams anywhere.",
     description: "",
     className: "lg:col-span-2 md:col-span-3 md:row-span-2",
     imgClassName: "",
@@ -57,7 +57,8 @@ export const gridItems = [
 
   {
     id: 5,
-    title: "Currently building CodeScope — AI code review that reads the whole repo",
+    title:
+      "Currently building CodeScope - AI code review that reads the whole repo",
     description: "The Inside Scoop",
     className: "md:col-span-3 md:row-span-2",
     imgClassName: "absolute right-0 bottom-0 md:w-96 w-60",
@@ -90,7 +91,7 @@ export const projects = [
   {
     id: 2,
     title: "CodeScope",
-    des: "An AI code-review platform — a FastAPI backend parses a repo and runs Gemini inference, surfacing security and maintainability findings in a Next.js dashboard.",
+    des: "An AI code-review platform: a FastAPI backend parses a repo, runs Gemini inference, and surfaces security and maintainability findings in a Next.js dashboard.",
     img: "",
     iconLists: ["gemini", "fastapi", "python", "next", "docker"] as TechKey[],
     link: "https://github.com/theeatch/CodeScope",
@@ -146,7 +147,7 @@ export const workExperience = [
     title: "B.Tech, Information Technology",
     org: "Manipal Institute of Technology",
     period: "Oct 2021 — Aug 2025",
-    desc: "Four years on the fundamentals underneath the job: data structures, networks, databases and distributed systems — the parts that keep showing up in production.",
+    desc: "Four years on the fundamentals underneath the job: data structures, networks, databases and distributed systems - the parts that keep showing up in production.",
     thumbnail: "/exp3.svg",
   },
 ];

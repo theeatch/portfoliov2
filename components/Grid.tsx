@@ -11,7 +11,7 @@ const Grid = () => {
         eyebrow="Mission profile"
         title="A little about"
         accent="who I am"
-        subtitle="Drag the tech cards around, spin the globe — this panel is meant to be poked at."
+        subtitle="Drag the tech cards around, spin the globe - this panel is meant to be poked at."
       />
 
       <BentoGrid className="w-full pt-14">

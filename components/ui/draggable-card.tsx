@@ -14,9 +14,15 @@ import {
 export const DraggableCardBody = ({
   className,
   children,
+  resetKey,
+  onDragged,
 }: {
   className?: string;
   children?: React.ReactNode;
+  /** bump this to spring the card back to where it loaded */
+  resetKey?: number;
+  /** fired once the user has actually thrown the card somewhere */
+  onDragged?: () => void;
 }) => {
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
@@ -82,6 +88,24 @@ export const DraggableCardBody = ({
     };
   }, []);
 
+  const didMount = useRef(false);
+  useEffect(() => {
+    // skip the initial render: cards are already home on load
+    if (!didMount.current) {
+      didMount.current = true;
+      return;
+    }
+    controls.start({
+      x: 0,
+      y: 0,
+      rotateX: 0,
+      rotateY: 0,
+      transition: { type: "spring", stiffness: 180, damping: 22, mass: 0.6 },
+    });
+    mouseX.set(0);
+    mouseY.set(0);
+  }, [resetKey]);
+
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const { clientX, clientY } = e;
     const { width, height, left, top } =
@@ -114,6 +138,7 @@ export const DraggableCardBody = ({
       }}
       onDragEnd={(event, info) => {
         document.body.style.cursor = "default";
+        onDragged?.();
 
         controls.start({
           rotateX: 0,
@@ -163,7 +188,7 @@ export const DraggableCardBody = ({
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       className={cn(
-        "relative min-h-auto w-auto overflow-hidden rounded-md bg-neutral-100 p-3 shadow-2xl transform-3d dark:bg-neutral-900",
+        "relative min-h-auto w-auto cursor-grab overflow-hidden rounded-xl border border-white/[0.09] bg-space-600/95 p-2.5 shadow-2xl backdrop-blur-sm transform-3d active:cursor-grabbing",
         className
       )}
     >

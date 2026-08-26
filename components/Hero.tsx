@@ -57,7 +57,7 @@ const Hero = () => {
             transition={{ delay: 1.5, duration: 2 }}
             className="mb-4 max-w-2xl text-center text-sm text-white-200 md:text-lg md:tracking-wider lg:text-xl"
           >
-            I&apos;m Dhruv Negi — Software Developer Engineer at GoSamplify,
+            I&apos;m Dhruv Negi - Software Developer Engineer at GoSamplify,
             working on REST APIs, real-time services and the backend
             architecture underneath them.
           </motion.p>
@@ -94,7 +94,11 @@ const Hero = () => {
           <div className="h-10 w-[1px] overflow-hidden bg-white/10">
             <motion.div
               animate={reduced ? undefined : { y: ["-100%", "300%"] }}
-              transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }}
+              transition={{
+                duration: 2.2,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
               className="h-4 w-full bg-gradient-to-b from-transparent via-nebula-cyan to-transparent"
             />
           </div>
