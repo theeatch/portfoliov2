@@ -43,7 +43,7 @@ const Approach = () => {
       title: "LinkedIn",
       order: "IN",
       icon: "/link.svg",
-      link: "https://www.linkedin.com/in/dhruv-negi",
+      link: "https://www.linkedin.com/in/dhruv-negi-387a3a233/",
       reveal: {
         animationSpeed: 3,
         containerClassName: "bg-space-600 rounded-3xl overflow-hidden",
