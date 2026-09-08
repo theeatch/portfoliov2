@@ -155,6 +155,6 @@ export const socialMedia = [
     id: 2,
     name: "LinkedIn",
     img: "/link.svg",
-    url: "https://www.linkedin.com/in/dhruv-negi",
+    url: "https://www.linkedin.com/in/dhruv-negi-387a3a233/",
   },
 ];
