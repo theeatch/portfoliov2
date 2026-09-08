@@ -1,7 +1,7 @@
 import type { TechKey } from "@/components/ui/TechIcon";
 
 export const resumeLink =
-  "https://drive.google.com/file/d/1s49MiaXOHDWyq1QkUSrSfUQDSexdxLsA/view?usp=sharing";
+  "https://drive.google.com/file/d/1ou6NXZDzJ6t5BYFN_I5dtAhmg9oaRnfb/view?usp=drivesdk";
 
 export const contactEmail = "dhruvnegiclub03@gmail.com";
 
