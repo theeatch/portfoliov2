@@ -20,11 +20,46 @@ export const contactEmail = "dhruvnegiclub03@gmail.com";
  * `place` / `tag` name the same stop in each world (ocean | forest).
  */
 export const scenes = [
-  { id: "home", label: "Home", code: "00", at: { x: 0, y: 0 }, place: ["Surface", "Canopy"], tag: ["The view from above", "The view from above"] },
-  { id: "about", label: "About", code: "01", at: { x: 0, y: 1 }, place: ["Shallows", "Crown"], tag: ["Shallows · Who I am", "Crown · Who I am"] },
-  { id: "projects", label: "Projects", code: "02", at: { x: 1, y: 1 }, place: ["Reef", "Branch"], tag: ["Reef · The work", "Branch · The work"] },
-  { id: "experience", label: "Experience", code: "03", at: { x: 1, y: 2 }, place: ["Submarine", "Hollow"], tag: ["Submarine · The log", "Hollow · Growth rings"] },
-  { id: "contact", label: "Contact", code: "04", at: { x: 1, y: 0.45 }, place: ["Surface", "Treetop"], tag: ["Surface · Say hello", "Treetop · Say hello"] },
+  {
+    id: "home",
+    label: "Home",
+    code: "00",
+    at: { x: 0, y: 0 },
+    place: ["Surface", "Canopy"],
+    tag: ["The view from above", "The view from above"],
+  },
+  {
+    id: "about",
+    label: "About",
+    code: "01",
+    at: { x: 0, y: 1 },
+    place: ["Shallows", "Crown"],
+    tag: ["Shallows · Who I am", "Crown · Who I am"],
+  },
+  {
+    id: "projects",
+    label: "Projects",
+    code: "02",
+    at: { x: 1, y: 1 },
+    place: ["Reef", "Branch"],
+    tag: ["Reef · The work", "Branch · The work"],
+  },
+  {
+    id: "experience",
+    label: "Experience",
+    code: "03",
+    at: { x: 1, y: 2 },
+    place: ["Submarine", "Hollow"],
+    tag: ["Submarine · The log", "Hollow · Growth rings"],
+  },
+  {
+    id: "contact",
+    label: "Contact",
+    code: "04",
+    at: { x: 1, y: 0.45 },
+    place: ["Surface", "Treetop"],
+    tag: ["Surface · Say hello", "Treetop · Say hello"],
+  },
 ] as const;
 
 /**
@@ -116,9 +151,9 @@ export const projects = [
     title: "RateFlow",
     des: "A distributed token-bucket rate limiter on Redis, with configurable middleware policies and a live dashboard for throughput and blocked requests.",
     // no screenshot yet: the card falls back to a designed placeholder
-    img: "",
+    img: "/opt/rated.webp",
     iconLists: ["redis", "node", "next", "docker"] as TechKey[],
-    link: "https://github.com/theeatch/rated",
+    link: "https://rated-delta.vercel.app/",
   },
   {
     id: 2,
