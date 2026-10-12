@@ -27,24 +27,28 @@ const config = {
     },
     extend: {
       colors: {
-        // deep-space surfaces, darkest to lightest
-        space: {
-          900: "#02040B",
-          800: "#05070F",
-          700: "#080C1B",
-          600: "#0C1226",
-          500: "#131A33",
-          400: "#1B2442",
+        // theme-aware: channels live in globals.css (ocean by default, forest under .light)
+        surface: {
+          900: "rgb(var(--c-surface-900) / <alpha-value>)",
+          800: "rgb(var(--c-surface-800) / <alpha-value>)",
+          700: "rgb(var(--c-surface-700) / <alpha-value>)",
+          600: "rgb(var(--c-surface-600) / <alpha-value>)",
+          500: "rgb(var(--c-surface-500) / <alpha-value>)",
+          400: "rgb(var(--c-surface-400) / <alpha-value>)",
         },
-        // accents: cyan primary, violet secondary
-        nebula: {
-          cyan: "#38BDF8",
-          ice: "#7DD3FC",
-          glow: "#22D3EE",
-          violet: "#A78BFA",
-          indigo: "#6366F1",
-          plasma: "#C4B5FD",
+        brand: {
+          DEFAULT: "rgb(var(--c-brand) / <alpha-value>)",
+          soft: "rgb(var(--c-brand-soft) / <alpha-value>)",
+          glow: "rgb(var(--c-brand-glow) / <alpha-value>)",
         },
+        accent: {
+          DEFAULT: "rgb(var(--c-accent) / <alpha-value>)",
+          deep: "rgb(var(--c-accent-deep) / <alpha-value>)",
+          soft: "rgb(var(--c-accent-soft) / <alpha-value>)",
+          foreground: "hsl(var(--accent-foreground))",
+        },
+        ink: "rgb(var(--ink) / <alpha-value>)",
+        hair: "rgb(var(--c-hair) / <alpha-value>)",
         black: {
           DEFAULT: "#000",
           100: "#05070F",
@@ -53,13 +57,12 @@ const config = {
         },
         white: {
           DEFAULT: "#FFF",
-          100: "#A9B6D9",
-          200: "#C7D2EA",
+          100: "rgb(var(--c-muted) / <alpha-value>)",
+          200: "rgb(var(--c-muted-2) / <alpha-value>)",
         },
         blue: {
           100: "#9FD4F5",
         },
-        purple: "#A78BFA",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
@@ -81,10 +84,6 @@ const config = {
           DEFAULT: "hsl(var(--muted))",
           foreground: "hsl(var(--muted-foreground))",
         },
-        accent: {
-          DEFAULT: "hsl(var(--accent))",
-          foreground: "hsl(var(--accent-foreground))",
-        },
         popover: {
           DEFAULT: "hsl(var(--popover))",
           foreground: "hsl(var(--popover-foreground))",
@@ -94,21 +93,16 @@ const config = {
           foreground: "hsl(var(--card-foreground))",
         },
       },
+      // the active world's pairing comes from --font-heading / --font-body in globals.css;
+      // mono is deliberately the body face too, so every label belongs to the same family
       fontFamily: {
-        sans: ["var(--font-sans)", "ui-sans-serif", "system-ui", "sans-serif"],
-        display: [
-          "var(--font-display)",
-          "var(--font-sans)",
-          "ui-sans-serif",
-          "sans-serif",
-        ],
-        mono: ["var(--font-mono)", "ui-monospace", "SFMono-Regular", "monospace"],
+        sans: ["var(--font-body)", "ui-sans-serif", "system-ui", "sans-serif"],
+        display: ["var(--font-heading)", "var(--font-body)", "ui-sans-serif", "sans-serif"],
+        mono: ["var(--font-body)", "ui-sans-serif", "system-ui", "sans-serif"],
       },
       boxShadow: {
-        glow: "0 0 0 1px rgba(56,189,248,0.18), 0 0 32px -8px rgba(56,189,248,0.35)",
-        "glow-violet":
-          "0 0 0 1px rgba(167,139,250,0.2), 0 0 36px -10px rgba(167,139,250,0.4)",
-        orbit: "0 24px 80px -32px rgba(56,189,248,0.45)",
+        glow: "0 0 0 1px rgb(var(--c-brand) / 0.2), 0 0 28px -8px rgb(var(--c-brand) / 0.45)",
+                orbit: "0 24px 60px -30px rgb(var(--shadow-tint) / 0.55)",
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -156,41 +150,6 @@ const config = {
         scroll: {
           to: { transform: "translate(calc(-50% - 0.5rem))" },
         },
-        // ---- space system ----
-        twinkle: {
-          "0%, 100%": { opacity: "0.25", transform: "scale(0.85)" },
-          "50%": { opacity: "1", transform: "scale(1)" },
-        },
-        "nebula-drift": {
-          "0%": { transform: "translate3d(-4%, 2%, 0) scale(1)" },
-          "50%": { transform: "translate3d(5%, -3%, 0) scale(1.12)" },
-          "100%": { transform: "translate3d(-4%, 2%, 0) scale(1)" },
-        },
-        "nebula-drift-slow": {
-          "0%": { transform: "translate3d(3%, -2%, 0) scale(1.08)" },
-          "50%": { transform: "translate3d(-5%, 4%, 0) scale(1)" },
-          "100%": { transform: "translate3d(3%, -2%, 0) scale(1.08)" },
-        },
-        "orbit-spin": {
-          from: { transform: "rotate(0deg)" },
-          to: { transform: "rotate(360deg)" },
-        },
-        "pulse-glow": {
-          "0%, 100%": { opacity: "0.35" },
-          "50%": { opacity: "0.85" },
-        },
-        "float-y": {
-          "0%, 100%": { transform: "translateY(0)" },
-          "50%": { transform: "translateY(-10px)" },
-        },
-        "beam-sweep": {
-          "0%": { transform: "translateX(-120%)" },
-          "100%": { transform: "translateX(220%)" },
-        },
-        "scan-line": {
-          "0%": { transform: "translateY(-100%)" },
-          "100%": { transform: "translateY(400%)" },
-        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -204,22 +163,11 @@ const config = {
         fifth: "moveInCircle 20s ease infinite",
         scroll:
           "scroll var(--animation-duration, 40s) var(--animation-direction, forwards) linear infinite",
-        // ---- space system ----
-        twinkle: "twinkle 4s ease-in-out infinite",
-        "nebula-drift": "nebula-drift 44s ease-in-out infinite",
-        "nebula-drift-slow": "nebula-drift-slow 68s ease-in-out infinite",
-        "orbit-spin": "orbit-spin 28s linear infinite",
-        "orbit-spin-slow": "orbit-spin 90s linear infinite",
-        "pulse-glow": "pulse-glow 6s ease-in-out infinite",
-        "float-y": "float-y 7s ease-in-out infinite",
-        "beam-sweep": "beam-sweep 6s ease-in-out infinite",
-        "scan-line": "scan-line 9s linear infinite",
       },
     },
   },
   plugins: [
     require("tailwindcss-animate"),
-    addVariablesForColors,
     function ({ matchUtilities, theme }: any) {
       matchUtilities(
         {
@@ -244,16 +192,5 @@ const config = {
     },
   ],
 } satisfies Config;
-
-function addVariablesForColors({ addBase, theme }: any) {
-  let allColors = flattenColorPalette(theme("colors"));
-  let newVars = Object.fromEntries(
-    Object.entries(allColors).map(([key, val]) => [`--${key}`, val])
-  );
-
-  addBase({
-    ":root": newVars,
-  });
-}
 
 export default config;

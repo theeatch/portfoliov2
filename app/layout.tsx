@@ -1,26 +1,17 @@
 import type { Metadata } from "next";
-import { Inter, Space_Grotesk, JetBrains_Mono } from "next/font/google";
+import { Outfit, Nunito, Fraunces, Lora } from "next/font/google";
 
 import "./globals.css";
 import { ThemeProvider } from "./provider";
 
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-sans",
-  display: "swap",
-});
-
-const spaceGrotesk = Space_Grotesk({
-  subsets: ["latin"],
-  variable: "--font-display",
-  display: "swap",
-});
-
-const jetbrainsMono = JetBrains_Mono({
-  subsets: ["latin"],
-  variable: "--font-mono",
-  display: "swap",
-});
+// One pairing per world, swapped by CSS variables (see globals.css):
+//   ocean : Outfit (round, fluid headings) + Nunito (soft, rounded text)
+//   forest: Fraunces (organic, soft-serif headings) + Lora (warm book text)
+// The forest pair is not preloaded: it is only fetched if that theme is used.
+const outfit = Outfit({ subsets: ["latin"], variable: "--font-outfit", display: "swap" });
+const nunito = Nunito({ subsets: ["latin"], variable: "--font-nunito", display: "swap" });
+const fraunces = Fraunces({ subsets: ["latin"], variable: "--font-fraunces", display: "swap", preload: false });
+const lora = Lora({ subsets: ["latin"], variable: "--font-lora", display: "swap", preload: false });
 
 export const metadata: Metadata = {
   title: "Dhruv Negi — Software Developer Engineer",
@@ -36,7 +27,10 @@ export const metadata: Metadata = {
 
 export const viewport = {
   themeColor: "#05070F",
-  colorScheme: "dark",
+  colorScheme: "dark light",
+  viewportFit: "cover",
+  width: "device-width",
+  initialScale: 1,
 };
 
 export default function RootLayout({
@@ -47,15 +41,19 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <link rel="icon" href="/logopic.png" sizes="any" />
+        <noscript>
+          <style>{`#boot{display:none!important}`}</style>
+        </noscript>
+        <link rel="icon" href="/opt/logo.png" sizes="64x64" />
       </head>
       <body
-        className={`${inter.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable} ${inter.className} scroll-smooth antialiased`}
+        className={`${outfit.variable} ${nunito.variable} ${fraunces.variable} ${lora.variable} font-sans antialiased`}
       >
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"
-          forcedTheme="dark"
+          themes={["dark", "light"]}
+          enableSystem={false}
           disableTransitionOnChange
         >
           {children}

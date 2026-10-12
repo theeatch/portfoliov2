@@ -10,7 +10,7 @@ export const TextGenerateEffect = ({
 }: {
   words: string;
   className?: string;
-  /** index of the first word that takes the nebula gradient */
+  /** index of the first word that takes the brand gradient */
   accentFrom?: number;
 }) => {
   const [scope, animate] = useAnimate();
@@ -42,8 +42,8 @@ export const TextGenerateEffect = ({
               className={cn(
                 "inline-block opacity-0 [filter:blur(6px)]",
                 accent
-                  ? "bg-gradient-to-br from-nebula-ice via-nebula-cyan to-nebula-violet bg-clip-text text-transparent"
-                  : "heading-cosmic"
+                  ? "bg-gradient-to-br from-brand-soft via-brand to-accent bg-clip-text text-transparent"
+                  : "heading-grad"
               )}
               style={{ transform: "translateY(8px)" }}
             >

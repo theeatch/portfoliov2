@@ -1,6 +1,18 @@
 import {withSentryConfig} from '@sentry/nextjs';
 /** @type {import('next').NextConfig} */
-const nextConfig = {};
+const nextConfig = {
+  // import only the icons/animation helpers actually used, not whole packages
+  experimental: {
+    optimizePackageImports: [
+      "react-icons/fa",
+      "react-icons/fa6",
+      "react-icons/si",
+      "react-icons/io5",
+      "react-icons/lu",
+      "framer-motion",
+    ],
+  },
+};
 
 export default withSentryConfig(withSentryConfig(nextConfig, {
 // For all available options, see:
@@ -16,9 +28,6 @@ project: "javascript-nextjs",
 
 // Upload a larger set of source maps for prettier stack traces (increases build time)
 widenClientFileUpload: true,
-
-// Transpiles SDK to be compatible with IE11 (increases bundle size)
-transpileClientSDK: true,
 
 // Uncomment to route browser requests to Sentry through a Next.js rewrite to circumvent ad-blockers.
 // This can increase your server load as well as your hosting bill.

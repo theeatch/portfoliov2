@@ -25,7 +25,7 @@ type Particle = {
 };
 
 const COLORS = [
-  "228, 236, 255", // starlight
+  "228, 236, 255", // ink
   "125, 211, 252", // ice
   "56, 189, 248", // cyan
   "167, 139, 250", // violet

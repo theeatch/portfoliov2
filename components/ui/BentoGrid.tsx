@@ -7,7 +7,7 @@ import { FaYoutube } from "react-icons/fa6";
 
 import { cn } from "@/lib/utils";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { FaAws } from "react-icons/fa";
 import {
   SiAngular,
@@ -25,8 +25,9 @@ import {
   SiTypescript,
 } from "react-icons/si";
 
-import { BackgroundGradientAnimation } from "./GradientBg";
-import GridGlobe from "./GridGlobe";
+import { FaLocationDot } from "react-icons/fa6";
+import { useWorld } from "@/lib/useWorld";
+import { Leaf } from "@/components/world/art";
 import MagicButton from "../MagicButton";
 import { contactEmail } from "@/data";
 import ParticleBurst from "./ParticleBurst";
@@ -63,8 +64,11 @@ export const BentoGridItem = ({
   imgClassName,
   titleClassName,
   spareImg,
+  delay = 0,
 }: {
   className?: string;
+  /** seconds before the card flies in */
+  delay?: number;
   id: number;
   title?: string | React.ReactNode;
   description?: string | React.ReactNode;
@@ -73,6 +77,8 @@ export const BentoGridItem = ({
   titleClassName?: string;
   spareImg?: string;
 }) => {
+  const reduced = useReducedMotion();
+  const { forest } = useWorld();
   const [copied, setCopied] = useState(false);
   // bumping this re-fires the burst, so repeat copies still celebrate
   const [burst, setBurst] = useState(0);
@@ -118,21 +124,21 @@ export const BentoGridItem = ({
   };
 
   return (
-    <div
+    <motion.div
+      // the tech cards are dragged sideways: that must not travel
+      data-no-travel={id === 3 ? "" : undefined}
+      initial={reduced ? undefined : { opacity: 0, y: 28 }}
+      animate={reduced ? undefined : { opacity: 1, y: 0 }}
+      transition={{ duration: 0.85, delay: 0.45 + delay, ease: [0.16, 1, 0.3, 1] }}
       className={cn(
-        "group/bento glow-ring relative row-span-1 flex flex-col justify-between overflow-hidden rounded-3xl border border-white/[0.08] transition duration-300",
+        "group/bento glow-ring surface-card relative row-span-1 flex flex-col justify-between overflow-hidden rounded-3xl border border-hair/[0.12]",
         className
       )}
-      style={{
-        background:
-          "linear-gradient(158deg, rgba(19,26,51,0.72) 0%, rgba(8,12,27,0.9) 55%, rgba(4,6,14,0.95) 100%)",
-        backdropFilter: "blur(12px)",
-      }}
     >
-      {/* card-level nebula bloom, brightens on hover */}
+      {/* card-level glow, brightens on hover */}
       <div
         aria-hidden
-        className="pointer-events-none absolute -right-16 -top-16 h-48 w-48 rounded-full opacity-40 blur-3xl transition-opacity duration-500 group-hover/bento:opacity-80"
+        className="pointer-events-none absolute -right-16 -top-16 h-48 w-48 rounded-full opacity-50 transition-opacity duration-500 group-hover/bento:opacity-80"
         style={{
           background:
             id % 2 === 0
@@ -158,7 +164,7 @@ export const BentoGridItem = ({
           className="pointer-events-none absolute inset-x-0 top-0 z-[5] h-[62%]"
           style={{
             background:
-              "linear-gradient(to bottom, rgba(4,6,14,0.92) 0%, rgba(4,6,14,0.6) 55%, transparent 100%)",
+              "linear-gradient(to bottom, rgb(var(--card-c) / 0.92) 0%, rgb(var(--card-c) / 0.6) 55%, transparent 100%)",
           }}
         />
       )}
@@ -185,10 +191,10 @@ export const BentoGridItem = ({
 
           <span className="absolute inset-0 flex scale-90 flex-col items-center justify-center gap-3 opacity-0 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/bento:scale-100 group-hover/bento:opacity-100">
             <FaYoutube className="h-14 w-14 text-[#FF0033] drop-shadow-[0_0_26px_rgba(255,0,51,0.6)] transition-transform duration-500 group-hover/bento:animate-pulse md:h-16 md:w-16" />
-            <span className="font-mono text-[10px] uppercase tracking-[0.26em] text-starlight/85">
+            <span className="font-mono text-[10px] uppercase tracking-[0.26em] text-ink/85">
               DH&apos;s Piano Land
             </span>
-            <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-nebula-cyan/70">
+            <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-brand">
               Click to listen →
             </span>
           </span>
@@ -199,11 +205,12 @@ export const BentoGridItem = ({
         <div className="mask-fade-bottom absolute h-full w-full">
           {img && (
             <img
+              decoding="async"
               src={img}
               alt=""
               className={cn(
                 imgClassName,
-                "duotone-nebula object-cover object-center opacity-55 transition-opacity duration-500 group-hover/bento:opacity-75"
+                "duotone object-cover object-center opacity-55 transition-opacity duration-500 group-hover/bento:opacity-75"
               )}
             />
           )}
@@ -215,26 +222,14 @@ export const BentoGridItem = ({
         >
           {spareImg && (
             <img
+              decoding="async"
               src={spareImg}
               alt=""
-              className="duotone-nebula h-full w-full object-cover object-center opacity-50"
+              className="duotone h-full w-full object-cover object-center opacity-50"
             />
           )}
         </div>
-        {id === 6 && (
-          <BackgroundGradientAnimation
-            gradientBackgroundStart="rgb(8, 12, 27)"
-            gradientBackgroundEnd="rgb(3, 5, 13)"
-            firstColor="56, 189, 248"
-            secondColor="167, 139, 250"
-            thirdColor="34, 211, 238"
-            fourthColor="99, 102, 241"
-            fifthColor="125, 211, 252"
-            pointerColor="56, 189, 248"
-          >
-            <div className="pointer-events-none absolute inset-0 z-50 flex items-center justify-center px-4 text-center text-3xl font-bold text-white md:text-4xl lg:text-7xl"></div>
-          </BackgroundGradientAnimation>
-        )}
+        {id === 6 && <div aria-hidden className="aurora-card absolute inset-0" />}
 
         <div
           className={cn(
@@ -249,7 +244,7 @@ export const BentoGridItem = ({
                   floating along the bottom. Both sit outside the drag band so
                   neither can be buried by the pile. */}
               <div className="pointer-events-none absolute inset-0 z-20 flex flex-col justify-between py-4">
-                <p className="mx-auto rounded-full bg-space-900/70 px-4 py-1 text-center font-mono text-[10px] uppercase tracking-[0.22em] text-nebula-cyan/80 backdrop-blur-sm">
+                <p className="mx-auto rounded-full bg-surface-900/70 px-4 py-1 text-center font-mono text-[10px] uppercase tracking-[0.22em] text-brand/80 backdrop-blur-sm">
                   My evergrowing tech stack
                 </p>
 
@@ -258,7 +253,7 @@ export const BentoGridItem = ({
                     (Icon, i) => (
                       <motion.div
                         key={i}
-                        className="text-2xl text-nebula-ice/90 drop-shadow-[0_0_12px_rgba(56,189,248,0.5)] md:text-3xl lg:text-4xl"
+                        className="text-2xl text-brand-soft/90 drop-shadow-[0_0_12px_rgba(56,189,248,0.5)] md:text-3xl lg:text-4xl"
                         variants={iconVariants}
                         initial="initial"
                         animate="animate"
@@ -279,7 +274,7 @@ export const BentoGridItem = ({
                   resetKey={stackReset}
                   onDragged={() => setStackMoved(true)}
                 >
-                  <h3 className="text-center text-2xl font-bold text-nebula-ice/80">
+                  <h3 className="text-center text-2xl font-bold text-brand-soft">
                     {item.title}
                   </h3>
                 </DraggableCardBody>
@@ -295,7 +290,7 @@ export const BentoGridItem = ({
                 aria-label="Reset the tech cards to their starting positions"
                 title="Reset cards"
                 className={cn(
-                  "absolute right-3 top-3 z-30 flex h-8 w-8 items-center justify-center rounded-full border border-nebula-cyan/25 bg-space-900/80 text-nebula-cyan/80 backdrop-blur-sm transition-all duration-300 hover:border-nebula-cyan/60 hover:text-nebula-ice hover:shadow-glow active:scale-90",
+                  "absolute right-3 top-3 z-30 flex h-8 w-8 items-center justify-center rounded-full border border-brand/25 bg-surface-900/80 text-brand/80 backdrop-blur-sm transition-all duration-300 hover:border-brand/60 hover:text-brand-soft hover:shadow-glow active:scale-90",
                   stackMoved
                     ? "pointer-events-auto opacity-100"
                     : "pointer-events-none opacity-0"
@@ -314,17 +309,68 @@ export const BentoGridItem = ({
                   "[&>*]:transition-all [&>*]:duration-500 group-hover/bento:[&>*]:-translate-y-2 group-hover/bento:[&>*]:opacity-0"
               )}
             >
-              <div className="z-10 font-sans text-sm font-light italic text-nebula-cyan/70 md:max-w-32 md:text-xs lg:text-base">
+              <div className="z-10 font-sans text-sm font-light italic text-brand md:max-w-32 md:text-xs lg:text-base">
                 {description}
               </div>
-              <div className="z-10 max-w-96 font-sans text-lg font-bold text-starlight lg:text-3xl">
+              <div className="z-10 max-w-96 font-sans text-lg font-bold text-ink lg:text-3xl">
                 {title}
               </div>
             </div>
           )}
 
           {/* the 3d globe */}
-          {id === 2 && <GridGlobe />}
+          {id === 2 && (
+            <div aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 top-[42%] overflow-hidden">
+              {/* ripples on the water / rings in the wood, with a pin where I am */}
+              <div className="absolute left-1/2 top-[58%] h-0 w-0">
+                {[0, 1, 2].map((i) =>
+                  forest ? (
+                    <span
+                      key={i}
+                      className="absolute rounded-full border border-brand/40"
+                      style={{ width: 70 + i * 70, height: 70 + i * 70, left: -(35 + i * 35), top: -(35 + i * 35) }}
+                    />
+                  ) : (
+                    <span
+                      key={i}
+                      className="a-ripple absolute rounded-full border-2 border-brand/60"
+                      style={{ width: 200, height: 200, left: -100, top: -100, ["--delay" as string]: `${-i * 1.5}s` }}
+                    />
+                  )
+                )}
+                <span className="absolute -left-4 -top-9 flex h-8 w-8 items-center justify-center rounded-full bg-brand text-lg text-white shadow-glow">
+                  <FaLocationDot />
+                </span>
+              </div>
+              <span className="absolute inset-x-0 bottom-3 text-center font-mono text-[10px] uppercase tracking-[0.22em] text-brand">
+                28.46° N · 77.03° E
+              </span>
+            </div>
+          )}
+          {id === 1 && (
+            <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
+              {forest ? (
+                <>
+                  <Leaf className="absolute -right-6 -top-4 w-40 rotate-[28deg] opacity-30" color="#4ea05f" />
+                  <Leaf className="absolute right-24 top-24 w-28 -rotate-[24deg] opacity-25" color="#6cbf6c" />
+                  <Leaf className="absolute -bottom-8 right-8 w-36 rotate-[200deg] opacity-30" color="#3f9456" />
+                </>
+              ) : (
+                <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMax slice" className="absolute inset-0 h-full w-full opacity-70">
+                  {[0, 1, 2, 3, 4, 5].map((i) => (
+                    <path
+                      key={i}
+                      d={`M-20 ${120 + i * 34} Q 60 ${90 + i * 34} 130 ${120 + i * 34} T 270 ${120 + i * 34} T 420 ${120 + i * 34}`}
+                      fill="none"
+                      stroke="rgb(var(--c-brand))"
+                      strokeOpacity={0.12 + i * 0.05}
+                      strokeWidth="2"
+                    />
+                  ))}
+                </svg>
+              )}
+            </div>
+          )}
 
           {id === 6 && (
             <div className="relative mt-5">
@@ -338,12 +384,12 @@ export const BentoGridItem = ({
                 icon={<IoCopyOutline />}
                 position="left"
                 handleClick={handleCopy}
-                otherClasses="!bg-space-600/90"
+                otherClasses="!bg-surface-600/90"
               />
             </div>
           )}
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };

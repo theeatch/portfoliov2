@@ -2,11 +2,13 @@
 
 import { motion, useReducedMotion } from "framer-motion";
 import { cn } from "@/lib/utils";
+import { FaLeaf, FaWater } from "react-icons/fa6";
+import { useWorld } from "@/lib/useWorld";
 
 /**
- * Shared section header: a telemetry eyebrow, a starlight headline with a
- * nebula-gradient accent phrase, and a horizon rule that fades in from the
- * centre — so every section reads like a new waypoint on the same journey.
+ * Shared scene header: a telemetry eyebrow, a ink headline with a
+ * brand-gradient accent phrase, and a horizon rule that fades in from the
+ * centre. Scenes mount fresh on every visit, so it animates on mount.
  */
 const SectionHeading = ({
   eyebrow,
@@ -22,37 +24,30 @@ const SectionHeading = ({
   className?: string;
 }) => {
   const reduced = useReducedMotion();
+  const { forest } = useWorld();
 
-  const rise = reduced
-    ? {}
-    : {
-        initial: { opacity: 0, y: 24 },
-        whileInView: { opacity: 1, y: 0 },
-        viewport: { once: true, margin: "-80px" },
-      };
+  const rise = (delay: number) =>
+    reduced
+      ? {}
+      : {
+          initial: { opacity: 0, y: 24 },
+          animate: { opacity: 1, y: 0 },
+          transition: { duration: 0.8, delay: 0.35 + delay, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] },
+        };
 
   return (
     <div className={cn("flex flex-col items-center text-center", className)}>
-      <motion.div
-        {...rise}
-        transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-        className="flex items-center gap-3"
-      >
-        <span className="h-[1px] w-8 bg-gradient-to-r from-transparent to-nebula-cyan/60" />
+      <motion.div {...rise(0)} className="flex items-center gap-3">
+        {forest ? <FaLeaf className="h-3.5 w-3.5 text-brand" /> : <FaWater className="h-3.5 w-3.5 text-brand" />}
         <p className="eyebrow">{eyebrow}</p>
-        <span className="h-[1px] w-8 bg-gradient-to-l from-transparent to-nebula-cyan/60" />
       </motion.div>
 
-      <motion.h2
-        {...rise}
-        transition={{ duration: 0.7, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
-        className="heading heading-cosmic mt-5"
-      >
+      <motion.h2 {...rise(0.08)} className="heading heading-grad mt-4">
         {title}
         {accent && (
           <>
             {" "}
-            <span className="bg-gradient-to-br from-nebula-ice via-nebula-cyan to-nebula-violet bg-clip-text text-transparent">
+            <span className="bg-gradient-to-br from-brand-soft via-brand to-accent bg-clip-text text-transparent">
               {accent}
             </span>
           </>
@@ -61,9 +56,8 @@ const SectionHeading = ({
 
       {subtitle && (
         <motion.p
-          {...rise}
-          transition={{ duration: 0.7, delay: 0.16, ease: [0.16, 1, 0.3, 1] }}
-          className="mt-5 max-w-xl text-sm leading-relaxed text-white-100 md:text-base"
+          {...rise(0.16)}
+          className="mt-4 max-w-xl text-sm leading-relaxed text-white-100 md:text-base"
         >
           {subtitle}
         </motion.p>
@@ -71,10 +65,9 @@ const SectionHeading = ({
 
       <motion.span
         initial={reduced ? undefined : { scaleX: 0, opacity: 0 }}
-        whileInView={reduced ? undefined : { scaleX: 1, opacity: 1 }}
-        viewport={{ once: true, margin: "-80px" }}
-        transition={{ duration: 1.1, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-        className="horizon-line mt-8 h-[1px] w-56 md:w-72"
+        animate={reduced ? undefined : { scaleX: 1, opacity: 1 }}
+        transition={{ duration: 1.1, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
+        className="horizon-line mt-6 h-[1px] w-56 md:w-72"
       />
     </div>
   );
