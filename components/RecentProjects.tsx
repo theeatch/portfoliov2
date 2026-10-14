@@ -33,7 +33,7 @@ const RecentProjects = () => {
         eyebrow={scenes[2].tag}
         title="Things I've"
         accent="designed and shipped"
-        subtitle="Backend infrastructure, AI tooling and full-stack apps — the work I'd point at first."
+        subtitle="Backend infrastructure, AI tooling and full-stack apps; the work I'd point at first."
       />
 
       {/* staggered, like notes on a staff */}
@@ -48,7 +48,7 @@ const RecentProjects = () => {
             href={item.link}
             target="_blank"
             rel="noreferrer"
-            aria-label={`${item.title} — open project`}
+            aria-label={`${item.title}: open project`}
             className="surface-solid glow-ring group flex flex-col overflow-hidden rounded-3xl border border-hair/[0.16] shadow-orbit transition-transform duration-500 hover:-translate-y-1.5"
           >
             {/* viewscreen: always dark, like a monitor, in both themes */}

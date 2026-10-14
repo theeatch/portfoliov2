@@ -10,11 +10,11 @@ const bodoni = Bodoni_Moda({ subsets: ["latin"], variable: "--font-bodoni", disp
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
 
 export const metadata: Metadata = {
-  title: "Dhruv Negi — Software Developer Engineer",
+  title: "Dhruv Negi - Software Developer Engineer",
   description:
     "Software Developer Engineer at GoSamplify, based in Gurugram, India. REST APIs, real-time services and backend architecture in Node.js, TypeScript and Python.",
   openGraph: {
-    title: "Dhruv Negi — Software Developer Engineer",
+    title: "Dhruv Negi - Software Developer Engineer",
     description:
       "Software Developer Engineer at GoSamplify, based in Gurugram, India. REST APIs, real-time services and backend architecture in Node.js, TypeScript and Python.",
     type: "website",
