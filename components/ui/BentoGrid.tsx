@@ -26,8 +26,7 @@ import {
 } from "react-icons/si";
 
 import { FaLocationDot } from "react-icons/fa6";
-import { useWorld } from "@/lib/useWorld";
-import { Leaf } from "@/components/world/art";
+import { ARRIVE } from "@/components/journey/Scene";
 import MagicButton from "../MagicButton";
 import { contactEmail } from "@/data";
 import ParticleBurst from "./ParticleBurst";
@@ -78,7 +77,6 @@ export const BentoGridItem = ({
   spareImg?: string;
 }) => {
   const reduced = useReducedMotion();
-  const { forest } = useWorld();
   const [copied, setCopied] = useState(false);
   // bumping this re-fires the burst, so repeat copies still celebrate
   const [burst, setBurst] = useState(0);
@@ -129,7 +127,7 @@ export const BentoGridItem = ({
       data-no-travel={id === 3 ? "" : undefined}
       initial={reduced ? undefined : { opacity: 0, y: 28 }}
       animate={reduced ? undefined : { opacity: 1, y: 0 }}
-      transition={{ duration: 0.85, delay: 0.45 + delay, ease: [0.16, 1, 0.3, 1] }}
+      transition={{ duration: 0.85, delay: ARRIVE + delay, ease: [0.16, 1, 0.3, 1] }}
       className={cn(
         "group/bento glow-ring surface-card relative row-span-1 flex flex-col justify-between overflow-hidden rounded-3xl border border-hair/[0.12]",
         className
@@ -141,9 +139,7 @@ export const BentoGridItem = ({
         className="pointer-events-none absolute -right-16 -top-16 h-48 w-48 rounded-full opacity-50 transition-opacity duration-500 group-hover/bento:opacity-80"
         style={{
           background:
-            id % 2 === 0
-              ? "radial-gradient(circle, rgba(167,139,250,0.35) 0%, transparent 70%)"
-              : "radial-gradient(circle, rgba(56,189,248,0.32) 0%, transparent 70%)",
+            "radial-gradient(circle, rgb(var(--c-brand) / 0.16) 0%, transparent 70%)",
         }}
       />
 
@@ -153,7 +149,7 @@ export const BentoGridItem = ({
         className="pointer-events-none absolute inset-x-0 top-0 h-[1px] opacity-60"
         style={{
           background:
-            "linear-gradient(90deg, transparent, rgba(148,190,255,0.5), transparent)",
+            "linear-gradient(90deg, transparent, rgb(var(--c-hair) / 0.5), transparent)",
         }}
       />
 
@@ -248,12 +244,12 @@ export const BentoGridItem = ({
                   My evergrowing tech stack
                 </p>
 
-                <div className="flex w-full justify-around px-5 drop-shadow-[0_2px_10px_rgba(2,4,11,0.9)]">
+                <div className="flex w-full justify-around px-5 drop-shadow-[0_2px_10px_rgb(var(--shadow-tint)/0.6)]">
                   {[SiTypescript, SiNodedotjs, SiMysql, SiPython].map(
                     (Icon, i) => (
                       <motion.div
                         key={i}
-                        className="text-2xl text-brand-soft/90 drop-shadow-[0_0_12px_rgba(56,189,248,0.5)] md:text-3xl lg:text-4xl"
+                        className="text-2xl text-brand-soft/90 md:text-3xl lg:text-4xl"
                         variants={iconVariants}
                         initial="initial"
                         animate="animate"
@@ -321,24 +317,16 @@ export const BentoGridItem = ({
           {/* the 3d globe */}
           {id === 2 && (
             <div aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 top-[42%] overflow-hidden">
-              {/* ripples on the water / rings in the wood, with a pin where I am */}
+              {/* rings spreading out from a pin where I am */}
               <div className="absolute left-1/2 top-[58%] h-0 w-0">
-                {[0, 1, 2].map((i) =>
-                  forest ? (
-                    <span
-                      key={i}
-                      className="absolute rounded-full border border-brand/40"
-                      style={{ width: 70 + i * 70, height: 70 + i * 70, left: -(35 + i * 35), top: -(35 + i * 35) }}
-                    />
-                  ) : (
-                    <span
-                      key={i}
-                      className="a-ripple absolute rounded-full border-2 border-brand/60"
-                      style={{ width: 200, height: 200, left: -100, top: -100, ["--delay" as string]: `${-i * 1.5}s` }}
-                    />
-                  )
-                )}
-                <span className="absolute -left-4 -top-9 flex h-8 w-8 items-center justify-center rounded-full bg-brand text-lg text-white shadow-glow">
+                {[0, 1, 2].map((i) => (
+                  <span
+                    key={i}
+                    className="ping-ring absolute rounded-full border-2 border-brand/60"
+                    style={{ width: 200, height: 200, left: -100, top: -100, ["--delay" as string]: `${-i * 1.5}s` }}
+                  />
+                ))}
+                <span className="absolute -left-4 -top-9 flex h-8 w-8 items-center justify-center rounded-full bg-brand text-lg text-surface-900 shadow-glow">
                   <FaLocationDot />
                 </span>
               </div>
@@ -349,26 +337,21 @@ export const BentoGridItem = ({
           )}
           {id === 1 && (
             <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
-              {forest ? (
-                <>
-                  <Leaf className="absolute -right-6 -top-4 w-40 rotate-[28deg] opacity-30" color="#4ea05f" />
-                  <Leaf className="absolute right-24 top-24 w-28 -rotate-[24deg] opacity-25" color="#6cbf6c" />
-                  <Leaf className="absolute -bottom-8 right-8 w-36 rotate-[200deg] opacity-30" color="#3f9456" />
-                </>
-              ) : (
-                <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMax slice" className="absolute inset-0 h-full w-full opacity-70">
-                  {[0, 1, 2, 3, 4, 5].map((i) => (
-                    <path
-                      key={i}
-                      d={`M-20 ${120 + i * 34} Q 60 ${90 + i * 34} 130 ${120 + i * 34} T 270 ${120 + i * 34} T 420 ${120 + i * 34}`}
-                      fill="none"
-                      stroke="rgb(var(--c-brand))"
-                      strokeOpacity={0.12 + i * 0.05}
-                      strokeWidth="2"
-                    />
-                  ))}
-                </svg>
-              )}
+              <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMax slice" className="absolute inset-0 h-full w-full">
+                {/* a staff, running behind the copy */}
+                {[0, 1, 2, 3, 4].map((i) => (
+                  <line
+                    key={i}
+                    x1="0"
+                    x2="400"
+                    y1={150 + i * 26}
+                    y2={150 + i * 26}
+                    stroke="rgb(var(--c-brand))"
+                    strokeOpacity={0.22}
+                    strokeWidth="1.5"
+                  />
+                ))}
+              </svg>
             </div>
           )}
 

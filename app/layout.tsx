@@ -1,17 +1,13 @@
 import type { Metadata } from "next";
-import { Outfit, Nunito, Fraunces, Lora } from "next/font/google";
+import { Bodoni_Moda, Inter } from "next/font/google";
 
 import "./globals.css";
 import { ThemeProvider } from "./provider";
 
-// One pairing per world, swapped by CSS variables (see globals.css):
-//   ocean : Outfit (round, fluid headings) + Nunito (soft, rounded text)
-//   forest: Fraunces (organic, soft-serif headings) + Lora (warm book text)
-// The forest pair is not preloaded: it is only fetched if that theme is used.
-const outfit = Outfit({ subsets: ["latin"], variable: "--font-outfit", display: "swap" });
-const nunito = Nunito({ subsets: ["latin"], variable: "--font-nunito", display: "swap" });
-const fraunces = Fraunces({ subsets: ["latin"], variable: "--font-fraunces", display: "swap", preload: false });
-const lora = Lora({ subsets: ["latin"], variable: "--font-lora", display: "swap", preload: false });
+// One pairing for both themes (see globals.css): Bodoni Moda, the high-contrast
+// engraver's serif of printed scores, for titles; Inter for everything else.
+const bodoni = Bodoni_Moda({ subsets: ["latin"], variable: "--font-bodoni", display: "swap" });
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
 
 export const metadata: Metadata = {
   title: "Dhruv Negi — Software Developer Engineer",
@@ -26,7 +22,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport = {
-  themeColor: "#05070F",
+  themeColor: "#000000",
   colorScheme: "dark light",
   viewportFit: "cover",
   width: "device-width",
@@ -47,7 +43,7 @@ export default function RootLayout({
         <link rel="icon" href="/opt/logo.png" sizes="64x64" />
       </head>
       <body
-        className={`${outfit.variable} ${nunito.variable} ${fraunces.variable} ${lora.variable} font-sans antialiased`}
+        className={`${bodoni.variable} ${inter.variable} font-sans antialiased`}
       >
         <ThemeProvider
           attribute="class"

@@ -4,6 +4,9 @@ import { useReducedMotion } from "framer-motion";
 
 import { cn } from "@/lib/utils";
 
+/** seconds after a stop is chosen before its content starts to appear: the camera is still landing */
+export const ARRIVE = 1.0;
+
 /**
  * Shared frame for every scene: clears the nav above and the HUD below, centres
  * the content vertically when it is shorter than the screen, and lets the
@@ -40,7 +43,7 @@ export const useRise = () => {
           animate: { opacity: 1, y: 0 },
           transition: {
             duration: 0.85,
-            delay: 0.4 + i * 0.09,
+            delay: ARRIVE + i * 0.08,
             ease: [0.16, 1, 0.3, 1] as [number, number, number, number],
           },
         };

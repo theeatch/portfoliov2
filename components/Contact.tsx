@@ -1,14 +1,13 @@
 "use client";
 
 import { useState } from "react";
-import { FaGithub, FaLinkedinIn, FaYoutube, FaLocationArrow, FaLeaf, FaWater } from "react-icons/fa6";
+import { FaGithub, FaLinkedinIn, FaYoutube, FaLocationArrow, FaMusic } from "react-icons/fa6";
 import { IoCopyOutline } from "react-icons/io5";
 import { motion } from "framer-motion";
 
 import { socialMedia, contactEmail, scenes } from "@/data";
 import MagicButton from "./MagicButton";
 import ParticleBurst from "./ui/ParticleBurst";
-import { useWorld } from "@/lib/useWorld";
 import { Scene, useRise } from "./journey/Scene";
 
 const ICONS = {
@@ -17,10 +16,9 @@ const ICONS = {
   youtube: FaYoutube,
 };
 
-/** Back at the surface: the open channel, and everywhere else I can be found. */
+/** Bar IV, the final bar: the open channel, and everywhere else I can be found. */
 const Contact = () => {
   const rise = useRise();
-  const { forest } = useWorld();
   const [copied, setCopied] = useState(false);
   const [burst, setBurst] = useState(0);
 
@@ -34,15 +32,13 @@ const Contact = () => {
   return (
     <Scene className="items-center pb-40 text-center">
       <motion.div {...rise(0)} className="mb-5 flex items-center gap-3">
-        {forest ? <FaLeaf className="h-3.5 w-3.5 text-brand" /> : <FaWater className="h-3.5 w-3.5 text-brand" />}
-        <p className="eyebrow">{scenes[4].tag[forest ? 1 : 0]}</p>
+        <FaMusic className="h-3 w-3 text-brand" />
+        <p className="eyebrow">{scenes[4].tag}</p>
       </motion.div>
 
       <motion.h2 {...rise(1)} className="heading heading-grad max-w-4xl lg:text-[3.4rem]">
         Got something{" "}
-        <span className="bg-gradient-to-br from-brand-soft via-brand to-accent bg-clip-text text-transparent">
-          worth building?
-        </span>
+        <em className="font-normal italic text-brand-soft">worth building?</em>
       </motion.h2>
 
       <motion.p
@@ -108,7 +104,7 @@ const Contact = () => {
         {...rise(9, 8)}
         className="mt-10 font-mono text-[11px] tracking-wide text-white-100 md:text-xs"
       >
-        © {new Date().getFullYear()} Dhruv Negi — {forest ? "grown in the forest" : "built in the deep"}
+        © {new Date().getFullYear()} Dhruv Negi — <em className="italic">fine</em>
       </motion.p>
     </Scene>
   );

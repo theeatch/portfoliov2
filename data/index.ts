@@ -13,62 +13,16 @@ export const contactEmail = "dhruvnegiclub03@gmail.com";
  * The journey, in order. `id` doubles as the URL hash, so /#projects lands on
  * that scene. "home" is reached through the DH mark.
  *
- * `at` is the camera station in screen-heights/widths: x grows to the right, y
- * grows downward (deeper in the ocean, lower in the tree). The path is:
- * surface -> dive -> swim right -> dive -> back up.
- *
- * `place` / `tag` name the same stop in each world (ocean | forest).
+ * Stop 0 is the keyboard seen from above; stops 1-4 are the four measures of
+ * the score (see lib/score.ts for where they sit on the page).
  */
 export const scenes = [
-  {
-    id: "home",
-    label: "Home",
-    code: "00",
-    at: { x: 0, y: 0 },
-    place: ["Surface", "Canopy"],
-    tag: ["The view from above", "The view from above"],
-  },
-  {
-    id: "about",
-    label: "About",
-    code: "01",
-    at: { x: 0, y: 1 },
-    place: ["Shallows", "Crown"],
-    tag: ["Shallows · Who I am", "Crown · Who I am"],
-  },
-  {
-    id: "projects",
-    label: "Projects",
-    code: "02",
-    at: { x: 1, y: 1 },
-    place: ["Reef", "Branch"],
-    tag: ["Reef · The work", "Branch · The work"],
-  },
-  {
-    id: "experience",
-    label: "Experience",
-    code: "03",
-    at: { x: 1, y: 2 },
-    place: ["Submarine", "Hollow"],
-    tag: ["Submarine · The log", "Hollow · Growth rings"],
-  },
-  {
-    id: "contact",
-    label: "Contact",
-    code: "04",
-    at: { x: 1, y: 0.45 },
-    place: ["Surface", "Treetop"],
-    tag: ["Surface · Say hello", "Treetop · Say hello"],
-  },
+  { id: "home", label: "Home", code: "00", tag: "Overture" },
+  { id: "about", label: "About", code: "01", tag: "Bar I · Who I am" },
+  { id: "projects", label: "Projects", code: "02", tag: "Bar II · The work" },
+  { id: "experience", label: "Experience", code: "03", tag: "Bar III · The log" },
+  { id: "contact", label: "Contact", code: "04", tag: "Bar IV · Say hello" },
 ] as const;
-
-/**
- * Where the camera sits for stop `i`. The last stop differs by world: in the
- * ocean you swim back up to just under the waves, but in the forest the canopy
- * is a dark mass from above, so contact sits higher, in the open sky above it.
- */
-export const stationAt = (i: number, forest: boolean) =>
-  forest && i === scenes.length - 1 ? { x: 1, y: 0.12 } : scenes[i].at;
 
 export type SceneId = (typeof scenes)[number]["id"];
 

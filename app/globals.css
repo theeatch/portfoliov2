@@ -4,129 +4,135 @@
 
 @layer base {
   /* ------------------------------------------------------------------
-   * Two worlds, one token set.
-   *   :root / .dark  -> the ocean (default): ocean blue is the brand colour
-   *   .light         -> the forest:          green is the brand colour
+   * Two themes, one token set, no colour: a piano, in black and in white.
+   *   :root / .dark  -> black room, ivory keys
+   *   .light         -> the room inverted: white room, outlined ivory keys, ebony sharps
    * Colours are space-delimited channel triples so Tailwind can add alpha:
    * use rgb(var(--x) / a), never rgba(var(--x), a).
    * ------------------------------------------------------------------ */
   :root,
   .dark {
-    --background: 205 85% 8%;
-    --foreground: 200 90% 95%;
-    --card: 205 85% 8%;
-    --card-foreground: 200 90% 95%;
-    --popover: 205 85% 8%;
-    --popover-foreground: 200 90% 95%;
-    --primary: 200 90% 95%;
-    --primary-foreground: 205 85% 8%;
-    --secondary: 205 60% 14%;
-    --secondary-foreground: 200 90% 95%;
-    --muted: 205 60% 14%;
-    --muted-foreground: 200 30% 70%;
-    --accent-foreground: 200 90% 95%;
+    --background: 0 0% 0%;
+    --foreground: 0 0% 96%;
+    --card: 0 0% 4%;
+    --card-foreground: 0 0% 96%;
+    --popover: 0 0% 4%;
+    --popover-foreground: 0 0% 96%;
+    --primary: 0 0% 96%;
+    --primary-foreground: 0 0% 4%;
+    --secondary: 0 0% 9%;
+    --secondary-foreground: 0 0% 96%;
+    --muted: 0 0% 9%;
+    --muted-foreground: 0 0% 62%;
+    --accent-foreground: 0 0% 96%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
-    --border: 202 60% 22%;
-    --input: 202 60% 22%;
-    --ring: 199 89% 60%;
+    --border: 0 0% 18%;
+    --input: 0 0% 18%;
+    --ring: 0 0% 80%;
     --radius: 0.5rem;
 
-    --bg-void: 1 10 20;
-    --bg-deep: 3 18 34;
-    --bg-card: 10 40 68;
-    --ink: 224 242 254;
-    --accent-cyan: 56 189 248;
-    --hairline: 125 200 240;
-    --c-hair: 125 200 240;
+    --bg-void: 0 0 0;
+    --bg-deep: 0 0 0;
+    --ink: 245 245 245;
+    --c-hair: 255 255 255;
 
-    --c-surface-900: 1 12 24;
-    --c-surface-800: 3 18 34;
-    --c-surface-700: 6 28 50;
-    --c-surface-600: 10 40 68;
-    --c-surface-500: 16 56 92;
-    --c-surface-400: 24 74 116;
+    --c-surface-900: 0 0 0;
+    --c-surface-800: 8 8 8;
+    --c-surface-700: 15 15 15;
+    --c-surface-600: 24 24 24;
+    --c-surface-500: 36 36 36;
+    --c-surface-400: 52 52 52;
 
-    /* ocean blue, with a teal accent */
-    --c-brand: 56 189 248;
-    --c-brand-soft: 125 211 252;
-    --c-brand-glow: 34 211 238;
-    --c-accent: 45 212 191;
-    --c-accent-deep: 14 116 144;
-    --c-accent-soft: 153 246 228;
+    --c-brand: 245 245 245;
+    --c-brand-soft: 200 200 200;
+    --c-brand-glow: 255 255 255;
+    --c-accent: 150 150 150;
+    --c-accent-deep: 70 70 70;
+    --c-accent-soft: 190 190 190;
 
-    --c-muted: 150 190 214;
-    --c-muted-2: 190 222 240;
+    --c-muted: 160 160 160;
+    --c-muted-2: 205 205 205;
 
-    --card-a: 14 52 86;
-    --card-b: 7 32 58;
-    --card-c: 4 22 42;
-    --shadow-tint: 0 8 18;
+    --card-a: 20 20 20;
+    --card-b: 10 10 10;
+    --card-c: 4 4 4;
+    --shadow-tint: 0 0 0;
+
+    /* the piano */
+    --page: 10 10 10;
+    --key-white: 244 244 244;
+    --key-white-down: 168 168 168;
+    --key-black: 14 14 14;
+    --key-black-down: 70 70 70;
+    --key-edge: 255 255 255;
     color-scheme: dark;
   }
 
   .light {
-    --background: 90 45% 94%;
-    --foreground: 140 35% 12%;
+    --background: 0 0% 100%;
+    --foreground: 0 0% 4%;
     --card: 0 0% 100%;
-    --card-foreground: 140 35% 12%;
+    --card-foreground: 0 0% 4%;
     --popover: 0 0% 100%;
-    --popover-foreground: 140 35% 12%;
-    --primary: 140 35% 12%;
+    --popover-foreground: 0 0% 4%;
+    --primary: 0 0% 4%;
     --primary-foreground: 0 0% 98%;
-    --secondary: 95 35% 88%;
-    --secondary-foreground: 140 35% 12%;
-    --muted: 95 35% 88%;
-    --muted-foreground: 140 15% 35%;
-    --accent-foreground: 140 35% 12%;
-    --border: 100 25% 78%;
-    --input: 100 25% 78%;
-    --ring: 142 70% 29%;
+    --secondary: 0 0% 94%;
+    --secondary-foreground: 0 0% 4%;
+    --muted: 0 0% 94%;
+    --muted-foreground: 0 0% 38%;
+    --accent-foreground: 0 0% 4%;
+    --border: 0 0% 82%;
+    --input: 0 0% 82%;
+    --ring: 0 0% 20%;
 
-    --bg-void: 222 238 205;
-    --bg-deep: 232 244 218;
-    --bg-card: 255 255 252;
-    --ink: 18 44 26;
-    --accent-cyan: 21 128 61;
-    --hairline: 30 70 40;
-    --c-hair: 30 70 40;
+    --bg-void: 255 255 255;
+    --bg-deep: 255 255 255;
+    --ink: 10 10 10;
+    --c-hair: 0 0 0;
 
-    --c-surface-900: 252 254 249;
-    --c-surface-800: 244 250 236;
-    --c-surface-700: 236 245 225;
-    --c-surface-600: 224 238 208;
-    --c-surface-500: 208 227 188;
-    --c-surface-400: 188 212 165;
+    --c-surface-900: 255 255 255;
+    --c-surface-800: 248 248 248;
+    --c-surface-700: 241 241 241;
+    --c-surface-600: 231 231 231;
+    --c-surface-500: 218 218 218;
+    --c-surface-400: 200 200 200;
 
-    /* leaf green, with an amber / bark accent */
-    --c-brand: 21 128 61;
-    --c-brand-soft: 4 120 87;
-    --c-brand-glow: 77 124 15;
-    --c-accent: 161 98 7;
-    --c-accent-deep: 120 53 15;
-    --c-accent-soft: 146 64 14;
+    --c-brand: 10 10 10;
+    --c-brand-soft: 60 60 60;
+    --c-brand-glow: 0 0 0;
+    --c-accent: 105 105 105;
+    --c-accent-deep: 185 185 185;
+    --c-accent-soft: 70 70 70;
 
-    --c-muted: 60 84 66;
-    --c-muted-2: 40 62 46;
+    --c-muted: 95 95 95;
+    --c-muted-2: 50 50 50;
 
-    --card-a: 255 255 252;
-    --card-b: 249 252 243;
-    --card-c: 238 246 228;
-    --shadow-tint: 30 60 35;
+    --card-a: 255 255 255;
+    --card-b: 250 250 250;
+    --card-c: 243 243 243;
+    --shadow-tint: 0 0 0;
+
+    /* the keys keep their real roles (ivory naturals, ebony sharps): swapping them
+       would merge both layers into one dark mass. The white naturals get an ink outline instead. */
+    --page: 247 247 247;
+    --key-white: 255 255 255;
+    --key-white-down: 200 200 200;
+    --key-black: 12 12 12;
+    --key-black-down: 85 85 85;
+    --key-edge: 0 0 0;
     color-scheme: light;
   }
 }
 
 @layer base {
-  /* the font variables from next/font live on <body>, so the pairing is chosen
-     here (not on :root, where they would not resolve) */
+  /* the font variables from next/font live on <body>, so the pairing is set
+     here (not on :root, where they would not resolve): an engraved serif for
+     titles, a plain sans for text */
   body {
-    --font-heading: var(--font-outfit);
-    --font-body: var(--font-nunito);
-  }
-  .light body {
-    --font-heading: var(--font-fraunces);
-    --font-body: var(--font-lora);
+    --font-heading: var(--font-bodoni);
+    --font-body: var(--font-inter);
   }
 
   * {
@@ -136,7 +142,7 @@
   html,
   body {
     height: 100%;
-    /* the journey is a path, not a page: scenes own their own overflow */
+    /* the journey is a score, not a page: scenes own their own overflow */
     overflow: hidden;
     overscroll-behavior: none;
   }
@@ -208,8 +214,8 @@
   .glass-panel {
     background: linear-gradient(
       160deg,
-      rgb(var(--card-a) / 0.94) 0%,
-      rgb(var(--card-c) / 0.96) 100%
+      rgb(var(--card-a)) 0%,
+      rgb(var(--card-c)) 100%
     );
     border: 1px solid rgb(var(--c-hair) / 0.18);
   }
@@ -217,16 +223,10 @@
   .surface-card {
     background: linear-gradient(
       158deg,
-      rgb(var(--card-a) / 0.86) 0%,
-      rgb(var(--card-b) / 0.92) 55%,
-      rgb(var(--card-c) / 0.95) 100%
+      rgb(var(--card-a) / 1) 0%,
+      rgb(var(--card-b) / 1) 55%,
+      rgb(var(--card-c) / 1) 100%
     );
-  }
-
-  .light .surface-card {
-    box-shadow:
-      0 1px 0 0 rgb(255 255 255 / 0.9) inset,
-      0 18px 40px -22px rgb(var(--shadow-tint) / 0.4);
   }
 
   .surface-solid {
@@ -263,189 +263,208 @@
     );
   }
 
-  /* pulls off-palette illustrations into the theme colours */
+  /* pulls off-palette illustrations to greys; the inverted theme flips them like the keys */
   .duotone {
-    filter: grayscale(1) sepia(1) hue-rotate(168deg) saturate(3.4) brightness(0.92)
-      contrast(1.1);
+    filter: grayscale(1) contrast(1.1);
   }
-
   .light .duotone {
-    filter: grayscale(1) sepia(1) hue-rotate(60deg) saturate(2.4) brightness(1.05)
-      contrast(0.95);
+    filter: grayscale(1) invert(1) contrast(0.95);
   }
-
   .mask-fade-bottom {
     mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
     -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
   }
 
-  /* static two-colour wash for the "build something together" card */
+  /* static wash for the "build something together" card */
   .aurora-card {
     background:
-      radial-gradient(circle at 18% 22%, rgb(var(--c-brand) / 0.34), transparent 46%),
-      radial-gradient(circle at 82% 30%, rgb(var(--c-accent) / 0.3), transparent 48%),
-      radial-gradient(circle at 50% 95%, rgb(var(--c-brand-glow) / 0.25), transparent 55%),
+      radial-gradient(circle at 20% 20%, rgb(var(--c-brand) / 0.14), transparent 50%),
+      radial-gradient(circle at 85% 90%, rgb(var(--c-brand) / 0.1), transparent 55%),
       rgb(var(--card-b));
   }
-
-  /* ---------- theme-conditional layers ---------- */
-  .cabin-only {
-    display: none;
-  }
-  .light .cabin-only {
-    display: block;
-  }
-
   .stencil {
     @apply font-mono uppercase;
     letter-spacing: 0.22em;
     color: rgb(var(--c-muted) / 0.95);
   }
 
-  /* metal rim for portholes / knotholes */
-  .bezel {
-    background: conic-gradient(
-      from 200deg,
-      #cfd8e3,
-      #7d8da3 18%,
-      #e6ecf3 34%,
-      #66778e 52%,
-      #f1f5f9 70%,
-      #8393a9 86%,
-      #cfd8e3
+  /* a dot of light that circles a card's edge */
+  .moving-dot {
+    background: radial-gradient(
+      rgb(var(--c-brand)) 35%,
+      rgb(var(--c-brand) / 0.3) 55%,
+      transparent 70%
     );
-    box-shadow:
-      0 10px 30px -10px rgb(0 0 0 / 0.55),
-      0 2px 0 0 rgb(255 255 255 / 0.5) inset;
   }
-  .light .bezel {
-    background: conic-gradient(
-      from 200deg,
-      #b98c5b,
-      #7a5430 18%,
-      #d2a977 34%,
-      #6b4626 52%,
-      #dcb887 70%,
-      #85603a 86%,
-      #b98c5b
-    );
-    box-shadow:
-      0 10px 24px -10px rgb(60 35 10 / 0.6),
-      0 2px 0 0 rgb(255 235 200 / 0.5) inset;
+  /* rings spreading from a pin */
+  .ping-ring {
+    animation: ping-ring 4.5s ease-out infinite;
+    animation-delay: var(--delay, 0s);
   }
 
-  /* ---------- ambient motion: transform / opacity only ---------- */
-  .a-swim {
-    animation: swim var(--dur, 28s) linear infinite;
-    animation-delay: var(--delay, 0s);
+  /* ---------- the score (components/score) ---------- */
+  .sc-page {
+    fill: rgb(var(--page));
+    stroke: rgb(var(--ink) / 0.14);
+    stroke-width: 1.5;
   }
-  .a-bob {
-    animation: bob var(--dur, 6s) ease-in-out infinite;
-    animation-delay: var(--delay, 0s);
+  .sc-line {
+    stroke: rgb(var(--ink) / 0.3);
+    stroke-width: 1.6;
   }
-  .a-sway {
-    animation: sway var(--dur, 6s) ease-in-out infinite;
-    animation-delay: var(--delay, 0s);
-    transform-origin: 50% 100%;
+  .sc-bar {
+    stroke: rgb(var(--ink) / 0.55);
+    stroke-width: 2;
   }
-  .a-swing {
-    animation: swing var(--dur, 7s) ease-in-out infinite;
-    animation-delay: var(--delay, 0s);
-    transform-origin: 50% 0%;
+  .sc-bar-thick {
+    stroke-width: 6;
   }
-  .a-pulse {
-    animation: bell var(--dur, 3s) ease-in-out infinite;
-    animation-delay: var(--delay, 0s);
+  .sc-sig {
+    fill: rgb(var(--ink) / 0.7);
+    font-family: var(--font-heading), serif;
+    font-weight: 700;
+    font-size: 104px;
   }
-  .a-flap {
-    animation: flap 0.9s ease-in-out infinite;
+  .sc-hit {
+    fill: transparent;
+    cursor: default;
   }
-  .a-rise {
-    animation: rise var(--dur, 14s) linear infinite;
-    animation-delay: var(--delay, 0s);
+  .sc-title,
+  .sc-tempo {
+    fill: rgb(var(--ink));
+    font-family: var(--font-heading), serif;
+    transition: opacity 0.5s ease, fill 0.3s ease;
   }
-  .a-fall {
-    animation: fall var(--dur, 16s) linear infinite;
-    animation-delay: var(--delay, 0s);
+  .sc-title {
+    font-weight: 700;
+    letter-spacing: -0.01em;
   }
-  .a-wave {
-    animation: wave var(--dur, 14s) linear infinite;
+  .sc-num {
+    font-family: var(--font-body), sans-serif;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    fill: rgb(var(--ink) / 0.6);
   }
-  .a-drift {
-    animation: drift var(--dur, 120s) linear infinite;
-    animation-delay: var(--delay, 0s);
+  .sc-tempo {
+    font-style: italic;
+    fill: rgb(var(--ink) / 0.6);
   }
-  .a-ray {
-    animation: ray var(--dur, 9s) ease-in-out infinite alternate;
-    animation-delay: var(--delay, 0s);
+  .sc-note,
+  .sc-beam,
+  .sc-stem {
+    fill: rgb(var(--ink));
+    stroke: rgb(var(--ink));
   }
-  .a-blink {
-    animation: blink 2.4s ease-in-out infinite;
-    animation-delay: var(--delay, 0s);
+  .sc-note {
+    stroke: none;
   }
-  .a-ripple {
-    animation: ripple 4.5s ease-out infinite;
-    animation-delay: var(--delay, 0s);
+  .sc-stem {
+    stroke-width: 3.2;
+  }
+  .sc-beam {
+    stroke-width: 11;
+    stroke-linecap: butt;
+  }
+  .sc-note-g {
+    transform-box: fill-box;
+    transform-origin: 50% 80%;
+    opacity: 0.85;
+  }
+  .measure {
+    transition: opacity 0.6s ease;
+  }
+  /* at the overview a measure is a button */
+  .score[data-view="home"] .sc-hit {
+    cursor: pointer;
+  }
+  .score[data-view="home"] .measure:hover .sc-hit {
+    fill: rgb(var(--ink) / 0.06);
+  }
+  .score[data-view="home"] .measure:hover .sc-title {
+    fill: rgb(var(--ink));
+  }
+  /* once inside a bar the title belongs to the HTML heading, and the other bars recede */
+  .score[data-view="zoom"] .sc-title,
+  .score[data-view="zoom"] .sc-tempo {
+    opacity: 0;
+  }
+  .score:not([data-view="home"]) .measure[data-active="false"] {
+    opacity: 0.35;
+  }
+  /* inside a bar the staff is texture behind the content, not the subject */
+  .sc-line,
+  .sc-bar {
+    transition: stroke 0.6s ease;
+  }
+  .score:not([data-view="home"]) .sc-line {
+    stroke: rgb(var(--ink) / 0.13);
+  }
+  .score:not([data-view="home"]) .sc-bar {
+    stroke: rgb(var(--ink) / 0.28);
+  }
+  /* the notes of the bar you are entering sound off in turn, left to right */
+  [data-playing] .sc-note-g {
+    animation: note-on 0.7s ease-out both;
+    animation-delay: calc(0.55s + var(--i) * 0.16s);
+  }
+
+  /* piano keys: every state is a class toggled by Keyboard.tsx */
+  .k {
+    transition: fill 0.35s ease, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    cursor: pointer;
+  }
+  .k-white {
+    fill: rgb(var(--key-white));
+  }
+  /* on the white page the ivory keys would vanish: draw them as outlines */
+  .light .k-white {
+    stroke: rgb(var(--ink) / 0.8);
+    stroke-width: 1.5;
+  }
+  .k-black {
+    fill: rgb(var(--key-black));
+    stroke: rgb(var(--key-edge) / 0.35);
+    stroke-width: 1.5;
+  }
+  .score[data-view="home"] .k-white:hover {
+    fill: rgb(var(--key-white) / 0.88);
+  }
+  .k.down,
+  .k.ghost {
+    transition-duration: 0.05s, 0.05s;
+  }
+  .k-white.down,
+  .k-white.ghost {
+    fill: rgb(var(--key-white-down));
+    transform: translateY(7px);
+  }
+  .k-black.down,
+  .k-black.ghost {
+    fill: rgb(var(--key-black-down));
+    transform: translateY(5px);
+  }
+  .sc-slip {
+    fill: rgb(var(--ink) / 0.12);
+    stroke: rgb(var(--ink) / 0.4);
+    stroke-width: 1.5;
+  }
+  .sc-slip-text {
+    fill: rgb(var(--ink) / 0.7);
+    font-family: var(--font-heading), serif;
+    font-size: 17px;
+    letter-spacing: 0.6em;
+    font-weight: 600;
   }
 }
 
-@keyframes swim {
-  0% { transform: translate3d(0, 0, 0); opacity: 0; }
-  8% { opacity: 1; }
-  92% { opacity: 1; }
-  100% { transform: translate3d(var(--dist, 70vw), var(--rise, 0px), 0); opacity: 0; }
-}
-@keyframes bob {
-  0%, 100% { transform: translate3d(0, 0, 0); }
-  50% { transform: translate3d(0, -9px, 0); }
-}
-@keyframes sway {
-  0%, 100% { transform: rotate(-4deg); }
-  50% { transform: rotate(4deg); }
-}
-@keyframes swing {
-  0%, 100% { transform: rotate(-1.6deg); }
-  50% { transform: rotate(1.6deg); }
-}
-@keyframes bell {
-  0%, 100% { transform: scale(1, 1); }
-  50% { transform: scale(0.9, 1.08); }
-}
-@keyframes flap {
-  0%, 100% { transform: scaleY(1); }
-  50% { transform: scaleY(0.35); }
-}
-@keyframes rise {
-  0% { transform: translate3d(0, 0, 0); opacity: 0; }
-  10% { opacity: 0.8; }
-  90% { opacity: 0.8; }
-  100% { transform: translate3d(var(--sx, 20px), -112vh, 0); opacity: 0; }
-}
-@keyframes fall {
-  0% { transform: translate3d(0, -10vh, 0) rotate(0deg); opacity: 0; }
-  10% { opacity: 0.9; }
-  90% { opacity: 0.9; }
-  100% { transform: translate3d(var(--sx, 60px), 112vh, 0) rotate(380deg); opacity: 0; }
-}
-@keyframes wave {
-  from { transform: translate3d(0, 0, 0); }
-  to { transform: translate3d(-50%, 0, 0); }
-}
-@keyframes drift {
-  from { transform: translate3d(-30vw, 0, 0); }
-  to { transform: translate3d(130vw, 0, 0); }
-}
-@keyframes ray {
-  from { transform: skewX(-22deg); opacity: 0.55; }
-  to { transform: skewX(-14deg); opacity: 1; }
-}
-@keyframes blink {
-  0%, 100% { opacity: 0.25; }
-  50% { opacity: 1; }
-}
-@keyframes ripple {
+@keyframes ping-ring {
   0% { transform: scale(0.2); opacity: 0.9; }
   100% { transform: scale(1.4); opacity: 0; }
+}
+@keyframes note-on {
+  0% { transform: scale(1); opacity: 0.85; }
+  35% { transform: scale(1.35); opacity: 1; }
+  100% { transform: scale(1); opacity: 0.14; }
 }
 
 /* ---------- theme-switch: a wave of the new world opening from the toggle ---------- */
@@ -471,12 +490,8 @@
     transition-duration: 0.001ms !important;
     scroll-behavior: auto !important;
   }
-  /* ambient loops would freeze on their invisible first frame: show them still */
-  .a-swim,
-  .a-rise,
-  .a-fall,
-  .a-ripple {
+  .ping-ring {
     animation: none !important;
-    opacity: 0.8;
+    opacity: 0.5;
   }
 }

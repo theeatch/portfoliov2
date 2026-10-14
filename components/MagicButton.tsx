@@ -4,8 +4,7 @@ import React from "react";
  *  UI: border magic from tailwind css btns
  *  Link: https://ui.aceternity.com/components/tailwindcss-buttons
  *
- *  Restyled: the spinning border sweeps the theme's brand colours, and the
- *  face is a solid panel.
+ *  Restyled: a silver border sweeps round a solid black (or white) face.
  */
 const MagicButton = ({
   title,
@@ -22,7 +21,7 @@ const MagicButton = ({
 }) => {
   return (
     <button
-      className="group relative inline-flex h-12 w-full overflow-hidden rounded-xl p-[1px] focus:outline-none focus-visible:ring-2 focus-visible:ring-brand/60 md:mt-10 md:w-60"
+      className="group relative inline-flex h-12 w-full overflow-hidden rounded-xl p-[1px] focus:outline-none focus-visible:ring-2 focus-visible:ring-brand/60 md:w-60"
       onClick={handleClick}
     >
       {/* a spinner just big enough to sweep the corners (was a 22x oversized layer) */}
@@ -31,7 +30,7 @@ const MagicButton = ({
       </span>
 
       <span
-        className={`inline-flex h-full w-full cursor-pointer items-center justify-center gap-2 rounded-xl bg-surface-700/95 px-7 text-sm font-medium text-ink backdrop-blur-3xl transition-colors duration-300 group-hover:bg-surface-600/95 ${otherClasses}`}
+        className={`relative inline-flex h-full w-full cursor-pointer items-center justify-center gap-2 rounded-xl bg-surface-700/95 px-7 text-sm font-medium text-ink transition-colors duration-300 group-hover:bg-surface-600/95 ${otherClasses}`}
       >
         {position === "left" && icon}
         {title}
