@@ -1,13 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import {
-  FaDownload,
-  FaEnvelope,
-  FaRocket,
-  FaRoute,
-  FaUserAstronaut,
-} from "react-icons/fa6";
+import { FaBriefcase, FaCode, FaDownload, FaEnvelope, FaUser } from "react-icons/fa6";
 
 import { navItems, resumeDownload, scenes, type SceneId } from "@/data";
 import { cn } from "@/lib/utils";
@@ -15,14 +9,14 @@ import { useJourney } from "./context";
 import ThemeToggle from "./ThemeToggle";
 
 const ICONS: Record<string, React.ReactNode> = {
-  about: <FaUserAstronaut />,
-  projects: <FaRocket />,
-  experience: <FaRoute />,
+  about: <FaUser />,
+  projects: <FaCode />,
+  experience: <FaBriefcase />,
   contact: <FaEnvelope />,
 };
 
 /**
- * Always-on mission bar. DH (home) on the far left, the sections in the middle
+ * Always-on bar. DH (home) on the far left, the sections in the middle
  * with the current one lit, résumé + theme switch on the far right. It never
  * hides: the journey is paged, so there is no scroll direction to react to.
  */
@@ -47,10 +41,10 @@ const Navbar = () => {
         <button
           type="button"
           onClick={() => goTo("home")}
-          aria-label="Dhruv Negi — back to launch"
+          aria-label="Dhruv Negi — back to the keyboard"
           className="group relative flex h-11 w-11 shrink-0 items-center justify-center rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/60"
         >
-          <span className="absolute inset-0 rounded-full bg-[conic-gradient(from_90deg,rgb(var(--c-brand-soft)),rgb(var(--c-accent-deep)),rgb(var(--c-accent)),rgb(var(--c-brand-glow)),rgb(var(--c-brand-soft)))] opacity-90 transition-transform duration-700 group-hover:rotate-180" />
+          <span className="absolute inset-0 rounded-full border border-ink/70 transition-transform duration-500 group-hover:scale-110" />
           <span
             className={cn(
               "relative flex h-[2.45rem] w-[2.45rem] items-center justify-center rounded-full bg-surface-800 font-display text-[0.95rem] font-bold tracking-tight text-ink transition-colors",
@@ -81,7 +75,7 @@ const Navbar = () => {
                       layoutId="nav-active"
                       transition={{ type: "spring", stiffness: 380, damping: 30 }}
                       className="absolute inset-0 rounded-full border border-brand/35 bg-brand/15"
-                      style={{ boxShadow: "0 0 24px -6px rgb(var(--c-brand) / 0.55)" }}
+                      
                     />
                   )}
                   <span

@@ -1,18 +1,16 @@
 "use client";
 
 import { gridItems, scenes } from "@/data";
-import { useWorld } from "@/lib/useWorld";
 import { BentoGrid, BentoGridItem } from "./ui/BentoGrid";
 import SectionHeading from "./ui/SectionHeading";
 import { Scene } from "./journey/Scene";
 
-/** Just below the surface: a poke-around bento panel. Drag the tech cards. */
+/** Bar I: a poke-around bento panel. Drag the tech cards. */
 const Grid = () => {
-  const { forest } = useWorld();
   return (
     <Scene className="justify-start sm:justify-center">
       <SectionHeading
-        eyebrow={scenes[1].tag[forest ? 1 : 0]}
+        eyebrow={scenes[1].tag}
         title="A little about"
         accent="who I am"
         subtitle="Drag the tech cards around - this panel is meant to be poked at."

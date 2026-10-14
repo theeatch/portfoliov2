@@ -27,7 +27,7 @@ const config = {
     },
     extend: {
       colors: {
-        // theme-aware: channels live in globals.css (ocean by default, forest under .light)
+        // theme-aware: channels live in globals.css (black by default, inverted under .light)
         surface: {
           900: "rgb(var(--c-surface-900) / <alpha-value>)",
           800: "rgb(var(--c-surface-800) / <alpha-value>)",
@@ -51,17 +51,14 @@ const config = {
         hair: "rgb(var(--c-hair) / <alpha-value>)",
         black: {
           DEFAULT: "#000",
-          100: "#05070F",
-          200: "rgba(10, 16, 34, 0.72)",
-          300: "rgba(148, 190, 255, 0.14)",
+          100: "#0a0a0a",
+          200: "rgba(10, 10, 10, 0.72)",
+          300: "rgba(255, 255, 255, 0.14)",
         },
         white: {
           DEFAULT: "#FFF",
           100: "rgb(var(--c-muted) / <alpha-value>)",
           200: "rgb(var(--c-muted-2) / <alpha-value>)",
-        },
-        blue: {
-          100: "#9FD4F5",
         },
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -93,7 +90,7 @@ const config = {
           foreground: "hsl(var(--card-foreground))",
         },
       },
-      // the active world's pairing comes from --font-heading / --font-body in globals.css;
+      // the pairing comes from --font-heading / --font-body in globals.css;
       // mono is deliberately the body face too, so every label belongs to the same family
       fontFamily: {
         sans: ["var(--font-body)", "ui-sans-serif", "system-ui", "sans-serif"],

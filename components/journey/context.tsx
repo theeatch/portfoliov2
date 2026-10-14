@@ -10,24 +10,22 @@ import {
   useState,
 } from "react";
 
-import { useSpring, type MotionValue } from "framer-motion";
+import { animate, useMotionValue, useReducedMotion, type MotionValue } from "framer-motion";
 
-import { scenes, stationAt } from "@/data";
-import { useWorld } from "@/lib/useWorld";
+import { scenes } from "@/data";
+import { camFor, dipScale } from "@/lib/score";
 
 type JourneyState = {
-  /** active scene, 0-based */
+  /** active scene, 0-based (0 = the keyboard, 1-4 = the measures) */
   index: number;
-  /** which way the camera is travelling: signs of the move on each axis */
-  vec: { dx: -1 | 0 | 1; dy: -1 | 0 | 1 };
   /** jump to a scene by index or id */
   goTo: (target: number | string) => void;
   next: () => void;
   prev: () => void;
-  /** true while a transition is in flight */
+  /** true while the camera is in flight */
   travelling: boolean;
-  /** the camera, sprung toward the current station (screens right / down) */
-  cam: { x: MotionValue<number>; y: MotionValue<number> };
+  /** the camera: the world point under the screen centre, and the zoom */
+  cam: { x: MotionValue<number>; y: MotionValue<number>; s: MotionValue<number> };
 };
 
 const JourneyContext = createContext<JourneyState | null>(null);
@@ -38,8 +36,9 @@ export const useJourney = () => {
   return ctx;
 };
 
-/** how long input is ignored after a jump, so one flick = one scene */
-export const TRAVEL_MS = 950;
+/** flight time of the camera, seconds. Input is ignored while it is in the air. */
+const FLIGHT = { zoom: 1.5, pan: 1.7 };
+const EASE = [0.65, 0, 0.25, 1] as [number, number, number, number];
 
 const indexFromHash = (hash: string) => {
   const id = hash.replace(/^#/, "");
@@ -47,61 +46,89 @@ const indexFromHash = (hash: string) => {
 };
 
 export const JourneyProvider = ({ children }: { children: React.ReactNode }) => {
-  const [{ index, vec }, setPos] = useState<{ index: number; vec: JourneyState["vec"] }>({
-    index: 0,
-    vec: { dx: 0, dy: 1 },
-  });
+  const reduced = useReducedMotion();
+  const [index, setIndex] = useState(0);
   const [travelling, setTravelling] = useState(false);
-  const { forest } = useWorld();
-  const forestRef = useRef(forest);
-  forestRef.current = forest;
-  // one spring drives every parallax layer, so the whole world moves as one
-  const camX = useSpring(0, { stiffness: 46, damping: 16, restDelta: 0.001 });
-  const camY = useSpring(0, { stiffness: 46, damping: 16, restDelta: 0.001 });
-  const cam = useMemo(() => ({ x: camX, y: camY }), [camX, camY]);
+
+  // start from a plausible camera; the first effect seats it for the real viewport
+  const camX = useMotionValue(800);
+  const camY = useMotionValue(700);
+  const camS = useMotionValue(0.4);
+  const cam = useMemo(() => ({ x: camX, y: camY, s: camS }), [camX, camY, camS]);
 
   // refs mirror state so input handlers never read a stale closure
   const indexRef = useRef(0);
   const lockedRef = useRef(false);
   const timerRef = useRef<ReturnType<typeof setTimeout>>();
+  const flights = useRef<{ stop: () => void }[]>([]);
+  const reducedRef = useRef(reduced);
+  reducedRef.current = reduced;
 
-  const commit = useCallback((target: number, animate: boolean) => {
-    const from = indexRef.current;
-    if (target === from) return;
-    indexRef.current = target;
-    const a = stationAt(from, forestRef.current);
-    const b = stationAt(target, forestRef.current);
-    const sign = (n: number) => (n > 0.01 ? 1 : n < -0.01 ? -1 : 0) as -1 | 0 | 1;
-    if (animate) {
-      camX.set(b.x);
-      camY.set(b.y);
-    } else {
-      camX.jump(b.x);
-      camY.jump(b.y);
-    }
-    setPos({ index: target, vec: { dx: sign(b.x - a.x), dy: sign(b.y - a.y) } });
+  const seat = useCallback(
+    (i: number) => {
+      flights.current.forEach((f) => f.stop());
+      const c = camFor(i, window.innerWidth, window.innerHeight);
+      camX.jump(c.x);
+      camY.jump(c.y);
+      camS.jump(c.s);
+    },
+    [camX, camY, camS]
+  );
 
-    const id = scenes[target].id;
-    const url = id === "home" ? window.location.pathname : `#${id}`;
-    window.history.replaceState(null, "", url);
+  const fly = useCallback(
+    (from: number, to: number) => {
+      const vw = window.innerWidth;
+      const vh = window.innerHeight;
+      const b = camFor(to, vw, vh);
+      const bothMeasures = from > 0 && to > 0;
+      const duration = reducedRef.current ? 0.25 : bothMeasures ? FLIGHT.pan : FLIGHT.zoom;
 
-    if (animate) {
+      flights.current.forEach((f) => f.stop());
+      // pan between measures: pull back to see both, then settle into the next
+      const scale: number | number[] = bothMeasures
+        ? [camS.get(), dipScale(from, to, vw, vh), b.s]
+        : b.s;
+      flights.current = [
+        animate(camX, b.x, { duration, ease: EASE }),
+        animate(camY, b.y, { duration, ease: EASE }),
+        animate(camS, scale, { duration, ease: bothMeasures ? "easeInOut" : EASE }),
+      ];
+      return duration;
+    },
+    [camX, camY, camS]
+  );
+
+  const commit = useCallback(
+    (target: number, animateIt: boolean) => {
+      const from = indexRef.current;
+      if (target === from) return;
+      indexRef.current = target;
+      setIndex(target);
+
+      const id = scenes[target].id;
+      const url = id === "home" ? window.location.pathname : `#${id}`;
+      window.history.replaceState(null, "", url);
+
+      if (!animateIt) {
+        seat(target);
+        return;
+      }
+      const duration = fly(from, target);
       lockedRef.current = true;
       setTravelling(true);
       clearTimeout(timerRef.current);
       timerRef.current = setTimeout(() => {
         lockedRef.current = false;
         setTravelling(false);
-      }, TRAVEL_MS);
-    }
-  }, [camX, camY]);
+      }, duration * 1000 * 0.92);
+    },
+    [fly, seat]
+  );
 
   const goTo = useCallback(
     (target: number | string) => {
       const i =
-        typeof target === "number"
-          ? target
-          : scenes.findIndex((s) => s.id === target);
+        typeof target === "number" ? target : scenes.findIndex((s) => s.id === target);
       if (i < 0 || i >= scenes.length || lockedRef.current) return;
       commit(i, true);
     },
@@ -111,35 +138,36 @@ export const JourneyProvider = ({ children }: { children: React.ReactNode }) => 
   const next = useCallback(() => goTo(indexRef.current + 1), [goTo]);
   const prev = useCallback(() => goTo(indexRef.current - 1), [goTo]);
 
-  // switching worlds re-seats the camera at the same stop of the new world
-  useEffect(() => {
-    const at = stationAt(indexRef.current, forest);
-    camX.jump(at.x);
-    camY.jump(at.y);
-  }, [forest, camX, camY]);
-
-  // deep links: land on the scene named in the hash, and follow it afterwards
+  // seat the camera for this viewport, keep it seated through resizes, and
+  // follow deep links (#projects) on arrival and afterwards
   useEffect(() => {
     const initial = indexFromHash(window.location.hash);
     if (initial > 0) commit(initial, false);
+    seat(indexRef.current);
 
+    let raf = 0;
+    const onResize = () => {
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => seat(indexRef.current));
+    };
     const onHash = () => {
       const i = indexFromHash(window.location.hash);
       if (i >= 0) goTo(i);
     };
+    window.addEventListener("resize", onResize);
     window.addEventListener("hashchange", onHash);
     return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener("resize", onResize);
       window.removeEventListener("hashchange", onHash);
       clearTimeout(timerRef.current);
     };
-  }, [commit, goTo]);
+  }, [commit, goTo, seat]);
 
   const value = useMemo(
-    () => ({ index, vec, goTo, next, prev, travelling, cam }),
-    [index, vec, goTo, next, prev, travelling, cam]
+    () => ({ index, goTo, next, prev, travelling, cam }),
+    [index, goTo, next, prev, travelling, cam]
   );
 
-  return (
-    <JourneyContext.Provider value={value}>{children}</JourneyContext.Provider>
-  );
+  return <JourneyContext.Provider value={value}>{children}</JourneyContext.Provider>;
 };

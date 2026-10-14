@@ -61,7 +61,7 @@ export const TECH = {
 
 export type TechKey = keyof typeof TECH;
 
-/** A single badge: the glyph in ink, on a dark disc with a cyan hairline. */
+/** A single badge: the glyph in ink, on a disc with a hairline. */
 export const TechIcon = ({
   name,
   className,
@@ -77,7 +77,7 @@ export const TechIcon = ({
     <span
       title={label}
       className={cn(
-        "flex h-8 w-8 items-center justify-center rounded-full border border-white/[0.12] bg-surface-900/90 text-brand-soft/85 backdrop-blur-sm transition-colors duration-300 group-hover/pin:border-brand/30 group-hover/pin:text-brand-soft lg:h-10 lg:w-10",
+        "flex h-8 w-8 items-center justify-center rounded-full border border-white/[0.12] bg-surface-900/90 text-brand-soft/85 transition-colors duration-300 group-hover/pin:border-brand/30 group-hover/pin:text-brand-soft lg:h-10 lg:w-10",
         className
       )}
     >

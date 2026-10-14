@@ -5,19 +5,22 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 
 import { scenes } from "@/data";
 import { useJourney } from "./context";
+import { ARRIVE } from "./Scene";
 
 /**
- * The viewport the journey plays out in. Exactly one planet's surface is
- * mounted at a time (two while one slides out and the next in).
+ * The viewport the journey plays out in. Exactly one scene's content is
+ * mounted at a time (two while one fades out and the next in) over the score,
+ * which the camera moves across.
  *
  * Travel is "next stop / previous stop": ← → keys, a sideways swipe, the nav or
  * the pager. Exploring a stop is vertical: its content scrolls, and reaching
  * the end of that scroll with a fresh gesture also carries on to the next stop,
- * so a plain mouse wheel can do the whole tour. (Which way the camera actually
- * moves, down / right / up, is decided by where the stops sit in the world.)
+ * so a plain mouse wheel can do the whole tour. (Where the camera actually
+ * goes, zoom in, pan right, carriage-return down-left, is decided by where the
+ * measures sit on the page, see lib/score.ts.)
  *
  * Gestures that start on something draggable (marked data-no-travel: the tech
- * cards, the globe) never travel, so you can fling them freely.
+ * cards) never travel, so you can fling them freely.
  */
 
 const WHEEL_THRESHOLD = 70;
@@ -39,35 +42,23 @@ const scrollerOf = (target: EventTarget | null) =>
 const noTravel = (target: EventTarget | null) =>
   target instanceof Element && !!target.closest("[data-no-travel]");
 
-// compositor-only: opacity + transform, nothing that repaints
-type Vec = { dx: number; dy: number };
-
-// the new scene arrives from the way we are heading (below when diving, from
-// the right when swimming right) and the old one leaves the opposite way
+// The camera does the travelling; a scene only fades. It appears while the
+// camera is settling (ARRIVE, shared with every entrance in Scene.tsx) and
+// leaves almost at once so it never rides along the zoom.
 const variants = {
-  enter: (v: Vec) => ({ opacity: 0, x: `${v.dx * 14}vw`, y: `${v.dy * 12}vh` }),
-  center: {
-    opacity: 1,
-    x: 0,
-    y: 0,
-    transition: { duration: 0.8, delay: 0.25, ease: [0.16, 1, 0.3, 1] },
-  },
-  exit: (v: Vec) => ({
-    opacity: 0,
-    x: `${v.dx * -14}vw`,
-    y: `${v.dy * -12}vh`,
-    transition: { duration: 0.4, ease: [0.5, 0, 0.75, 0] },
-  }),
+  enter: { opacity: 0 },
+  center: { opacity: 1, transition: { duration: 0.01, delay: ARRIVE - 0.1 } },
+  exit: { opacity: 0, transition: { duration: 0.22, ease: "easeIn" } },
 };
 
 const fade = {
   enter: { opacity: 0 },
-  center: { opacity: 1, transition: { duration: 0.3 } },
-  exit: { opacity: 0, transition: { duration: 0.2 } },
+  center: { opacity: 1, transition: { duration: 0.2, delay: 0.2 } },
+  exit: { opacity: 0, transition: { duration: 0.15 } },
 };
 
 const Stage = ({ views }: { views: React.ComponentType[] }) => {
-  const { index, vec, next, prev, goTo } = useJourney();
+  const { index, next, prev, goTo, travelling } = useJourney();
   const reduced = useReducedMotion();
 
   const acc = useRef({ x: 0, y: 0 });
@@ -75,20 +66,36 @@ const Stage = ({ views }: { views: React.ComponentType[] }) => {
   const freshGesture = useRef(true);
   const nav = useRef({ next, prev, goTo });
   nav.current = { next, prev, goTo };
+  // While the camera is in flight the new section must stay at its top: input is
+  // ignored, and so is the tail of the gesture that started the flight.
+  const travelRef = useRef(travelling);
+  travelRef.current = travelling;
+  const spent = useRef(false);
 
   useEffect(() => {
-    const move = (d: 1 | -1) => (d > 0 ? nav.current.next() : nav.current.prev());
+    const move = (d: 1 | -1) => {
+      spent.current = true; // whatever is left of this gesture belongs to the old section
+      return d > 0 ? nav.current.next() : nav.current.prev();
+    };
 
     const onWheel = (e: WheelEvent) => {
       if (e.ctrlKey) return; // pinch-zoom
 
       const now = performance.now();
-      if (now - lastWheel.current > 140) {
+      if (now - lastWheel.current > 140 && !travelRef.current) {
         // a pause means a new gesture: momentum from the last one is spent
         freshGesture.current = true;
+        spent.current = false;
         acc.current = { x: 0, y: 0 };
       }
       lastWheel.current = now;
+
+      if (travelRef.current) spent.current = true;
+      if (spent.current) {
+        // in flight, or still the momentum of the gesture that started it
+        e.preventDefault();
+        return;
+      }
 
       const horizontal = Math.abs(e.deltaX) > Math.abs(e.deltaY);
 
@@ -170,6 +177,8 @@ const Stage = ({ views }: { views: React.ComponentType[] }) => {
       if (e.metaKey || e.ctrlKey || e.altKey) return;
       if (t && (/^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName) || t.isContentEditable)) return;
 
+      if (travelRef.current) return;
+
       // an exiting scene can linger in the DOM for a moment: the newest one is live
       const active =
         Array.from(document.querySelectorAll<HTMLElement>("[data-scroller]")).pop() ?? null;
@@ -238,17 +247,17 @@ const Stage = ({ views }: { views: React.ComponentType[] }) => {
   const View = views[index];
 
   return (
-    <main className="fixed inset-0 z-10">
-      <AnimatePresence custom={vec} initial={false}>
+    <main className="pointer-events-none fixed inset-0 z-10">
+      <AnimatePresence initial={false}>
         <motion.div
           key={index}
-          custom={vec}
           variants={reduced ? fade : variants}
           initial="enter"
           animate="center"
           exit="exit"
           data-scroller
-          className="absolute inset-0 overflow-y-auto overflow-x-hidden overscroll-contain"
+          // the keyboard behind the home scene is playable: <main> never catches the pointer, and the home scene only through its buttons
+          className={`absolute inset-0 ${travelling ? "overflow-y-hidden" : "overflow-y-auto"} overflow-x-hidden overscroll-contain ${index === 0 ? "pointer-events-none" : "pointer-events-auto"}`}
         >
           <View />
         </motion.div>

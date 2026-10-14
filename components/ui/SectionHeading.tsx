@@ -2,13 +2,12 @@
 
 import { motion, useReducedMotion } from "framer-motion";
 import { cn } from "@/lib/utils";
-import { FaLeaf, FaWater } from "react-icons/fa6";
-import { useWorld } from "@/lib/useWorld";
+import { FaMusic } from "react-icons/fa6";
+import { ARRIVE } from "@/components/journey/Scene";
 
 /**
- * Shared scene header: a telemetry eyebrow, a ink headline with a
- * brand-gradient accent phrase, and a horizon rule that fades in from the
- * centre. Scenes mount fresh on every visit, so it animates on mount.
+ * Shared scene header: an eyebrow, an ink headline with an italic accent
+ * phrase, and a hairline rule that draws out from the centre. Scenes mount fresh on every visit, so it animates on mount.
  */
 const SectionHeading = ({
   eyebrow,
@@ -24,21 +23,19 @@ const SectionHeading = ({
   className?: string;
 }) => {
   const reduced = useReducedMotion();
-  const { forest } = useWorld();
-
   const rise = (delay: number) =>
     reduced
       ? {}
       : {
           initial: { opacity: 0, y: 24 },
           animate: { opacity: 1, y: 0 },
-          transition: { duration: 0.8, delay: 0.35 + delay, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] },
+          transition: { duration: 0.8, delay: ARRIVE + delay, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] },
         };
 
   return (
     <div className={cn("flex flex-col items-center text-center", className)}>
       <motion.div {...rise(0)} className="flex items-center gap-3">
-        {forest ? <FaLeaf className="h-3.5 w-3.5 text-brand" /> : <FaWater className="h-3.5 w-3.5 text-brand" />}
+        <FaMusic className="h-3 w-3 text-brand" />
         <p className="eyebrow">{eyebrow}</p>
       </motion.div>
 
@@ -47,9 +44,7 @@ const SectionHeading = ({
         {accent && (
           <>
             {" "}
-            <span className="bg-gradient-to-br from-brand-soft via-brand to-accent bg-clip-text text-transparent">
-              {accent}
-            </span>
+            <em className="font-normal italic text-brand-soft">{accent}</em>
           </>
         )}
       </motion.h2>
@@ -66,7 +61,7 @@ const SectionHeading = ({
       <motion.span
         initial={reduced ? undefined : { scaleX: 0, opacity: 0 }}
         animate={reduced ? undefined : { scaleX: 1, opacity: 1 }}
-        transition={{ duration: 1.1, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
+        transition={{ duration: 1.1, delay: ARRIVE + 0.25, ease: [0.16, 1, 0.3, 1] }}
         className="horizon-line mt-6 h-[1px] w-56 md:w-72"
       />
     </div>

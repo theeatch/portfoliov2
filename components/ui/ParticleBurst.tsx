@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react";
 import { cn } from "@/lib/utils";
 
 /**
- * A one-shot burst of drifting particles, in the page's cyan/violet palette.
+ * A one-shot burst of drifting particles, as little music notes in the theme's ink.
  *
  * Replaces the old react-lottie confetti: same "something happened!" feedback
  * for a fraction of the bundle, and it matches the rest of the scene.
@@ -20,17 +20,14 @@ type Particle = {
   ttl: number;
   size: number;
   color: string;
+  glyph: string;
   spin: number;
   rot: number;
 };
 
-const COLORS = [
-  "228, 236, 255", // ink
-  "125, 211, 252", // ice
-  "56, 189, 248", // cyan
-  "167, 139, 250", // violet
-  "196, 181, 253", // plasma
-];
+const NOTES = ["♪", "♫", "♩", "♬"];
+// light grey on the black theme, near-black on the white one
+const INK = { dark: ["255, 255, 255", "220, 220, 220", "180, 180, 180"], light: ["10, 10, 10", "40, 40, 40", "80, 80, 80"] };
 
 const ParticleBurst = ({
   trigger,
@@ -64,7 +61,8 @@ const ParticleBurst = ({
     const originX = w * 0.5;
     const originY = h * 0.62;
 
-    const particles: Particle[] = Array.from({ length: 46 }, () => {
+    const palette = document.documentElement.classList.contains("light") ? INK.light : INK.dark;
+    const particles: Particle[] = Array.from({ length: 22 }, () => {
       // fan upward and outward
       const angle = -Math.PI / 2 + (Math.random() - 0.5) * 2.2;
       const speed = 0.12 + Math.random() * 0.34;
@@ -75,10 +73,11 @@ const ParticleBurst = ({
         vy: Math.sin(angle) * speed,
         life: 0,
         ttl: 900 + Math.random() * 700,
-        size: 2 + Math.random() * 4,
-        color: COLORS[Math.floor(Math.random() * COLORS.length)],
-        spin: (Math.random() - 0.5) * 0.012,
-        rot: Math.random() * Math.PI,
+        size: 14 + Math.random() * 12,
+        color: palette[Math.floor(Math.random() * palette.length)],
+        glyph: NOTES[Math.floor(Math.random() * NOTES.length)],
+        spin: (Math.random() - 0.5) * 0.004,
+        rot: (Math.random() - 0.5) * 0.8,
       };
     });
 
@@ -110,9 +109,9 @@ const ParticleBurst = ({
         ctx.translate(p.x, p.y);
         ctx.rotate(p.rot);
         ctx.fillStyle = `rgba(${p.color}, ${Math.max(0, alpha)})`;
-        ctx.shadowColor = `rgba(${p.color}, ${Math.max(0, alpha) * 0.8})`;
-        ctx.shadowBlur = 8;
-        ctx.fillRect(-p.size / 2, -p.size / 4, p.size, p.size / 2);
+        ctx.font = `${p.size}px serif`;
+        ctx.textAlign = "center";
+        ctx.fillText(p.glyph, 0, 0);
         ctx.restore();
       });
 

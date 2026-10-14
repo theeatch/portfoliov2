@@ -4,24 +4,22 @@ import { motion } from "framer-motion";
 import { FaLocationArrow } from "react-icons/fa6";
 
 import { workExperience, resumeLink, scenes } from "@/data";
-import { useWorld } from "@/lib/useWorld";
 import { cn } from "@/lib/utils";
 import SectionHeading from "./ui/SectionHeading";
 import MagicButton from "./MagicButton";
 import { Scene, useRise } from "./journey/Scene";
 
 /**
- * The submarine (or the hollow in the trunk): the log as one vertical route. Every leg is on
- * the page at once; the line down the left is the route, newest first.
+ * Bar III: the log as one vertical line. Every leg is on the page at once;
+ * the line down the left is the route, newest first.
  */
 const Experience = () => {
   const rise = useRise();
-  const { forest } = useWorld();
 
   return (
     <Scene className="justify-start">
       <SectionHeading
-        eyebrow={scenes[3].tag[forest ? 1 : 0]}
+        eyebrow={scenes[3].tag}
         title="Where I've"
         accent="been shipping"
         subtitle="Two years at GoSamplify going from intern to engineer, on top of an IT degree from Manipal."
@@ -30,7 +28,7 @@ const Experience = () => {
       <ol className="relative mx-auto mt-10 w-full max-w-3xl">
         <span
           aria-hidden
-          className="absolute bottom-6 left-[0.95rem] top-6 w-px bg-gradient-to-b from-brand via-accent to-transparent sm:left-[1.2rem]"
+          className="absolute bottom-6 left-[0.95rem] top-6 w-px bg-gradient-to-b from-brand via-brand/40 to-transparent sm:left-[1.2rem]"
         />
         {workExperience.map((card, i) => (
           <motion.li key={card.id} {...rise(3 + i, 28)} className="relative pb-6 pl-11 sm:pl-14">
@@ -40,7 +38,7 @@ const Experience = () => {
               className={cn(
                 "absolute left-[0.45rem] top-7 h-3 w-3 rounded-full border-2 sm:left-[0.7rem]",
                 card.kind === "education"
-                  ? "border-accent bg-accent/40"
+                  ? "border-brand/60 bg-surface-900"
                   : "border-brand bg-brand shadow-glow"
               )}
             />
@@ -61,7 +59,7 @@ const Experience = () => {
                     className={cn(
                       "rounded-full border px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.18em]",
                       card.kind === "education"
-                        ? "border-accent/40 text-accent-soft"
+                        ? "border-hair/40 text-white-100"
                         : "border-brand/40 text-brand"
                     )}
                   >
