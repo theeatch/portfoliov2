@@ -104,7 +104,7 @@ const Contact = () => {
         {...rise(9, 8)}
         className="mt-10 font-mono text-[11px] tracking-wide text-white-100 md:text-xs"
       >
-        © {new Date().getFullYear()} Dhruv Negi — <em className="italic">fine</em>
+        © {new Date().getFullYear()} Dhruv Negi - <em className="italic">fine</em>
       </motion.p>
     </Scene>
   );

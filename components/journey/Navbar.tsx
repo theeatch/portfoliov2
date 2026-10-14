@@ -41,7 +41,7 @@ const Navbar = () => {
         <button
           type="button"
           onClick={() => goTo("home")}
-          aria-label="Dhruv Negi — back to the keyboard"
+          aria-label="Dhruv Negi: back to the keyboard"
           className="group relative flex h-11 w-11 shrink-0 items-center justify-center rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/60"
         >
           <span className="absolute inset-0 rounded-full border border-ink/70 transition-transform duration-500 group-hover:scale-110" />

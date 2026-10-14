@@ -25,9 +25,9 @@ import {
   SiTypescript,
 } from "react-icons/si";
 
-import { FaLocationDot } from "react-icons/fa6";
 import { ARRIVE } from "@/components/journey/Scene";
 import MagicButton from "../MagicButton";
+import Globe from "./Globe";
 import { contactEmail } from "@/data";
 import ParticleBurst from "./ParticleBurst";
 import {
@@ -123,8 +123,8 @@ export const BentoGridItem = ({
 
   return (
     <motion.div
-      // the tech cards are dragged sideways: that must not travel
-      data-no-travel={id === 3 ? "" : undefined}
+      // the tech cards and the globe are dragged sideways: that must not travel
+      data-no-travel={id === 2 || id === 3 ? "" : undefined}
       initial={reduced ? undefined : { opacity: 0, y: 28 }}
       animate={reduced ? undefined : { opacity: 1, y: 0 }}
       transition={{ duration: 0.85, delay: ARRIVE + delay, ease: [0.16, 1, 0.3, 1] }}
@@ -172,7 +172,7 @@ export const BentoGridItem = ({
           href="https://www.youtube.com/@DHsPianoLand"
           target="_blank"
           rel="noreferrer"
-          aria-label="Watch me play piano on YouTube — DH's Piano Land"
+          aria-label="Watch me play piano on YouTube: DH's Piano Land"
           className="group/yt absolute inset-0 z-40 cursor-pointer"
         >
           {/* red wash rising as the card converts */}
@@ -314,47 +314,12 @@ export const BentoGridItem = ({
             </div>
           )}
 
-          {/* the 3d globe */}
+          {/* the globe: drag it round; arcs leave Gurugram */}
           {id === 2 && (
-            <div aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 top-[42%] overflow-hidden">
-              {/* rings spreading out from a pin where I am */}
-              <div className="absolute left-1/2 top-[58%] h-0 w-0">
-                {[0, 1, 2].map((i) => (
-                  <span
-                    key={i}
-                    className="ping-ring absolute rounded-full border-2 border-brand/60"
-                    style={{ width: 200, height: 200, left: -100, top: -100, ["--delay" as string]: `${-i * 1.5}s` }}
-                  />
-                ))}
-                <span className="absolute -left-4 -top-9 flex h-8 w-8 items-center justify-center rounded-full bg-brand text-lg text-surface-900 shadow-glow">
-                  <FaLocationDot />
-                </span>
-              </div>
-              <span className="absolute inset-x-0 bottom-3 text-center font-mono text-[10px] uppercase tracking-[0.22em] text-brand">
-                28.46° N · 77.03° E
-              </span>
+            <div className="absolute inset-0 overflow-hidden">
+              <Globe className="h-full w-full cursor-grab active:cursor-grabbing" />
             </div>
           )}
-          {id === 1 && (
-            <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
-              <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMax slice" className="absolute inset-0 h-full w-full">
-                {/* a staff, running behind the copy */}
-                {[0, 1, 2, 3, 4].map((i) => (
-                  <line
-                    key={i}
-                    x1="0"
-                    x2="400"
-                    y1={150 + i * 26}
-                    y2={150 + i * 26}
-                    stroke="rgb(var(--c-brand))"
-                    strokeOpacity={0.22}
-                    strokeWidth="1.5"
-                  />
-                ))}
-              </svg>
-            </div>
-          )}
-
           {id === 6 && (
             <div className="relative mt-5">
               <ParticleBurst
