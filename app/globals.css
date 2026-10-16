@@ -480,6 +480,15 @@
   z-index: 2;
 }
 
+/* Sentry's "Report a Bug" widget lives in a shadow root on #sentry-feedback and
+   reads its corner from --inset (default: bottom-right). On phones and tablets
+   (up to iPad landscape, Tailwind's lg) pin it bottom-left instead. */
+@media (max-width: 1024px) {
+  #sentry-feedback {
+    --inset: auto auto 0 0;
+  }
+}
+
 /* Respect the OS motion preference: keep the scene, drop the movement. */
 @media (prefers-reduced-motion: reduce) {
   *,
