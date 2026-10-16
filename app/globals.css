@@ -36,6 +36,7 @@
     --bg-deep: 0 0 0;
     --ink: 245 245 245;
     --c-hair: 255 255 255;
+    --text-halo: 255 255 255;
 
     --c-surface-900: 0 0 0;
     --c-surface-800: 8 8 8;
@@ -91,6 +92,7 @@
     --bg-deep: 255 255 255;
     --ink: 10 10 10;
     --c-hair: 0 0 0;
+    --text-halo: 0 0 0;
 
     --c-surface-900: 255 255 255;
     --c-surface-800: 248 248 248;
@@ -154,6 +156,17 @@
   body {
     @apply text-foreground;
     background-color: rgb(var(--bg-deep));
+    /* a faint halo on all text (it inherits), in the theme's own tone: white in
+       the dark room, black in the light one */
+    text-shadow: 0 0 4px rgb(var(--text-halo) / 0.3);
+  }
+
+  /* browsers reset text-shadow on form controls, which would drop them out of the inheritance */
+  button,
+  input,
+  select,
+  textarea {
+    text-shadow: inherit;
   }
 
   button {
@@ -202,6 +215,13 @@
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
+  }
+
+  /* gradient text is transparent glyphs over a clipped background; a text-shadow
+     would show straight through them */
+  .heading-grad,
+  .bg-clip-text {
+    text-shadow: none;
   }
 
   .eyebrow {
