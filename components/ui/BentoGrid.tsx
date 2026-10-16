@@ -305,10 +305,10 @@ export const BentoGridItem = ({
                   "[&>*]:transition-all [&>*]:duration-500 group-hover/bento:[&>*]:-translate-y-2 group-hover/bento:[&>*]:opacity-0"
               )}
             >
-              <div className="z-10 font-sans text-sm font-light italic text-brand md:max-w-32 md:text-xs lg:text-base">
+              <div className="z-10 font-display text-sm italic text-brand md:max-w-32 md:text-xs lg:text-base">
                 {description}
               </div>
-              <div className="z-10 max-w-96 font-sans text-lg font-bold text-ink lg:text-3xl">
+              <div className="z-10 max-w-96 font-display text-xl font-bold leading-snug text-ink lg:text-3xl">
                 {title}
               </div>
             </div>
