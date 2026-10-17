@@ -1,11 +1,11 @@
 import type { TechKey } from "@/components/ui/TechIcon";
 
 export const resumeLink =
-  "https://drive.google.com/file/d/1VCxRotstd74esRd1l6lvkNjTeXYbO8Xd/view?usp=sharing";
+  "https://drive.google.com/file/d/1neomQs6sDJYTKsOanXcN5z1-114DGEOY/view?usp=sharing";
 
 /** Same file as resumeLink, as a direct download. */
 export const resumeDownload =
-  "https://drive.google.com/file/d/1VCxRotstd74esRd1l6lvkNjTeXYbO8Xd/view?usp=sharing";
+  "https://drive.google.com/file/d/1neomQs6sDJYTKsOanXcN5z1-114DGEOY/view?usp=sharing";
 
 export const contactEmail = "dhruvnegiclub03@gmail.com";
 
