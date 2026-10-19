@@ -44,7 +44,7 @@ const Navbar = () => {
           onClick={() => goTo("home")}
           aria-label="Dhruv Negi: back to the keyboard"
           className={cn(
-            "flex h-11 w-11 shrink-0 items-center justify-center border border-ink bg-page font-display text-[0.95rem] font-bold tracking-tight text-ink transition-colors hover:bg-ink hover:text-page focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink",
+            "flex h-11 w-11 shrink-0 items-center justify-center border border-ink bg-page font-display text-[0.95rem] tracking-wider text-ink transition-colors hover:bg-ink hover:text-page focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink",
             activeId === "home" && "bg-ink text-page"
           )}
         >
@@ -84,8 +84,8 @@ const Navbar = () => {
                   </span>
                   <span
                     className={cn(
-                      "relative hidden md:inline",
-                      active ? "font-medium text-page" : "text-white-100 hover:text-ink"
+                      "relative hidden font-display text-[12px] tracking-[0.14em] md:inline",
+                      active ? "text-page" : "text-white-100 hover:text-ink"
                     )}
                   >
                     {item.name}
@@ -105,7 +105,7 @@ const Navbar = () => {
             rel="noreferrer"
             download
             aria-label="Download résumé"
-            className="group flex h-11 items-center gap-2 border border-ink bg-page px-3.5 text-sm text-ink transition-colors hover:bg-ink hover:text-page focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink sm:px-4"
+            className="group flex h-11 items-center gap-2 border border-ink bg-page px-3.5 font-display text-[12px] tracking-[0.14em] text-ink transition-colors hover:bg-ink hover:text-page focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink sm:px-4"
           >
             <FaDownload className="h-3.5 w-3.5 transition-transform group-hover:translate-y-0.5" />
             <span className="hidden lg:inline">Résumé</span>

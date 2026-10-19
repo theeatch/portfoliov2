@@ -37,8 +37,8 @@ const Experience = () => {
             className="relative grid gap-x-10 gap-y-3 border-t border-ink/35 py-8 pl-7 last:border-b sm:pl-9 md:grid-cols-[11.5rem_1fr_auto]"
           >
             <div>
-              <p className="font-mono text-[11px] uppercase tracking-[0.16em] text-white-100">{card.period}</p>
-              <p className="mt-2 flex items-center gap-2 text-sm text-ink">
+              <p className="font-mono text-xs tracking-[0.16em] text-white-100">{card.period}</p>
+              <p className="mt-2 flex items-center gap-2 font-display text-[12px] tracking-[0.14em] text-ink">
                 <span
                   aria-hidden
                   className={cn("block h-2.5 w-2.5 border border-ink", card.kind === "education" ? "bg-transparent" : "bg-ink")}
@@ -48,8 +48,8 @@ const Experience = () => {
             </div>
 
             <div className="min-w-0">
-              <h3 className="font-display text-xl font-bold leading-snug text-ink sm:text-2xl">{card.title}</h3>
-              <p className="mt-1 font-display italic text-ink/70">{card.org}</p>
+              <h3 className="font-display text-lg leading-snug tracking-[0.05em] text-ink sm:text-2xl">{card.title}</h3>
+              <p className="mt-1.5 text-lg italic text-ink/70">{card.org}</p>
               <p className="mt-4 max-w-2xl text-sm leading-relaxed text-white-100 sm:text-base">{card.desc}</p>
             </div>
 

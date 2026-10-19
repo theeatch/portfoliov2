@@ -23,7 +23,6 @@ import {
   SiTypescript,
 } from "react-icons/si";
 import { FaAws } from "react-icons/fa";
-import { cn } from "@/lib/utils";
 
 /**
  * One registry for every technology badge on the site.
@@ -60,30 +59,3 @@ export const TECH = {
 } as const;
 
 export type TechKey = keyof typeof TECH;
-
-/** A single badge: the glyph in ink, in a small square cell with a hairline. */
-export const TechIcon = ({
-  name,
-  className,
-}: {
-  name: TechKey;
-  className?: string;
-}) => {
-  const entry = TECH[name];
-  if (!entry) return null;
-  const { label, Icon } = entry;
-
-  return (
-    <span
-      title={label}
-      className={cn(
-        "flex h-7 w-7 items-center justify-center border border-ink/40 text-ink",
-        className
-      )}
-    >
-      <Icon aria-label={label} className="h-3.5 w-3.5" />
-    </span>
-  );
-};
-
-export default TechIcon;

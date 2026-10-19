@@ -242,7 +242,7 @@ export const AKey = ({ className }: { className?: string }) => {
         aria-label="Play the note A"
         title="A"
         className={cn(
-          "relative flex h-16 w-8 items-end justify-center border border-ink pb-1.5 font-display text-lg font-bold text-[rgb(var(--key-black))] transition-[transform,background-color] duration-150 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ink",
+          "relative flex h-16 w-8 items-end justify-center border border-ink pb-1.5 font-display text-lg text-[rgb(var(--key-black))] transition-[transform,background-color] duration-150 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ink",
           down
             ? "translate-y-[3px] bg-[rgb(var(--key-white-down))]"
             : "bg-[rgb(var(--key-white))] hover:bg-[rgb(var(--key-white-hover))]"

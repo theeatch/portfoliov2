@@ -25,10 +25,10 @@ const Hero = () => {
 
         <motion.h1
           {...rise(1)}
-          className="heading max-w-5xl text-[1.9rem] leading-[1.1] text-ink sm:text-5xl lg:text-[3.1rem]"
+          className="heading max-w-5xl text-ink"
         >
           Backend systems,{" "}
-          <em className="font-normal italic text-ink/75">composed with care</em>
+          <em className="text-ink/75">composed with care</em>
         </motion.h1>
 
         <motion.p

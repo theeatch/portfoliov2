@@ -101,7 +101,7 @@ const Loader = ({ onDone }: { onDone: () => void }) => {
       transition={{ duration: 0.8, delay: 0.15, ease: "easeIn" }}
       style={{ pointerEvents: exiting ? "none" : "auto" }}
     >
-      <p className="font-display text-sm font-semibold tracking-[0.35em]">DH</p>
+      <p className="font-display text-sm tracking-[0.35em]">DH</p>
 
       {/* keys press down one after another as the page loads */}
       <div className="flex h-24 items-start gap-[3px]" aria-hidden>

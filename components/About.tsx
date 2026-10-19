@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
-import { FaArrowUpRightFromSquare } from "react-icons/fa6";
+import { FaArrowUpRightFromSquare, FaYoutube } from "react-icons/fa6";
 import { IoCopyOutline } from "react-icons/io5";
 
 import { aboutItems, contactEmail, scenes } from "@/data";
@@ -14,10 +14,10 @@ import StaffCard from "./about/StaffCard";
 import TechNotes from "./about/TechNotes";
 import { AKey, Thread } from "./about/Thread";
 
-const [craft, place, stack, piano, now, hello] = aboutItems;
+const [craft, place, stack, piano, hello] = aboutItems;
 
 /**
- * Bar I. Six fragments of staff, uneven in size and in where they sit, tied
+ * Bar I. Five fragments of staff, uneven in size and in where they sit, tied
  * together by one thread that is a piano string tuned to A (see Thread.tsx).
  * Only opacity animates here: the thread is measured off the cards' real
  * positions, so nothing may be mid-flight when it is drawn.
@@ -61,7 +61,7 @@ const About = () => {
             size="[--gap:1.45rem] md:[--gap:1.7rem] lg:[--gap:1.85rem]"
             side="left"
             footer={
-              <p className="mt-3 font-mono text-[11px] tracking-[0.14em] text-white-100" style={{ paddingLeft: "calc(var(--gap) * 1.1)" }}>
+              <p className="mt-3 font-mono text-xs tracking-[0.14em] text-white-100" style={{ paddingLeft: "calc(var(--gap) * 1.1)" }}>
                 28.46° N · 77.03° E
               </p>
             }
@@ -77,7 +77,7 @@ const About = () => {
             systems={2}
             kicker={
               <div className="mb-3">
-                <p className="font-display text-xl font-bold leading-none text-ink">{stack.title}</p>
+                <p className="font-display text-lg leading-none tracking-[0.1em] text-ink">{stack.title}</p>
                 <p className="eyebrow mt-1.5">{stack.description}</p>
               </div>
             }
@@ -94,51 +94,37 @@ const About = () => {
             aria-label="Watch me play piano on YouTube: DH's Piano Land"
             className="group block focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-8 focus-visible:outline-ink"
           >
-            <StaffCard
-              size="[--gap:1.5rem] md:[--gap:1.75rem] lg:[--gap:1.95rem]"
-              side="left"
-              footer={
-                <p
-                  className="mt-3 flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.16em] text-ink"
-                  style={{ paddingLeft: "calc(var(--gap) * 1.1)" }}
-                >
-                  <span className="border-b border-transparent group-hover:border-ink">DH&apos;s Piano Land</span>
-                  <FaArrowUpRightFromSquare className="h-2.5 w-2.5 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-                </p>
-              }
-            >
+            <StaffCard size="[--gap:1.5rem] md:[--gap:1.75rem] lg:[--gap:1.95rem]" side="left">
               <p>{piano.title}</p>
+              {/* the channel, set in the third space of the measure like a line of lyrics */}
+              <div
+                className="flex items-center gap-2.5 font-display tracking-[0.14em] text-ink"
+                style={{ height: "var(--gap)", fontSize: "max(11px, calc(var(--gap) * 0.44))" }}
+              >
+                <FaYoutube aria-hidden className="shrink-0" style={{ height: "calc(var(--gap) * 0.78)", width: "calc(var(--gap) * 0.78)" }} />
+                <span className="border-b border-transparent leading-none group-hover:border-ink">DH&apos;s Piano Land</span>
+                <FaArrowUpRightFromSquare
+                  aria-hidden
+                  className="h-2.5 w-2.5 shrink-0 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+                />
+              </div>
             </StaffCard>
           </a>
         </motion.div>
 
-        <motion.div {...appear(5)} className="max-w-[34rem] lg:ml-[3%] lg:w-[min(46%,33rem)] lg:max-w-none lg:self-start">
-          <StaffCard
-            size="[--gap:1.55rem] md:[--gap:1.8rem] lg:[--gap:2.1rem]"
-            side="right"
-            kicker={<p className="eyebrow mb-1.5">{now.description}</p>}
-          >
-            <p>{now.title}</p>
-          </StaffCard>
-        </motion.div>
-
-        <motion.div {...appear(6)} className="ml-5 max-w-[30rem] lg:ml-0 lg:mr-[9%] lg:w-[min(36%,25rem)] lg:max-w-none lg:self-end">
-          <StaffCard
-            size="[--gap:1.55rem] md:[--gap:1.8rem] lg:[--gap:2rem]"
-            side="left"
-            final
-            footer={
-              <div className="mt-6" style={{ paddingLeft: "calc(var(--gap) * 1.1)" }}>
-                <KeyButton
-                  title={copied ? "Email is copied!" : "Copy my email address"}
-                  icon={<IoCopyOutline />}
-                  position="left"
-                  handleClick={copy}
-                />
-              </div>
-            }
-          >
+        <motion.div {...appear(5)} className="max-w-[34rem] lg:ml-[3%] lg:w-[min(42%,30rem)] lg:max-w-none lg:self-start">
+          <StaffCard size="[--gap:1.7rem] md:[--gap:1.9rem] lg:[--gap:2.1rem]" side="right" final>
             <p>{hello.title}</p>
+            {/* the button sits in the last two spaces of the measure, on the staff */}
+            <div className="flex items-center" style={{ height: "calc(var(--gap) * 2)" }}>
+              <KeyButton
+                title={copied ? "Email is copied!" : "Copy my email address"}
+                icon={<IoCopyOutline />}
+                position="left"
+                handleClick={copy}
+                className="h-11"
+              />
+            </div>
           </StaffCard>
         </motion.div>
       </Thread>

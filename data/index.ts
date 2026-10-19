@@ -1,4 +1,4 @@
-import type { TechKey } from "@/components/ui/TechIcon";
+import type { TechKey } from "@/lib/tech";
 
 export const resumeLink =
   "https://drive.google.com/file/d/1neomQs6sDJYTKsOanXcN5z1-114DGEOY/view?usp=sharing";
@@ -55,12 +55,6 @@ export const aboutItems = [
   {
     id: "piano",
     title: "Backend engineer by day, pianist the rest of the time.",
-  },
-  {
-    id: "now",
-    title:
-      "Currently building wall-e, a self driving car that navigates traffic and learns pattern in real time.",
-    description: "The Inside Scoop",
   },
   {
     id: "hello",

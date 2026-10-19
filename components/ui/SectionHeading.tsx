@@ -60,7 +60,7 @@ const SectionHeading = ({
         {accent && (
           <>
             {" "}
-            <em className="font-normal italic text-ink/75">{accent}</em>
+            <em className="text-ink/75">{accent}</em>
           </>
         )}
       </motion.h2>

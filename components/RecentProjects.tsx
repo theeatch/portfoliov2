@@ -37,7 +37,7 @@ const RecentProjects = () => {
               "lg:max-w-none lg:even:mt-36 lg:even:-mb-36"
             )}
           >
-            <ProjectPiano project={item} />
+            <ProjectPiano project={item} opus={i + 1} />
           </motion.div>
         ))}
       </div>

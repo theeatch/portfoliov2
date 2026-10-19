@@ -1,13 +1,40 @@
 import type { Metadata } from "next";
-import { Bodoni_Moda, Inter } from "next/font/google";
+import localFont from "next/font/local";
 
 import "./globals.css";
 import { ThemeProvider } from "./provider";
 
-// One pairing for both themes (see globals.css): Bodoni Moda, the high-contrast
-// engraver's serif of printed scores, for titles; Inter for everything else.
-const bodoni = Bodoni_Moda({ subsets: ["latin"], variable: "--font-bodoni", display: "swap" });
-const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
+// One set for both themes (see globals.css), all of it libre type from the Velvetyne
+// foundry and all of it serif. Daubenton, capitals revived from the engraved
+// letters on a Paris museum façade, for titles and plates; Bluu Next's angular bold
+// italic for the accent phrase in a title; Happy Times for everything you read.
+// Served from app/fonts (licences alongside); nothing comes from a CDN.
+// (next/font reads these options at build time, so they have to be literals)
+const daubenton = localFont({
+  src: "./fonts/Daubenton-Regular.woff",
+  variable: "--font-daubenton",
+  display: "swap",
+  fallback: ["Georgia", "Times New Roman", "serif"],
+  adjustFontFallback: "Times New Roman",
+});
+const bluu = localFont({
+  src: [{ path: "./fonts/BluuNext-BoldItalic.woff2", weight: "700", style: "italic" }],
+  variable: "--font-bluu",
+  display: "swap",
+  fallback: ["Georgia", "Times New Roman", "serif"],
+  adjustFontFallback: "Times New Roman",
+});
+const happy = localFont({
+  src: [
+    { path: "./fonts/HappyTimes-Regular.woff2", weight: "400", style: "normal" },
+    { path: "./fonts/HappyTimes-Italic.woff2", weight: "400", style: "italic" },
+    { path: "./fonts/HappyTimes-Bold.woff2", weight: "700", style: "normal" },
+  ],
+  variable: "--font-happy",
+  display: "swap",
+  fallback: ["Georgia", "Times New Roman", "serif"],
+  adjustFontFallback: "Times New Roman",
+});
 
 export const metadata: Metadata = {
   title: "Dhruv Negi - Software Developer Engineer",
@@ -43,7 +70,7 @@ export default function RootLayout({
         <link rel="icon" href="/opt/logo.png" sizes="64x64" />
       </head>
       <body
-        className={`${bodoni.variable} ${inter.variable} font-sans antialiased`}
+        className={`${daubenton.variable} ${bluu.variable} ${happy.variable} font-sans antialiased`}
       >
         <ThemeProvider
           attribute="class"
