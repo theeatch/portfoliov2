@@ -1,13 +1,13 @@
 "use client";
 
-import { useState } from "react";
-import { FaGithub, FaLinkedinIn, FaYoutube, FaLocationArrow, FaMusic } from "react-icons/fa6";
+import { FaGithub, FaLinkedinIn, FaYoutube, FaLocationArrow } from "react-icons/fa6";
 import { IoCopyOutline } from "react-icons/io5";
 import { motion } from "framer-motion";
 
 import { socialMedia, contactEmail, scenes } from "@/data";
-import MagicButton from "./MagicButton";
-import ParticleBurst from "./ui/ParticleBurst";
+import { useCopy } from "@/lib/useCopy";
+import KeyButton from "./KeyButton";
+import SectionHeading from "./ui/SectionHeading";
 import { Scene, useRise } from "./journey/Scene";
 
 const ICONS = {
@@ -16,94 +16,71 @@ const ICONS = {
   youtube: FaYoutube,
 };
 
-/** Bar IV, the final bar: the open channel, and everywhere else I can be found. */
+/**
+ * Bar IV, the final bar: the open channel on the left, and on the right
+ * everywhere else I can be found, as the spaces of a closing system: a barline
+ * to open it and a double barline to end the piece. A row presses down (inverts)
+ * under the pointer, like a key.
+ */
 const Contact = () => {
   const rise = useRise();
-  const [copied, setCopied] = useState(false);
-  const [burst, setBurst] = useState(0);
-
-  const copy = () => {
-    navigator.clipboard?.writeText(contactEmail);
-    setCopied(true);
-    setBurst((n) => n + 1);
-    setTimeout(() => setCopied(false), 2400);
-  };
+  const { copied, copy } = useCopy(contactEmail);
 
   return (
-    <Scene className="items-center pb-40 text-center">
-      <motion.div {...rise(0)} className="mb-5 flex items-center gap-3">
-        <FaMusic className="h-3 w-3 text-brand" />
-        <p className="eyebrow">{scenes[4].tag}</p>
-      </motion.div>
-
-      <motion.h2 {...rise(1)} className="heading heading-grad max-w-4xl lg:text-[3.4rem]">
-        Got something{" "}
-        <em className="font-normal italic text-brand-soft">worth building?</em>
-      </motion.h2>
-
-      <motion.p
-        {...rise(2)}
-        className="mt-5 max-w-2xl text-sm leading-relaxed text-white-100 md:text-base"
-      >
-        I&apos;m always up for talking about backend architecture, hard scaling
-        problems, or an idea you can&apos;t stop thinking about. The inbox is open.
-      </motion.p>
-
-      <motion.div
-        {...rise(3)}
-        className="relative mt-3 flex w-full flex-col items-center gap-0 sm:w-auto sm:flex-row sm:gap-4"
-      >
-        <a href={`mailto:${contactEmail}`} className="w-full sm:w-auto">
-          <MagicButton title="Let's get in touch" icon={<FaLocationArrow />} position="right" />
-        </a>
-        <div className="relative w-full sm:w-auto">
-          <ParticleBurst
-            trigger={burst}
-            className="absolute -bottom-8 left-1/2 h-56 w-[22rem] -translate-x-1/2"
+    <Scene className="justify-start pb-40 lg:justify-center">
+      <div className="grid items-start gap-14 lg:grid-cols-[1.05fr_1fr] lg:gap-20">
+        <div>
+          <SectionHeading
+            eyebrow={scenes[4].tag}
+            title="Got something"
+            accent="worth building?"
+            subtitle="I'm always up for talking about backend architecture, hard scaling problems, or an idea you can't stop thinking about. The inbox is open."
           />
-          <MagicButton
-            title={copied ? "Email is copied!" : "Copy my email address"}
-            icon={<IoCopyOutline />}
-            position="left"
-            handleClick={copy}
-            otherClasses="!bg-surface-600/90"
-          />
+
+          <motion.div {...rise(3, 12)} className="mt-8 flex flex-col gap-3 pl-7 sm:flex-row sm:pl-9">
+            <KeyButton href={`mailto:${contactEmail}`} title="Let's get in touch" icon={<FaLocationArrow />} position="right" />
+            <KeyButton
+              tone="ebony"
+              title={copied ? "Email is copied!" : "Copy my email address"}
+              icon={<IoCopyOutline />}
+              position="left"
+              handleClick={copy}
+            />
+          </motion.div>
         </div>
-      </motion.div>
 
-      <ul className="mt-12 grid w-full max-w-4xl gap-3 sm:grid-cols-3">
-        {socialMedia.map((s, i) => {
-          const Icon = ICONS[s.icon];
-          return (
-            <motion.li key={s.id} {...rise(5 + i, 30)}>
-              <a
-                href={s.url}
-                target="_blank"
-                rel="noreferrer"
-                className="surface-card glow-ring group flex h-full items-center gap-4 rounded-2xl border border-hair/[0.14] p-4 text-left transition-transform duration-500 hover:-translate-y-1.5"
-              >
-                <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-hair/15 bg-surface-700/70 text-lg text-brand-soft transition-colors group-hover:border-brand/50 group-hover:text-brand">
-                  <Icon />
-                </span>
-                <span className="min-w-0">
-                  <span className="block font-display text-base font-semibold text-ink">
-                    {s.name}
-                  </span>
-                  <span className="block truncate font-mono text-[11px] tracking-wide text-brand/90">
-                    {s.handle}
-                  </span>
-                </span>
-                <FaLocationArrow className="ml-auto h-3 w-3 shrink-0 text-white-100 transition-all group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-brand" />
-              </a>
-            </motion.li>
-          );
-        })}
-      </ul>
+        <ul className="relative">
+          {/* the barline that opens the system, and the double one that ends the piece */}
+          <span aria-hidden className="absolute inset-y-0 left-0 w-[3px] bg-ink" />
+          <span aria-hidden className="absolute inset-y-0 right-[7px] w-px bg-ink" />
+          <span aria-hidden className="absolute inset-y-0 right-0 w-[4px] bg-ink" />
 
-      <motion.p
-        {...rise(9, 8)}
-        className="mt-10 font-mono text-[11px] tracking-wide text-white-100 md:text-xs"
-      >
+          {socialMedia.map((s, i) => {
+            const Icon = ICONS[s.icon];
+            return (
+              <motion.li key={s.id} {...rise(5 + i, 24)} className="border-t border-ink/35 last:border-b">
+                <a
+                  href={s.url}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="group flex items-center gap-4 py-5 pl-7 pr-9 text-ink transition-colors hover:bg-ink hover:text-page focus-visible:bg-ink focus-visible:text-page focus-visible:outline-none"
+                >
+                  <Icon className="h-5 w-5 shrink-0" />
+                  <span className="min-w-0">
+                    <span className="block font-display text-xl font-bold leading-tight">{s.name}</span>
+                    <span className="block truncate font-mono text-[11px] tracking-wide text-ink/70 group-hover:text-page/80 group-focus-visible:text-page/80">
+                      {s.handle} <span className="hidden sm:inline">· {s.blurb}</span>
+                    </span>
+                  </span>
+                  <FaLocationArrow className="ml-auto h-3 w-3 shrink-0 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                </a>
+              </motion.li>
+            );
+          })}
+        </ul>
+      </div>
+
+      <motion.p {...rise(9, 8)} className="mt-16 font-mono text-[11px] tracking-wide text-white-100 md:text-xs">
         © {new Date().getFullYear()} Dhruv Negi - <em className="italic">fine</em>
       </motion.p>
     </Scene>

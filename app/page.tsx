@@ -13,24 +13,24 @@ import { JourneyProvider } from "@/components/journey/context";
 
 // Only the launch scene ships in the first bundle; the rest are fetched while
 // the visitor reads the hero (see the idle prefetch below).
-const importGrid = () => import("@/components/Grid");
+const importAbout = () => import("@/components/About");
 const importProjects = () => import("@/components/RecentProjects");
 const importExperience = () => import("@/components/Experience");
 const importContact = () => import("@/components/Contact");
 const loaders: (() => Promise<unknown>)[] = [
-  importGrid,
+  importAbout,
   importProjects,
   importExperience,
   importContact,
 ];
 
-const Grid = dynamic(importGrid);
+const About = dynamic(importAbout);
 const RecentProjects = dynamic(importProjects);
 const Experience = dynamic(importExperience);
 const Contact = dynamic(importContact);
 
 /** Flight order: must match `scenes` in data/index.ts. */
-const views = [Hero, Grid, RecentProjects, Experience, Contact];
+const views = [Hero, About, RecentProjects, Experience, Contact];
 
 const Home = () => {
   const [ready, setReady] = useState(false);

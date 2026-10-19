@@ -76,14 +76,14 @@ const ThemeToggle = ({ className }: { className?: string }) => {
       aria-label={isLight ? "Switch to the black theme" : "Switch to the white theme"}
       title={isLight ? "Black theme" : "White theme"}
       className={cn(
-        "group relative flex h-9 w-[3.75rem] shrink-0 items-center rounded-full border border-hair/25 bg-surface-700/70 p-1 transition-colors hover:border-brand/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/60 sm:w-[4.25rem]",
+        "group relative flex h-11 w-[3.75rem] shrink-0 items-center border border-ink bg-page p-1 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink sm:w-[4.25rem]",
         className
       )}
     >
       {/* glyphs sit under the knob, the active one is hidden by it */}
       <FaMoon className="absolute left-2.5 h-3.5 w-3.5 text-ink" />
       <FaSun className="absolute right-2.5 h-3.5 w-3.5 text-ink" />
-      <span className="relative z-10 flex h-7 w-7 items-center justify-center rounded-full bg-ink text-surface-900 transition-transform duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] [.light_&]:translate-x-6 sm:[.light_&]:translate-x-8">
+      <span className="relative z-10 flex h-8 w-7 items-center justify-center bg-ink text-page transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] [.light_&]:translate-x-6 sm:[.light_&]:translate-x-8">
         <FaMoon className="h-3.5 w-3.5 [.light_&]:hidden" />
         <FaSun className="hidden h-3.5 w-3.5 [.light_&]:block" />
       </span>

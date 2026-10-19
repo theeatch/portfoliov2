@@ -75,7 +75,6 @@ const Keyboard = ({ active }: { active: boolean }) => {
           y={KEY.y}
           width={k.w - (k.black ? 0 : 2)}
           height={k.h}
-          rx={k.black ? 5 : 4}
         />
       ))}
 
@@ -86,7 +85,6 @@ const Keyboard = ({ active }: { active: boolean }) => {
         y={PAGE.y + PAGE.h + 4}
         width={52 * KEY.w + 8}
         height={30}
-        rx={3}
         pointerEvents="none"
       />
       <text

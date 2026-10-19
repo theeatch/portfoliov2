@@ -30,13 +30,12 @@
     --border: 0 0% 18%;
     --input: 0 0% 18%;
     --ring: 0 0% 80%;
-    --radius: 0.5rem;
+    --radius: 0rem;
 
     --bg-void: 0 0 0;
     --bg-deep: 0 0 0;
     --ink: 245 245 245;
     --c-hair: 255 255 255;
-    --text-halo: 255 255 255;
 
     --c-surface-900: 0 0 0;
     --c-surface-800: 8 8 8;
@@ -47,18 +46,10 @@
 
     --c-brand: 245 245 245;
     --c-brand-soft: 200 200 200;
-    --c-brand-glow: 255 255 255;
     --c-accent: 150 150 150;
-    --c-accent-deep: 70 70 70;
-    --c-accent-soft: 190 190 190;
 
     --c-muted: 160 160 160;
     --c-muted-2: 205 205 205;
-
-    --card-a: 20 20 20;
-    --card-b: 10 10 10;
-    --card-c: 4 4 4;
-    --shadow-tint: 0 0 0;
 
     /* the piano */
     --page: 10 10 10;
@@ -67,6 +58,8 @@
     --key-black: 14 14 14;
     --key-black-down: 70 70 70;
     --key-edge: 255 255 255;
+    --key-white-hover: 222 222 222;
+    --key-line: 14 14 14;
     color-scheme: dark;
   }
 
@@ -92,7 +85,6 @@
     --bg-deep: 255 255 255;
     --ink: 10 10 10;
     --c-hair: 0 0 0;
-    --text-halo: 0 0 0;
 
     --c-surface-900: 255 255 255;
     --c-surface-800: 248 248 248;
@@ -103,18 +95,10 @@
 
     --c-brand: 10 10 10;
     --c-brand-soft: 60 60 60;
-    --c-brand-glow: 0 0 0;
     --c-accent: 105 105 105;
-    --c-accent-deep: 185 185 185;
-    --c-accent-soft: 70 70 70;
 
     --c-muted: 95 95 95;
     --c-muted-2: 50 50 50;
-
-    --card-a: 255 255 255;
-    --card-b: 250 250 250;
-    --card-c: 243 243 243;
-    --shadow-tint: 0 0 0;
 
     /* the keys keep their real roles (ivory naturals, ebony sharps): swapping them
        would merge both layers into one dark mass. The white naturals get an ink outline instead. */
@@ -124,6 +108,8 @@
     --key-black: 12 12 12;
     --key-black-down: 85 85 85;
     --key-edge: 0 0 0;
+    --key-white-hover: 233 233 233;
+    --key-line: 10 10 10;
     color-scheme: light;
   }
 }
@@ -156,17 +142,6 @@
   body {
     @apply text-foreground;
     background-color: rgb(var(--bg-deep));
-    /* a faint halo on all text (it inherits), in the theme's own tone: white in
-       the dark room, black in the light one */
-    text-shadow: 0 0 4px rgb(var(--text-halo) / 0.3);
-  }
-
-  /* browsers reset text-shadow on form controls, which would drop them out of the inheritance */
-  button,
-  input,
-  select,
-  textarea {
-    text-shadow: inherit;
   }
 
   button {
@@ -194,7 +169,6 @@
 
   ::-webkit-scrollbar-thumb {
     background: rgb(var(--c-brand) / 0.45);
-    border-radius: 999px;
     border: 2px solid transparent;
     background-clip: content-box;
   }
@@ -202,85 +176,17 @@
 
 @layer utilities {
   .heading {
-    @apply font-display font-bold text-4xl md:text-5xl text-center tracking-tight;
+    @apply font-display font-bold text-4xl md:text-5xl tracking-tight;
     text-wrap: balance;
   }
 
-  .heading-grad {
-    background-image: linear-gradient(
-      180deg,
-      rgb(var(--ink)) 0%,
-      rgb(var(--ink) / 0.78) 100%
-    );
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-  }
-
-  /* gradient text is transparent glyphs over a clipped background; a text-shadow
-     would show straight through them */
-  .heading-grad,
-  .bg-clip-text {
-    text-shadow: none;
-  }
-
+  /* a tempo marking: the small italic that stands over a title in a printed score */
   .eyebrow {
-    @apply font-mono text-[10px] md:text-xs uppercase tracking-[0.28em] font-medium;
-    color: rgb(var(--c-brand));
-  }
-
-  /* panels: deliberately no backdrop-filter. The world behind them is moving,
-     and blurring it per panel per frame is the most expensive thing on this page. */
-  .glass-panel {
-    background: linear-gradient(
-      160deg,
-      rgb(var(--card-a)) 0%,
-      rgb(var(--card-c)) 100%
-    );
-    border: 1px solid rgb(var(--c-hair) / 0.18);
-  }
-
-  .surface-card {
-    background: linear-gradient(
-      158deg,
-      rgb(var(--card-a) / 1) 0%,
-      rgb(var(--card-b) / 1) 55%,
-      rgb(var(--card-c) / 1) 100%
-    );
-  }
-
-  .surface-solid {
-    background: linear-gradient(
-      158deg,
-      rgb(var(--card-a)) 0%,
-      rgb(var(--card-b)) 55%,
-      rgb(var(--card-c)) 100%
-    );
-  }
-
-  .glow-ring {
-    box-shadow:
-      inset 0 1px 0 0 rgb(var(--c-hair) / 0.08),
-      0 0 0 1px rgb(var(--c-brand) / 0);
-    transition: box-shadow 500ms ease, border-color 500ms ease;
-  }
-
-  .glow-ring:hover {
-    box-shadow:
-      inset 0 1px 0 0 rgb(var(--c-hair) / 0.12),
-      0 0 0 1px rgb(var(--c-brand) / 0.35),
-      0 0 36px -14px rgb(var(--c-brand) / 0.55);
-  }
-
-  .horizon-line {
-    background: linear-gradient(
-      90deg,
-      transparent 0%,
-      rgb(var(--c-brand) / 0.45) 18%,
-      rgb(var(--c-accent) / 0.5) 50%,
-      rgb(var(--c-brand) / 0.45) 82%,
-      transparent 100%
-    );
+    font-family: var(--font-heading), serif;
+    font-style: italic;
+    font-size: 1rem;
+    letter-spacing: 0.01em;
+    color: rgb(var(--ink) / 0.72);
   }
 
   /* pulls off-palette illustrations to greys; the inverted theme flips them like the keys */
@@ -289,37 +195,6 @@
   }
   .light .duotone {
     filter: grayscale(1) invert(1) contrast(0.95);
-  }
-  .mask-fade-bottom {
-    mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
-    -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
-  }
-
-  /* static wash for the "build something together" card */
-  .aurora-card {
-    background:
-      radial-gradient(circle at 20% 20%, rgb(var(--c-brand) / 0.14), transparent 50%),
-      radial-gradient(circle at 85% 90%, rgb(var(--c-brand) / 0.1), transparent 55%),
-      rgb(var(--card-b));
-  }
-  .stencil {
-    @apply font-mono uppercase;
-    letter-spacing: 0.22em;
-    color: rgb(var(--c-muted) / 0.95);
-  }
-
-  /* a dot of light that circles a card's edge */
-  .moving-dot {
-    background: radial-gradient(
-      rgb(var(--c-brand)) 35%,
-      rgb(var(--c-brand) / 0.3) 55%,
-      transparent 70%
-    );
-  }
-  /* rings spreading from a pin */
-  .ping-ring {
-    animation: ping-ring 4.5s ease-out infinite;
-    animation-delay: var(--delay, 0s);
   }
 
   /* ---------- the score (components/score) ---------- */
@@ -409,7 +284,7 @@
     opacity: 0;
   }
   .score:not([data-view="home"]) .measure[data-active="false"] {
-    opacity: 0.35;
+    opacity: 0.2;
   }
   /* inside a bar the staff is texture behind the content, not the subject */
   .sc-line,
@@ -417,10 +292,10 @@
     transition: stroke 0.6s ease;
   }
   .score:not([data-view="home"]) .sc-line {
-    stroke: rgb(var(--ink) / 0.13);
+    stroke: rgb(var(--ink) / 0.07);
   }
   .score:not([data-view="home"]) .sc-bar {
-    stroke: rgb(var(--ink) / 0.28);
+    stroke: rgb(var(--ink) / 0.14);
   }
   /* the notes of the bar you are entering sound off in turn, left to right */
   [data-playing] .sc-note-g {
@@ -475,16 +350,72 @@
     letter-spacing: 0.6em;
     font-weight: 600;
   }
+
+  /* ---------- the project pianos (components/projects) ----------
+     Flat fills only: a key is a rectangle, and "pressed" is a darker fill plus a
+     few pixels of travel. The ivory naturals get an ink line between them. */
+  .pk-key {
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .pk-white {
+    background-color: rgb(var(--key-white));
+    border-right: 1px solid rgb(var(--key-line));
+  }
+  .pk-white:last-child {
+    border-right: 0;
+  }
+  .pk-white:hover {
+    background-color: rgb(var(--key-white-hover));
+  }
+  .pk-white.down {
+    background-color: rgb(var(--key-white-down));
+    transform: translateY(3px);
+    transition-duration: 0.05s;
+  }
+  .pk-black {
+    background-color: rgb(var(--key-black));
+    border: 1px solid rgb(var(--key-edge) / 0.4);
+    border-top: 0;
+  }
+  .pk-black:hover {
+    background-color: rgb(var(--key-black-down));
+  }
+  .pk-black.down {
+    background-color: rgb(var(--key-black-down));
+    transform: translateY(2px);
+    transition-duration: 0.05s;
+  }
+
+  /* ---------- the thread of the About bar (components/about) ---------- */
+  .thread-line {
+    fill: none;
+    stroke: rgb(var(--ink));
+    stroke-linecap: butt;
+    stroke-width: var(--w, 1.5px);
+    transition: stroke-width 0.2s ease;
+  }
+  .thread-ghost {
+    fill: none;
+    stroke: rgb(var(--ink) / 0.35);
+    stroke-width: 1;
+  }
+  .thread-hit {
+    fill: none;
+    stroke: transparent;
+    stroke-width: 26;
+    pointer-events: stroke;
+    cursor: pointer;
+  }
+  .thread-seg:hover .thread-line {
+    stroke-width: calc(var(--w, 1.5px) + 1px);
+  }
 }
 
-@keyframes ping-ring {
-  0% { transform: scale(0.2); opacity: 0.9; }
-  100% { transform: scale(1.4); opacity: 0; }
-}
 @keyframes note-on {
   0% { transform: scale(1); opacity: 0.85; }
   35% { transform: scale(1.35); opacity: 1; }
-  100% { transform: scale(1); opacity: 0.14; }
+  100% { transform: scale(1); opacity: 0.07; }
 }
 
 /* ---------- theme-switch: a wave of the new world opening from the toggle ---------- */
@@ -501,8 +432,19 @@
 }
 
 /* Sentry's "Report a Bug" widget lives in a shadow root on #sentry-feedback and
-   reads its corner from --inset (default: bottom-right). On phones and tablets
+   reads its look from custom properties set here: square corners like everything
+   else, and its corner from --inset (default: bottom-right). On phones and tablets
    (up to iPad landscape, Tailwind's lg) pin it bottom-left instead. */
+#sentry-feedback {
+  --actor-border-radius: 0;
+  --button-border-radius: 0;
+  --button-primary-border-radius: 0;
+  --dialog-border-radius: 0;
+  --input-border-radius: 0;
+  --menu-border-radius: 0;
+  --success-border-radius: 0;
+}
+
 @media (max-width: 1024px) {
   #sentry-feedback {
     --inset: auto auto 0 0;
@@ -518,9 +460,5 @@
     animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
     scroll-behavior: auto !important;
-  }
-  .ping-ring {
-    animation: none !important;
-    opacity: 0.5;
   }
 }

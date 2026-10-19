@@ -25,14 +25,14 @@ const Hud = () => {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 16 }}
           transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-          className="fixed left-1/2 z-40 flex -translate-x-1/2 items-center gap-1 rounded-full border border-hair/25 bg-surface-800/95 p-1 shadow-orbit"
+          className="fixed left-1/2 z-40 flex -translate-x-1/2 items-center gap-1 border border-ink bg-page p-1"
           style={{ bottom: "max(0.75rem, env(safe-area-inset-bottom))" }}
         >
           <button
             type="button"
             onClick={prev}
             aria-label="Previous bar"
-            className="flex h-9 w-9 items-center justify-center rounded-full text-ink transition active:scale-90 enabled:hover:bg-brand/10"
+            className="flex h-9 w-9 items-center justify-center text-ink transition active:translate-y-0.5 enabled:hover:bg-ink enabled:hover:text-page"
           >
             <FaChevronLeft className="h-3.5 w-3.5" />
           </button>
@@ -50,10 +50,10 @@ const Hud = () => {
                   {/* a key: it sinks (and fills) when it is the current stop */}
                   <span
                     className={cn(
-                      "block w-2.5 rounded-b-[3px] border transition-all duration-300",
+                      "block w-2.5 border transition-all duration-300",
                       i === index
-                        ? "h-4 translate-y-0.5 border-brand bg-brand"
-                        : "h-5 border-hair/50 bg-transparent group-hover:border-brand group-hover:bg-brand/20"
+                        ? "h-4 translate-y-0.5 border-ink bg-ink"
+                        : "h-5 border-ink/50 bg-transparent group-hover:border-ink group-hover:bg-ink/20"
                     )}
                   />
                 </button>
@@ -71,7 +71,7 @@ const Hud = () => {
             onClick={next}
             disabled={index === scenes.length - 1}
             aria-label="Next bar"
-            className="flex h-9 w-9 items-center justify-center rounded-full text-ink transition active:scale-90 enabled:hover:bg-brand/10 disabled:opacity-30"
+            className="flex h-9 w-9 items-center justify-center text-ink transition active:translate-y-0.5 enabled:hover:bg-ink enabled:hover:text-page disabled:opacity-30"
           >
             <FaChevronRight className="h-3.5 w-3.5" />
           </button>

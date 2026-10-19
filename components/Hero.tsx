@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import { FaArrowDown } from "react-icons/fa6";
 
-import MagicButton from "./MagicButton";
+import KeyButton from "./KeyButton";
 import { useRise } from "./journey/Scene";
 import { useJourney } from "./journey/context";
 
@@ -28,7 +28,7 @@ const Hero = () => {
           className="heading max-w-5xl text-[1.9rem] leading-[1.1] text-ink sm:text-5xl lg:text-[3.1rem]"
         >
           Backend systems,{" "}
-          <em className="font-normal italic text-brand-soft">composed with care</em>
+          <em className="font-normal italic text-ink/75">composed with care</em>
         </motion.h1>
 
         <motion.p
@@ -39,7 +39,7 @@ const Hero = () => {
         </motion.p>
 
         <motion.div {...rise(3, 12)} className="pointer-events-auto mt-1 w-full max-w-[15rem]">
-          <MagicButton title="Begin the score" icon={<FaArrowDown />} position="right" handleClick={next} />
+          <KeyButton title="Begin the score" icon={<FaArrowDown />} position="right" handleClick={next} />
         </motion.div>
       </div>
     </div>

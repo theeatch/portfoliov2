@@ -100,7 +100,7 @@ const Score = () => {
       <svg className="score block h-full w-full" data-view={view} width="100%" height="100%">
         <g ref={world}>
           {/* the page */}
-          <rect className="sc-page" x={PAGE.x} y={PAGE.y} width={PAGE.w} height={PAGE.h} rx={8} />
+          <rect className="sc-page" x={PAGE.x} y={PAGE.y} width={PAGE.w} height={PAGE.h} />
 
           {/* two systems of five lines, with their barlines */}
           {[0, 1].map((row) => {
