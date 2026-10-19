@@ -113,7 +113,7 @@ const StaffCard = ({
 
         <div
           ref={content}
-          className={cn("font-display font-medium text-ink", stack ? "absolute inset-0" : "relative")}
+          className={cn("font-sans text-ink", stack ? "absolute inset-0" : "relative")}
           style={{
             paddingLeft: "calc(var(--gap) * 1.1)",
             paddingRight: "calc(var(--gap) * 0.5)",

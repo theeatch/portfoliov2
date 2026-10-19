@@ -82,12 +82,16 @@ const config = {
           foreground: "hsl(var(--card-foreground))",
         },
       },
-      // the pairing comes from --font-heading / --font-body in globals.css;
-      // mono is deliberately the body face too, so every label belongs to the same family
+      // the set comes from --font-heading / --font-body / --font-accent in globals.css.
+      // None of these stacks falls back to a sans-serif: the whole site is serif.
+      //   display / mono: Daubenton, engraved capitals (titles, plates, labels)
+      //   sans:           Happy Times, the text face
+      //   accent:         Bluu Next Bold Italic, for the accent phrase in a title
       fontFamily: {
-        sans: ["var(--font-body)", "ui-sans-serif", "system-ui", "sans-serif"],
-        display: ["var(--font-heading)", "var(--font-body)", "ui-sans-serif", "sans-serif"],
-        mono: ["var(--font-body)", "ui-sans-serif", "system-ui", "sans-serif"],
+        sans: ["var(--font-body)", "Georgia", "Times New Roman", "serif"],
+        display: ["var(--font-heading)", "Georgia", "Times New Roman", "serif"],
+        mono: ["var(--font-heading)", "Georgia", "Times New Roman", "serif"],
+        accent: ["var(--font-accent)", "var(--font-body)", "Georgia", "serif"],
       },
       // Piano keys, staff lines and the page of a score have square corners: this
       // theme has no rounded corners at all, so every `rounded-*` resolves to 0 and

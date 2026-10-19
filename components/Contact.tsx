@@ -28,7 +28,7 @@ const Contact = () => {
 
   return (
     <Scene className="justify-start pb-40 lg:justify-center">
-      <div className="grid items-start gap-14 lg:grid-cols-[1.05fr_1fr] lg:gap-20">
+      <div className="grid items-start gap-14 lg:grid-cols-[1.2fr_1fr] lg:gap-20">
         <div>
           <SectionHeading
             eyebrow={scenes[4].tag}
@@ -37,7 +37,7 @@ const Contact = () => {
             subtitle="I'm always up for talking about backend architecture, hard scaling problems, or an idea you can't stop thinking about. The inbox is open."
           />
 
-          <motion.div {...rise(3, 12)} className="mt-8 flex flex-col gap-3 pl-7 sm:flex-row sm:pl-9">
+          <motion.div {...rise(3, 12)} className="mt-8 flex flex-col gap-3 pl-7 sm:flex-row sm:flex-wrap sm:pl-9">
             <KeyButton href={`mailto:${contactEmail}`} title="Let's get in touch" icon={<FaLocationArrow />} position="right" />
             <KeyButton
               tone="ebony"
@@ -67,8 +67,8 @@ const Contact = () => {
                 >
                   <Icon className="h-5 w-5 shrink-0" />
                   <span className="min-w-0">
-                    <span className="block font-display text-xl font-bold leading-tight">{s.name}</span>
-                    <span className="block truncate font-mono text-[11px] tracking-wide text-ink/70 group-hover:text-page/80 group-focus-visible:text-page/80">
+                    <span className="block font-display text-lg leading-tight tracking-[0.08em]">{s.name}</span>
+                    <span className="block truncate text-sm italic text-ink/70 group-hover:text-page/80 group-focus-visible:text-page/80">
                       {s.handle} <span className="hidden sm:inline">· {s.blurb}</span>
                     </span>
                   </span>
@@ -80,7 +80,7 @@ const Contact = () => {
         </ul>
       </div>
 
-      <motion.p {...rise(9, 8)} className="mt-16 font-mono text-[11px] tracking-wide text-white-100 md:text-xs">
+      <motion.p {...rise(9, 8)} className="mt-16 text-sm text-white-100">
         © {new Date().getFullYear()} Dhruv Negi - <em className="italic">fine</em>
       </motion.p>
     </Scene>

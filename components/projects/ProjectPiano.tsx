@@ -4,8 +4,8 @@ import { useEffect, useRef, useState } from "react";
 import { LuArrowUpRight } from "react-icons/lu";
 
 import { playNote } from "@/lib/piano";
+import { TECH, type TechKey } from "@/lib/tech";
 import { cn } from "@/lib/utils";
-import { TechIcon, type TechKey } from "@/components/ui/TechIcon";
 
 /** one octave, C4 to C5: eight naturals, and the five sharps that sit on the seams between them */
 const WHITES = [60, 62, 64, 65, 67, 69, 71, 72];
@@ -16,6 +16,8 @@ const BLACKS = [
   { seam: 5, midi: 68 },
   { seam: 6, midi: 70 },
 ];
+
+const ROMAN = ["", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X"];
 
 /** A key: it sinks and sounds when pressed, or when you drag across it. */
 const Key = ({ midi, className, style }: { midi: number; className: string; style?: React.CSSProperties }) => {
@@ -57,38 +59,50 @@ export type Project = {
 };
 
 /**
- * The standard project card: a small piano. An octave of keys in a case; the
- * project's screenshot stands up out of the keys, 75% of the width, slightly out
- * of focus until you reach for it; the name is on a nameplate over it. The
- * description and the stack are printed on plates of their own, because a plate
- * has to be readable whether it lands on an ivory key or an ebony one.
+ * The standard project card: a small piano. An octave of keys in a case, a little
+ * out of focus like a room behind a stage; the project's screenshot stands up out
+ * of them, 75% of the width and almost sharp; the name is on an engraved
+ * nameplate over it. The description and the stack are printed straight onto the
+ * ivory keys at the foot of the card, no boxes: dark ink on ivory is always
+ * legible, and the black keys stop well above them.
  * The keys are playable; the project opens from the name, the picture or the
  * arrow in the corner.
  */
-const ProjectPiano = ({ project, className }: { project: Project; className?: string }) => {
+const ProjectPiano = ({
+  project,
+  opus,
+  className,
+}: {
+  project: Project;
+  /** the card's number, shown on its nameplate as an opus number */
+  opus: number;
+  className?: string;
+}) => {
   const { title, des, img, iconLists, link } = project;
 
   return (
     // the screenshot stands about a fifth of the card's width above the case: room is kept for it
     <article className={cn("group/pk relative pt-[21%]", className)}>
       <div className="border border-ink/70 bg-[rgb(var(--key-black))] px-1.5 pt-1.5">
-        <div className="relative h-[22rem]">
-          {/* keys */}
-          <div className="absolute inset-0 flex">
-            {WHITES.map((midi) => (
-              <Key key={midi} midi={midi} className="pk-white flex-1" />
+        <div className="relative h-[27rem] sm:h-[24rem]">
+          {/* keys: the whole keyboard sits a little out of focus */}
+          <div aria-hidden className="absolute inset-0 blur-[1.5px]">
+            <div className="absolute inset-0 flex">
+              {WHITES.map((midi) => (
+                <Key key={midi} midi={midi} className="pk-white flex-1" />
+              ))}
+            </div>
+            {BLACKS.map(({ seam, midi }) => (
+              <Key
+                key={midi}
+                midi={midi}
+                className="pk-black absolute top-0 z-[1] h-[50%] w-[7%] sm:h-[58%]"
+                style={{ left: `calc(${(seam / WHITES.length) * 100}% - 3.5%)` }}
+              />
             ))}
           </div>
-          {BLACKS.map(({ seam, midi }) => (
-            <Key
-              key={midi}
-              midi={midi}
-              className="pk-black absolute top-0 z-[1] h-[58%] w-[7%]"
-              style={{ left: `calc(${(seam / WHITES.length) * 100}% - 3.5%)` }}
-            />
-          ))}
 
-          {/* the screenshot, 75% wide and aligned to the seams, a little out of focus */}
+          {/* the screenshot, 75% wide and aligned to the seams, almost in focus */}
           <a
             href={link}
             target="_blank"
@@ -102,19 +116,28 @@ const ProjectPiano = ({ project, className }: { project: Project; className?: st
               alt=""
               loading="lazy"
               decoding="async"
-              className="h-full w-full scale-[1.04] object-cover object-top blur-[1.5px] transition-[filter] duration-500 group-hover/pk:blur-0"
+              className="h-full w-full scale-[1.02] object-cover object-top blur-[0.6px] transition-[filter] duration-500 group-hover/pk:blur-0"
             />
           </a>
 
-          {/* nameplate */}
-          <h3 className="absolute left-1/2 top-3 z-20 max-w-[88%] -translate-x-1/2 border border-ink bg-page px-4 py-1.5 text-center font-display text-lg font-bold leading-tight text-ink sm:text-xl">
+          {/* the nameplate: engraved capitals in a double-ruled plate, with its opus number */}
+          <h3 className="pointer-events-none absolute inset-x-0 top-3 z-20 flex justify-center">
             <a
               href={link}
               target="_blank"
               rel="noreferrer"
-              className="focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ink"
+              className="pointer-events-auto block max-w-[75%] border border-ink bg-page p-[3px] sm:max-w-[84%] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ink"
             >
-              {title}
+              <span className="flex flex-col items-center border border-ink px-3 pb-2.5 pt-2 text-center sm:px-6">
+                <span className="font-sans text-[13px] italic leading-none text-ink/70">Opus {ROMAN[opus] ?? opus}</span>
+                <span className="mt-2 flex items-center gap-3 text-ink">
+                  <i aria-hidden className="hidden h-1.5 w-1.5 shrink-0 bg-ink sm:block" />
+                  <span className="font-display text-[1.3rem] leading-[1.15] tracking-[0.06em] [text-wrap:balance] sm:text-[1.9rem] sm:tracking-[0.08em] lg:text-[2rem]">
+                    {title}
+                  </span>
+                  <i aria-hidden className="hidden h-1.5 w-1.5 shrink-0 bg-ink sm:block" />
+                </span>
+              </span>
               <span className="sr-only"> (opens the project)</span>
             </a>
           </h3>
@@ -131,18 +154,20 @@ const ProjectPiano = ({ project, className }: { project: Project; className?: st
             <LuArrowUpRight className="h-4 w-4" />
           </a>
 
-          {/* the two bottom plates: stack above description on a phone, description left and stack right from sm */}
-          <div className="pointer-events-none absolute inset-x-2 bottom-2 z-20 flex flex-col items-end gap-1 sm:flex-row-reverse sm:items-end sm:justify-between sm:gap-3">
-            <ul aria-label="Built with" className="pointer-events-auto flex shrink-0 gap-1 border border-ink bg-page p-1.5">
-              {iconLists.map((key) => (
-                <li key={key}>
-                  <TechIcon name={key} />
-                </li>
-              ))}
+          {/* description and stack: 80% of the card, at its foot, printed on the keys */}
+          <div className="keyprint pointer-events-none absolute inset-x-[10%] bottom-4 z-20 flex flex-col gap-3">
+            <p className="text-[15.5px] font-bold leading-[1.35] sm:text-[17px]">{des}</p>
+            <ul aria-label="Built with" className="flex flex-wrap gap-x-5 gap-y-2">
+              {iconLists.map((key) => {
+                const { Icon, label } = TECH[key];
+                return (
+                  <li key={key} className="flex items-center gap-2 text-[13.5px] font-bold leading-none tracking-[0.02em]">
+                    <Icon aria-hidden className="h-[18px] w-[18px] shrink-0" />
+                    {label}
+                  </li>
+                );
+              })}
             </ul>
-            <p className="pointer-events-auto w-full border border-ink bg-page px-3 py-2.5 text-[12.5px] leading-[1.5] text-ink/90 sm:w-[min(40%,15rem)]">
-              {des}
-            </p>
           </div>
         </div>
       </div>

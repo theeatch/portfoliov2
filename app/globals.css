@@ -115,12 +115,18 @@
 }
 
 @layer base {
-  /* the font variables from next/font live on <body>, so the pairing is set
-     here (not on :root, where they would not resolve): an engraved serif for
-     titles, a plain sans for text */
+  /* the font variables from next/font live on <body>, so the set is wired here (not
+     on :root, where they would not resolve): Daubenton's engraved capitals for
+     titles, Happy Times for text, Bluu Next's bold italic for accent phrases */
   body {
-    --font-heading: var(--font-bodoni);
-    --font-body: var(--font-inter);
+    --font-heading: var(--font-daubenton);
+    --font-body: var(--font-happy);
+    --font-accent: var(--font-bluu);
+  }
+
+  /* Daubenton has one weight and no italic: never let the browser fake either */
+  html {
+    font-synthesis: none;
   }
 
   * {
@@ -176,15 +182,28 @@
 
 @layer utilities {
   .heading {
-    @apply font-display font-bold text-4xl md:text-5xl tracking-tight;
+    @apply font-display text-[1.7rem] sm:text-4xl md:text-[2.6rem];
+    letter-spacing: 0.03em;
+    line-height: 1.14;
     text-wrap: balance;
+  }
+
+  /* the accent phrase of a title: Bluu Next's angular bold italic, a little larger
+     to stand level with the capitals beside it */
+  .heading em,
+  .accent {
+    font-family: var(--font-accent), var(--font-body), serif;
+    font-style: italic;
+    font-weight: 700;
+    letter-spacing: 0;
+    font-size: 1.1em;
   }
 
   /* a tempo marking: the small italic that stands over a title in a printed score */
   .eyebrow {
-    font-family: var(--font-heading), serif;
+    font-family: var(--font-body), serif;
     font-style: italic;
-    font-size: 1rem;
+    font-size: 1.05rem;
     letter-spacing: 0.01em;
     color: rgb(var(--ink) / 0.72);
   }
@@ -231,16 +250,16 @@
     transition: opacity 0.5s ease, fill 0.3s ease;
   }
   .sc-title {
-    font-weight: 700;
-    letter-spacing: -0.01em;
+    letter-spacing: 0.02em;
   }
   .sc-num {
-    font-family: var(--font-body), sans-serif;
+    font-family: var(--font-body), serif;
     font-weight: 500;
     letter-spacing: 0.2em;
     fill: rgb(var(--ink) / 0.6);
   }
   .sc-tempo {
+    font-family: var(--font-body), serif;
     font-style: italic;
     fill: rgb(var(--ink) / 0.6);
   }
@@ -385,6 +404,17 @@
     background-color: rgb(var(--key-black-down));
     transform: translateY(2px);
     transition-duration: 0.05s;
+  }
+
+  /* Text printed straight onto the ivory keys (no box). The dark seams between the keys
+     run through it, so every glyph, icons included, gets an ivory outline: a stack of
+     tight drop-shadows in the key colour, which clears the seams around the letters
+     and is invisible everywhere else on the ivory. */
+  .keyprint {
+    color: rgb(var(--key-black));
+    filter: drop-shadow(0 0 0.5px rgb(var(--key-white))) drop-shadow(0 0 1px rgb(var(--key-white)))
+      drop-shadow(0 0 2px rgb(var(--key-white))) drop-shadow(0 0 4px rgb(var(--key-white)))
+      drop-shadow(0 0 6px rgb(var(--key-white)));
   }
 
   /* ---------- the thread of the About bar (components/about) ---------- */

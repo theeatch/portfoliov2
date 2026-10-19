@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import { techStack } from "@/data";
 import { playNote } from "@/lib/piano";
 import { cn } from "@/lib/utils";
-import { TECH } from "@/components/ui/TechIcon";
+import { TECH } from "@/lib/tech";
 
 /** the staff's steps from the bottom line up (E4 F#4 G4 A4 B4 C5 D5 E5 F#5): G major */
 const STEP_MIDI = [64, 66, 67, 69, 71, 72, 74, 76, 78];
