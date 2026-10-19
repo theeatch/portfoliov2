@@ -125,7 +125,7 @@ const Key = ({ i, progress, reduced }: { i: number; progress: ReturnType<typeof 
   const fill = useTransform(progress, [t - 1 / KEYS, t], [1, 0.3]);
   return (
     <motion.span
-      className="block h-full w-3 rounded-b-[3px] bg-ink sm:w-4"
+      className="block h-full w-3 bg-ink sm:w-4"
       style={reduced ? undefined : { y, opacity: fill }}
     />
   );

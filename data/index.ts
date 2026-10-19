@@ -33,71 +33,61 @@ export const navItems: { name: string; link: string; id: SceneId }[] = [
   { name: "Contact", link: "#contact", id: "contact" },
 ];
 
-export const gridItems = [
+/**
+ * Bar I, in reading order. Each one is a fragment of staff the text is set on;
+ * the layout (where it sits, how large its staff is) lives in components/About.tsx.
+ */
+export const aboutItems = [
   {
-    id: 1,
+    id: "craft",
     title:
       "I build the parts you never see - REST APIs, queues, auth layers and the architecture holding them together.",
-    description: "",
-    className: "lg:col-span-3 md:col-span-6 md:row-span-4 lg:min-h-[60vh]",
-    imgClassName: "w-full h-full",
-    titleClassName: "justify-end",
-    img: "/opt/nn.webp",
-    spareImg: "",
   },
   {
-    id: 2,
+    id: "place",
     title: "Gurugram, India - shipping with teams anywhere.",
-    description: "",
-    className: "lg:col-span-2 md:col-span-3 md:row-span-2",
-    imgClassName: "",
-    titleClassName: "justify-start",
-    img: "",
-    spareImg: "",
   },
   {
-    id: 3,
+    id: "stack",
     title: "My tech stack",
     description: "I constantly try to improve",
-    // the draggable stack needs room: it is left out on phones
-    className: "hidden md:flex lg:col-span-2 md:col-span-3 md:row-span-2",
-    imgClassName: "",
-    titleClassName: "justify-center",
-    img: "",
-    spareImg: "",
   },
   {
-    id: 4,
+    id: "piano",
     title: "Backend engineer by day, pianist the rest of the time.",
-    description: "",
-    className: "lg:col-span-2 md:col-span-3 md:row-span-1",
-    imgClassName: "",
-    titleClassName: "justify-start",
-    img: "/opt/grid.webp",
-    spareImg: "/opt/b4.webp",
   },
-
   {
-    id: 5,
+    id: "now",
     title:
       "Currently building wall-e, a self driving car that navigates traffic and learns pattern in real time.",
     description: "The Inside Scoop",
-    className: "md:col-span-3 md:row-span-2",
-    imgClassName: "absolute right-0 bottom-0 md:w-96 w-60",
-    titleClassName: "justify-center md:justify-start lg:justify-center",
-    img: "/opt/b5.webp",
-    spareImg: "/opt/grid.webp",
   },
   {
-    id: 6,
+    id: "hello",
     title: "Want to build something together?",
-    description: "",
-    className: "lg:col-span-2 md:col-span-3 md:row-span-1",
-    imgClassName: "",
-    titleClassName: "justify-center md:max-w-full max-w-60 text-center",
-    img: "",
-    spareImg: "",
   },
+] as const;
+
+/**
+ * The stack, as the notes of a tune (the opening of Ode to Joy, in G major):
+ * left to right, two staves of seven. `step` is the note's place on the staff,
+ * 0 being the bottom line; see components/about/TechNotes.tsx.
+ */
+export const techStack: { tech: TechKey; step: number }[] = [
+  { tech: "node", step: 4 },
+  { tech: "express", step: 4 },
+  { tech: "mysql", step: 5 },
+  { tech: "redis", step: 6 },
+  { tech: "socketio", step: 6 },
+  { tech: "next", step: 5 },
+  { tech: "tailwind", step: 4 },
+  { tech: "fastapi", step: 3 },
+  { tech: "aws", step: 2 },
+  { tech: "docker", step: 2 },
+  { tech: "angular", step: 3 },
+  { tech: "php", step: 4 },
+  { tech: "ts", step: 3 },
+  { tech: "python", step: 2 },
 ];
 
 export const projects = [
