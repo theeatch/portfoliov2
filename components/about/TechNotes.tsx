@@ -14,8 +14,9 @@ const PER_SYSTEM = 7;
 /**
  * The tech stack as a tune. Each technology is a note sitting where its pitch
  * belongs on the staff; press one (or Tab to it and hit Enter) and it sounds.
- * Played left to right the fourteen of them are the first bars of Ode to Joy.
- * Lives inside a two-system <StaffCard>, whose --gap sets the scale.
+ * Hovering or focusing a note names it. Played left to right the fourteen of
+ * them are the first bars of Ode to Joy. Lives inside a two-system <StaffCard>,
+ * whose --gap sets the scale.
  */
 const TechNotes = () => {
   const [lit, setLit] = useState<number | null>(null);
@@ -51,7 +52,13 @@ const TechNotes = () => {
         </svg>
       ))}
 
-      <div className="absolute inset-y-0" style={{ left: "calc(var(--gap) * 1.9)", right: "calc(var(--gap) * 0.3)" }}>
+      <div
+        className="absolute inset-y-0"
+        style={{
+          left: "calc(var(--gap) * 1.9)",
+          right: "calc(var(--gap) * 0.3)",
+        }}
+      >
         {techStack.map(({ tech, step }, j) => {
           const system = Math.floor(j / PER_SYSTEM);
           const col = j % PER_SYSTEM;
@@ -61,12 +68,15 @@ const TechNotes = () => {
               key={tech}
               type="button"
               aria-label={`${label}: play the note`}
-              title={label}
               onClick={() => strike(j)}
-              onPointerEnter={(e) => e.pointerType === "mouse" && e.buttons === 1 && strike(j)}
+              onPointerEnter={(e) =>
+                e.pointerType === "mouse" && e.buttons === 1 && strike(j)
+              }
               className={cn(
-                "absolute flex items-center justify-center transition-[transform,background-color,color] duration-150 focus-visible:outline focus-visible:outline-2 focus-visible:outline-ink",
-                lit === j ? "-translate-y-1.5 bg-ink text-page" : "bg-page text-ink hover:-translate-y-1"
+                "group absolute flex items-center justify-center transition-[transform,background-color,color] duration-150 hover:z-40 focus-visible:z-40 focus-visible:outline focus-visible:outline-2 focus-visible:outline-ink",
+                lit === j
+                  ? "-translate-y-1.5 bg-ink text-page"
+                  : "bg-page text-ink hover:-translate-y-1",
               )}
               style={{
                 left: `${((col + 0.5) / PER_SYSTEM) * 100}%`,
@@ -80,6 +90,13 @@ const TechNotes = () => {
               }}
             >
               <Icon aria-hidden />
+              {/* a tiny plate over the note: its name */}
+              <span
+                aria-hidden
+                className="pointer-events-none absolute bottom-full left-1/2 mb-1.5 -translate-x-1/2 whitespace-nowrap bg-ink px-1.5 py-1 font-mono text-[11px] leading-none tracking-[0.04em] text-page opacity-0 transition-opacity duration-150 group-hover:opacity-100 group-focus-visible:opacity-100"
+              >
+                {label}
+              </span>
             </button>
           );
         })}

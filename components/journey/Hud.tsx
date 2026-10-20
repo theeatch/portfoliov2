@@ -25,8 +25,9 @@ const Hud = () => {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 16 }}
           transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-          className="fixed left-1/2 z-40 flex -translate-x-1/2 items-center gap-1 border border-ink bg-page p-1"
-          style={{ bottom: "max(0.75rem, env(safe-area-inset-bottom))" }}
+          className="fixed left-1/2 z-40 flex items-center gap-1 border border-ink bg-page p-1"
+          // x lives here, not in a -translate-x-1/2 class: motion writes its own transform for y and would drop the class's
+          style={{ x: "-50%", bottom: "max(0.75rem, env(safe-area-inset-bottom))" }}
         >
           <button
             type="button"
