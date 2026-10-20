@@ -370,7 +370,7 @@
     font-weight: 600;
   }
 
-  /* ---------- the project pianos (components/projects) ----------
+  /* ---------- the keys under the project books (components/projects) ----------
      Flat fills only: a key is a rectangle, and "pressed" is a darker fill plus a
      few pixels of travel. The ivory naturals get an ink line between them. */
   .pk-key {
@@ -404,17 +404,6 @@
     background-color: rgb(var(--key-black-down));
     transform: translateY(2px);
     transition-duration: 0.05s;
-  }
-
-  /* Text printed straight onto the ivory keys (no box). The dark seams between the keys
-     run through it, so every glyph, icons included, gets an ivory outline: a stack of
-     tight drop-shadows in the key colour, which clears the seams around the letters
-     and is invisible everywhere else on the ivory. */
-  .keyprint {
-    color: rgb(var(--key-black));
-    filter: drop-shadow(0 0 0.5px rgb(var(--key-white))) drop-shadow(0 0 1px rgb(var(--key-white)))
-      drop-shadow(0 0 2px rgb(var(--key-white))) drop-shadow(0 0 4px rgb(var(--key-white)))
-      drop-shadow(0 0 6px rgb(var(--key-white)));
   }
 
   /* ---------- the thread of the About bar (components/about) ---------- */
