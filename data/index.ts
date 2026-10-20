@@ -20,7 +20,12 @@ export const scenes = [
   { id: "home", label: "Home", code: "00", tag: "Overture" },
   { id: "about", label: "About", code: "01", tag: "Bar I · Who I am" },
   { id: "projects", label: "Projects", code: "02", tag: "Bar II · The work" },
-  { id: "experience", label: "Experience", code: "03", tag: "Bar III · The log" },
+  {
+    id: "experience",
+    label: "Experience",
+    code: "03",
+    tag: "Bar III · The log",
+  },
   { id: "contact", label: "Contact", code: "04", tag: "Bar IV · Say hello" },
 ] as const;
 
@@ -80,7 +85,7 @@ export const techStack: { tech: TechKey; step: number }[] = [
   { tech: "docker", step: 2 },
   { tech: "angular", step: 3 },
   { tech: "php", step: 4 },
-  { tech: "ts", step: 3 },
+  { tech: "ts", step: 4 },
   { tech: "python", step: 2 },
 ];
 

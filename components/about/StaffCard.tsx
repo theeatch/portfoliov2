@@ -19,7 +19,6 @@ const StaffCard = ({
   systems = 1,
   final = false,
   kicker,
-  footer,
   className,
   children,
 }: {
@@ -33,7 +32,6 @@ const StaffCard = ({
   final?: boolean;
   /** a tempo marking set above the staff */
   kicker?: React.ReactNode;
-  footer?: React.ReactNode;
   className?: string;
   children: React.ReactNode;
 }) => {
@@ -124,8 +122,6 @@ const StaffCard = ({
           {children}
         </div>
       </div>
-
-      {footer}
     </div>
   );
 };

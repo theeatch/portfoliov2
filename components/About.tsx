@@ -57,16 +57,15 @@ const About = () => {
         </motion.div>
 
         <motion.div {...appear(2)} className="ml-5 max-w-[30rem] lg:ml-0 lg:mr-[5%] lg:-mt-10 lg:w-[min(34%,23rem)] lg:max-w-none lg:self-end">
-          <StaffCard
-            size="[--gap:1.45rem] md:[--gap:1.7rem] lg:[--gap:1.85rem]"
-            side="left"
-            footer={
-              <p className="mt-3 font-mono text-xs tracking-[0.14em] text-white-100" style={{ paddingLeft: "calc(var(--gap) * 1.1)" }}>
-                28.46° N · 77.03° E
-              </p>
-            }
-          >
+          <StaffCard size="[--gap:1.45rem] md:[--gap:1.7rem] lg:[--gap:1.85rem]" side="left">
             <p>{place.title}</p>
+            {/* the coordinates, set in the next space of the measure like a line of lyrics */}
+            <p
+              className="flex items-center font-mono tracking-[0.14em] text-white-100"
+              style={{ height: "var(--gap)", fontSize: "max(11px, calc(var(--gap) * 0.44))" }}
+            >
+              28.46° N · 77.03° E
+            </p>
           </StaffCard>
         </motion.div>
 
