@@ -89,39 +89,52 @@ export const techStack: { tech: TechKey; step: number }[] = [
   { tech: "python", step: 2 },
 ];
 
-export const projects = [
+export type Project = {
+  id: number;
+  title: string;
+  /** a line under the title, where the name alone does not say what it is */
+  tagline?: string;
+  des: string;
+  img: string;
+  iconLists: TechKey[];
+  link: string;
+};
+
+/** Bar II: each one is a closed book on the shelf, and opens as a two-page spread (components/projects). */
+export const projects: Project[] = [
   {
     id: 1,
     title: "RateFlow",
     des: "A distributed token-bucket rate limiter on Redis, with configurable middleware policies and a live dashboard for throughput and blocked requests.",
-    // no screenshot yet: the card falls back to a designed placeholder
-    img: "/opt/rated.webp",
-    iconLists: ["redis", "node", "next", "docker"] as TechKey[],
+    img: "/opt/rateflow.png",
+    iconLists: ["redis", "node", "next", "docker"],
     link: "https://rated-delta.vercel.app/",
   },
   {
     id: 2,
     title: "AI Playground",
     des: "A handful of AI-powered things I built for myself and for the fun of it: recipe generation, travel planning, and whatever else I wanted to try next.",
-    img: "/opt/p9.webp",
-    iconLists: ["gemini", "next", "ts", "tailwind"] as TechKey[],
+    img: "/opt/genAILand.png",
+    iconLists: ["gemini", "next", "ts", "tailwind"],
     link: "https://genaistuf.vercel.app/",
   },
   {
     id: 3,
-    title: "DataSphere",
-    des: "A full-stack Next.js and MongoDB application showcasing products, services and research with complete CRUD operations.",
-    img: "/opt/p6.webp",
-    iconLists: ["next", "tailwind", "js", "mongodb"] as TechKey[],
-    link: "https://datasphere-ten.vercel.app/",
+    title: "La Petite Bistro",
+    tagline: "Generative AI French café",
+    des: "Tell Chef Gem what's in your kitchen, plus any diets or allergies and how long you've got. You'll get a complete recipe, step by step, in under a minute. To begin, name a few ingredients.",
+    img: "/opt/resto.png",
+    iconLists: ["gemini", "next"],
+    link: "https://la-patite-bistro.vercel.app/",
   },
   {
     id: 4,
-    title: "Chatty: A Chat Application",
-    des: "A Next.js app with a Convex database and Clerk authentication for adding friends, direct messaging and group chats.",
-    img: "/opt/p1.webp",
-    iconLists: ["next", "tailwind", "ts", "convex", "clerk"] as TechKey[],
-    link: "https://chatty-theeatchs-projects.vercel.app/",
+    title: "Cicerone Voyage",
+    tagline: "AI travel agent",
+    des: "Tell Voyage where you're headed, for how long and on what budget. You'll get a day-by-day itinerary with costs and routes, ready to pack for. To begin, name a destination within India.",
+    img: "/opt/voyage.png",
+    iconLists: ["gemini", "next"],
+    link: "https://cicerone-voyage.vercel.app/",
   },
 ];
 

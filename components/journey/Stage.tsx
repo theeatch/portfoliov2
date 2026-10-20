@@ -42,6 +42,10 @@ const scrollerOf = (target: EventTarget | null) =>
 const noTravel = (target: EventTarget | null) =>
   target instanceof Element && !!target.closest("[data-no-travel]");
 
+// an open book (a modal, marked data-modal) owns the input: the journey stands still behind it
+const inModal = (target: EventTarget | null) =>
+  target instanceof Element && !!target.closest("[data-modal]");
+
 // The camera does the travelling; a scene only fades. It appears while the
 // camera is settling (ARRIVE, shared with every entrance in Scene.tsx) and
 // leaves almost at once so it never rides along the zoom.
@@ -80,6 +84,7 @@ const Stage = ({ views }: { views: React.ComponentType[] }) => {
 
     const onWheel = (e: WheelEvent) => {
       if (e.ctrlKey) return; // pinch-zoom
+      if (inModal(e.target)) return;
 
       const now = performance.now();
       if (now - lastWheel.current > 140 && !travelRef.current) {
@@ -144,6 +149,10 @@ const Stage = ({ views }: { views: React.ComponentType[] }) => {
     } | null = null;
 
     const onTouchStart = (e: TouchEvent) => {
+      if (inModal(e.target)) {
+        touch = null;
+        return;
+      }
       const t = e.touches[0];
       const el = scrollerOf(e.target);
       const { top, bottom } = edges(el);
@@ -176,6 +185,7 @@ const Stage = ({ views }: { views: React.ComponentType[] }) => {
       const t = e.target as HTMLElement | null;
       if (e.metaKey || e.ctrlKey || e.altKey) return;
       if (t && (/^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName) || t.isContentEditable)) return;
+      if (document.querySelector("[data-modal]")) return;
 
       if (travelRef.current) return;
 
